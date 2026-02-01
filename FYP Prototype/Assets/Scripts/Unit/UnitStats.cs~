@@ -1,0 +1,11 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "UnitStats", menuName = "Scriptable Objects/UnitStats")]
+public class UnitStats : ScriptableObject
+{ 
+    [SerializeField] float _speed = 1f;
+    public float speed {get {return _speed;}}
+    [SerializeField] float _maxhealth = 100f;
+    public float maxhealth {get {return _maxhealth;}}
+}
+
