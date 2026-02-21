@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class UnitMovement : MonoBehaviour
 {
@@ -8,13 +9,23 @@ public class UnitMovement : MonoBehaviour
     [SerializeField] Transform body;
     [SerializeField] Transform head;
 
+    Tilemap worldMap;
+    Vector3 worldBounds;
+
     int step = 5;
+
+    void Start() {
+        worldMap = GameObject.Find("Ground").GetComponent<Tilemap>();
+        worldMap.CompressBounds();
+        worldBounds = new Vector3(50, 50, 1);
+    }
 
     // Update is called once per frame
     void Update()
     {
         transform.position += direction * stats.SpeedMultiplier() * step * Time.deltaTime;
         LookAtTarget();
+        LoopAtEdge();
     }
 
     void LookAtTarget() {
@@ -40,6 +51,19 @@ public class UnitMovement : MonoBehaviour
 
     public void SetStats(UnitStats s) {
         stats = s;
+    }
+
+    void LoopAtEdge() {
+        Vector3 pos = transform.position;
+        if (pos.x < -worldBounds.x) {
+            transform.position = new Vector3(worldBounds.x, pos.y, pos.z);
+        } else if (pos.x > worldBounds.x) {
+            transform.position = new Vector3(-worldBounds.x, pos.y, pos.z);
+        } else if (pos.y < -worldBounds.y) { 
+            transform.position = new Vector3(pos.x, worldBounds.y, pos.z);
+        } else if (pos.y > worldBounds.y) {
+            transform.position = new Vector3(pos.x, -worldBounds.y, pos.z);
+        }
     }
 }
 
