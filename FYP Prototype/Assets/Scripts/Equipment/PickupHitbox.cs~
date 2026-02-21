@@ -24,10 +24,6 @@ public class PickupHitbox : MonoBehaviour
             Armour armour = (Armour) equipment;
             useEquipment.SetArmour(armour);
             Destroy(gameObject);
-        } else if (equipment?.GetType() == Type.Helmet) { 
-            Helmet armour = (Helmet) equipment;
-            useEquipment.SetHelmet(armour);
-            Destroy(gameObject);
         }
         
     }

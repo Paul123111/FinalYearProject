@@ -9,8 +9,8 @@ public class Weapon : Equipment
         get { return _firerate; }
     }
 
-    public Weapon() {
-        this._type = Type.Weapon;
+    Weapon() {
+        _type = Type.Weapon;
     }
 
     public virtual bool UseWeapon(ProjectilePool pool, Transform t, bool isEnemy, AudioSource audio) {

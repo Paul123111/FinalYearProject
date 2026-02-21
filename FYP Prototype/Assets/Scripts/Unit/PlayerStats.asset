@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36f98d0737e1cc43aa9cfb118567494, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: Assembly-CSharp::UnitStats
-  _speed: 10
-  _maxhealth: 100
+  _baseDamageResistance: 0
+  _baseSpeedMultiplier: 1.5
+  _baseMaxHealth: 100
+  _baseEvasion: 0
+  _baseRegen: 0
+  _baseDamageMultiplier: 1
+  _armour: {fileID: 0}

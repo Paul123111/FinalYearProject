@@ -11,7 +11,6 @@ public class UseEquipment : MonoBehaviour
     [SerializeField] Transform spawn;
     [SerializeField] Image uiImage;
     [SerializeField] Image uiImageArmour;
-    [SerializeField] Image uiImageHelmet;
     Vector3 targetPos = new Vector3(0, 0);
     ProjectilePool pool;
     float cooldown = 0;
@@ -79,8 +78,8 @@ public class UseEquipment : MonoBehaviour
     public void SetHelmet(Helmet armour) {
         //stats.helmet = armour;
         headRenderer.color = armour.color;
-        if (uiImageHelmet != null) {
-            uiImageHelmet.sprite = armour.GetSprite();
+        if (uiImageArmour != null) {
+            uiImageArmour.sprite = armour.GetSprite();
         }
     }
 }

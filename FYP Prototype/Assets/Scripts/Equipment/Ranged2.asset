@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b44258545ddeea419065f6ee9ece4e3, type: 3}
   m_Name: Ranged2
   m_EditorClassIdentifier: Assembly-CSharp::RangedWeapon
+  _pickupSprite: {fileID: 1972827007, guid: 38ed1b126da471742a81a89ac5c999cc, type: 3}
   weaponSprite: {fileID: 1972827007, guid: 38ed1b126da471742a81a89ac5c999cc, type: 3}
   _firerate: 10
   props: {fileID: 11400000, guid: be8b6221839995f4989a85d554babae1, type: 2}

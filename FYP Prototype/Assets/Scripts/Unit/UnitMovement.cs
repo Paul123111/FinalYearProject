@@ -2,16 +2,18 @@ using UnityEngine;
 
 public class UnitMovement : MonoBehaviour
 {
-    UnitStats stats;
+    public UnitStats stats;
     Vector3 direction = new Vector3(0, 0);
     Vector3 targetPos = new Vector3(0, 0);
     [SerializeField] Transform body;
     [SerializeField] Transform head;
 
+    int step = 5;
+
     // Update is called once per frame
     void Update()
     {
-        transform.position += direction * stats.speed * Time.deltaTime;
+        transform.position += direction * stats.SpeedMultiplier() * step * Time.deltaTime;
         LookAtTarget();
     }
 

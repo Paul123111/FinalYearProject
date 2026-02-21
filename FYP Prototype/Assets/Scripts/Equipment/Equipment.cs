@@ -1,0 +1,17 @@
+using UnityEngine;
+
+public enum Type {Weapon, Armour, Helmet};
+
+public class Equipment : ScriptableObject
+{
+    public Sprite _pickupSprite;
+    public Type _type{get; set;} = Type.Weapon;
+
+    public Type GetType() {
+        return _type;
+    }
+
+    public Sprite GetSprite() {
+        return _pickupSprite;
+    }
+}

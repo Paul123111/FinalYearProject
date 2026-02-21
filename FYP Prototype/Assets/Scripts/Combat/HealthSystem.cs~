@@ -19,10 +19,6 @@ public class HealthSystem : MonoBehaviour
         _health = stats.MaxHealth();
     }
 
-    void Update() {
-        Regen();
-    }
-
     // negative diff = damage, positive = heal
     public void ChangeHealth(float diff) {
         _health+=diff*(1f-stats.DamageResistance());
