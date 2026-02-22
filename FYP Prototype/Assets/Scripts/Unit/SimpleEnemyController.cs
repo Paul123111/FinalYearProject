@@ -58,6 +58,12 @@ public class SimpleEnemyController : MonoBehaviour
 
     void MoveTowardsTarget() {
         Vector3 dir = target.position-transform.position;
+        if (Mathf.Abs(dir.x) > 50f) {
+            dir.x *= -1;
+        }
+        if (Mathf.Abs(dir.y) > 50f) {
+            dir.y *= -1;
+        }
         dir = Vector3.Normalize(dir);
         controller.SetDirection(dir);
     }
