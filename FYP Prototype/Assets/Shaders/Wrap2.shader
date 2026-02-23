@@ -29,7 +29,7 @@ Shader "Custom/Wrap2"
 
             struct Varyings
             {
-                float3 worldPos : ANY;
+                float3 worldPos : TEXCOORD2;
                 float4 positionHCS : SV_POSITION;
                 float2 uv : TEXCOORD0;
             };
@@ -45,12 +45,13 @@ Shader "Custom/Wrap2"
             Varyings vert(Attributes IN)
             {
                 Varyings OUT;
+                float4 newPos = IN.positionOS;
+                //newPos.x = fmod(newPos.x, 10);
                 OUT.worldPos = TransformObjectToWorld(IN.positionOS.xyz);
-                //if (OUT.worldPos.x > 10) {
-                //    IN.positionOS.x -= 5;
-                //}
-                OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
+                //OUT.worldPos = (mul(unity_ObjectToWorld, IN.positionOS.xyz))%10;
+                OUT.positionHCS = TransformObjectToHClip(newPos);
                 OUT.uv = TRANSFORM_TEX(IN.uv, _BaseMap);
+                //OUT.uv.z += OUT.worldPos.x;
                 return OUT;
             }
 
@@ -70,7 +71,6 @@ Shader "Custom/Wrap2"
                   }
                   else
                   {
-                     IN.positionHCS.x -= 1;
                      return color*float4(0.1, 0.1, 1.0, 1.0); 
                         // color far from origin
                   }
