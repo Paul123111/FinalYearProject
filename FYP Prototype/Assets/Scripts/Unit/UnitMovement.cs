@@ -14,6 +14,8 @@ public class UnitMovement : MonoBehaviour
 
     int step = 5;
 
+    float tileMultiplier = 1f;
+
     void Start() {
         worldMap = GameObject.Find("Ground").GetComponent<Tilemap>();
         worldMap.CompressBounds();
@@ -23,9 +25,10 @@ public class UnitMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += direction * stats.SpeedMultiplier() * step * Time.deltaTime;
+        transform.position += direction * stats.SpeedMultiplier() * step * Time.deltaTime * tileMultiplier;
         LookAtTarget();
         LoopAtEdge();
+        GetTileEffect();
     }
 
     void LookAtTarget() {
@@ -63,6 +66,14 @@ public class UnitMovement : MonoBehaviour
             transform.position = new Vector3(pos.x, worldBounds.y, pos.z);
         } else if (pos.y > worldBounds.y) {
             transform.position = new Vector3(pos.x, -worldBounds.y, pos.z);
+        }
+    }
+
+    void GetTileEffect() {
+        string? tileType = worldMap.GetTile(worldMap.WorldToCell(transform.position))?.name;
+        switch(tileType) {
+            case "PrototypeTiles_0": tileMultiplier = 0.5f; break;
+            default: tileMultiplier = 1f; break;
         }
     }
 }

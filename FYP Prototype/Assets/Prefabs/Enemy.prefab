@@ -160,6 +160,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3426753138286344403
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -205,6 +206,7 @@ SpriteRenderer:
   m_SortingLayerID: 1036717633
   m_SortingLayer: 2
   m_SortingOrder: 2
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 1972827007, guid: 38ed1b126da471742a81a89ac5c999cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -214,7 +216,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &3008495568493033486
 GameObject:
@@ -327,6 +328,7 @@ BoxCollider2D:
   m_EdgeRadius: 0
 --- !u!212 &7412832776959231703
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -372,6 +374,7 @@ SpriteRenderer:
   m_SortingLayerID: 1036717633
   m_SortingLayer: 2
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: -5092913730125968157, guid: daa73b9954b9ba64c83573f4f143b3a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -381,7 +384,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &6655862540879270037
 GameObject:
@@ -446,6 +448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78da7d7a15b283640bcb94ea5dced0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnitMovement
+  stats: {fileID: 0}
   body: {fileID: 922659813098426552}
   head: {fileID: 6439090747261434206}
 --- !u!114 &8188772326113033576
@@ -477,8 +480,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UseEquipment
   currentWeapon: {fileID: 11400000, guid: 64262d63fd16846469bcc85958049afb, type: 2}
   currentWeaponRenderer: {fileID: 3426753138286344403}
+  unitRenderer: {fileID: 7412832776959231703}
+  headRenderer: {fileID: 4634148739640349607}
   spawn: {fileID: 449873405386263076}
   uiImage: {fileID: 0}
+  uiImageArmour: {fileID: 0}
+  uiImageHelmet: {fileID: 0}
   isEnemy: 1
 --- !u!1 &8284462487663077501
 GameObject:
@@ -514,6 +521,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4634148739640349607
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -559,6 +567,7 @@ SpriteRenderer:
   m_SortingLayerID: 1036717633
   m_SortingLayer: 2
   m_SortingOrder: 1
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 1398096722177525633, guid: daa73b9954b9ba64c83573f4f143b3a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -568,7 +577,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1001 &4345330856080547171
 PrefabInstance:
