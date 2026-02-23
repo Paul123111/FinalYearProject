@@ -191,9 +191,9 @@ public class PerlinNoise : MonoBehaviour
         for (int w = x-1; w <= x+1; w++) {
             for (int h = y-1; h <= y+1; h++) {
                 // dont count self
-                if (w < 0 || h < 0 || w >= tiles.GetLength(0) || h >= tiles.GetLength(1)) continue;
+                //if (w < 0 || h < 0 || w >= tiles.GetLength(0) || h >= tiles.GetLength(1)) continue;
                 if (w == x && h == y) continue;
-                if (tiles[w,h] == type) neighbours++;
+                if (tiles[Mathf.Abs(w)%(tiles.GetLength(0)), Mathf.Abs(h)%(tiles.GetLength(1))] == type) neighbours++;
             }
         }
         return neighbours;
