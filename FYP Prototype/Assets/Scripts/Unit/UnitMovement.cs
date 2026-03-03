@@ -67,6 +67,7 @@ public class UnitMovement : MonoBehaviour
         } else if (pos.y > worldBounds.y) {
             transform.position = new Vector3(pos.x, -worldBounds.y, pos.z);
         }
+        Debug.Log(-10%100);
     }
 
     void GetTileEffect() {

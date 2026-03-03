@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using static LoopHelper;
 
 public class ProjectileScript : MonoBehaviour, IPoolObject
 {
@@ -21,6 +22,7 @@ public class ProjectileScript : MonoBehaviour, IPoolObject
     void Update()
     {
         transform.position += transform.right * speed * Time.deltaTime;
+        transform.position = LoopPos(transform.position, 100, 100);
         lifetime -= Time.deltaTime;
         if (lifetime <= 0) {
             ReturnToPool();
