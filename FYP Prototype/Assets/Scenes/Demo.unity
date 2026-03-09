@@ -538,7 +538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6655862540879270037, guid: ada8ac1a4b25d334899aea7cdf00f7cb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7412832776959231703, guid: ada8ac1a4b25d334899aea7cdf00f7cb, type: 3}
       propertyPath: m_Color.b
@@ -1727,7 +1727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6655862540879270037, guid: ada8ac1a4b25d334899aea7cdf00f7cb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7412832776959231703, guid: ada8ac1a4b25d334899aea7cdf00f7cb, type: 3}
       propertyPath: m_Color.b
@@ -4270,7 +4270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6655862540879270037, guid: ada8ac1a4b25d334899aea7cdf00f7cb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8188772326113033576, guid: ada8ac1a4b25d334899aea7cdf00f7cb, type: 3}
       propertyPath: layerMask.m_Bits
