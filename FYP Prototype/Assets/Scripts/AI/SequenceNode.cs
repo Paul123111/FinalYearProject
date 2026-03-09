@@ -1,15 +1,10 @@
+using System.Linq;
 using UnityEngine;
 
-public class SequenceNode : MonoBehaviour, IRunnable
+public class SequenceNode : INode
 {
-    [SerializeField] IRunnable[] _nodes;
+    [SerializeField] INode[] _nodes;
     int _i = 0;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
     public status Run() {
         status result = _nodes[_i].Run();
@@ -23,5 +18,11 @@ public class SequenceNode : MonoBehaviour, IRunnable
             return result;
         }
         return status.RUNNING;
+    }
+
+    public INode AddNode<T>(T node) where T : INode
+    {
+        _nodes.Append(node);
+        return node;
     }
 }
