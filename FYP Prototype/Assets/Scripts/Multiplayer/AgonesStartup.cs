@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class AgonesStartup : MonoBehaviour
 {
-    AgonesSdk agones;
+    AgonesSdk2 agones;
     bool ok = false;
     public string playerName;
     public string playerId;
@@ -73,7 +73,8 @@ public class AgonesStartup : MonoBehaviour
         playerId = AuthenticationService.Instance.PlayerId;
         accessToken = AuthenticationService.Instance.AccessToken;
 
-        agones = FindFirstObjectByType<AgonesSdk>(FindObjectsInactive.Include);
+        agones = FindFirstObjectByType<AgonesSdk2>(FindObjectsInactive.Include);
+        
         ok = await agones.Connect();
         ok = await agones.Ready();
 
