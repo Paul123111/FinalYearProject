@@ -1,9 +1,0 @@
-using UnityEngine;
-
-public interface Task
-{
-    private enum status{FAILURE, SUCCESS, RUNNING};
-
-    // task is an interface with a Run() method to run the state
-    void Run();
-}

@@ -1,0 +1,65 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "UnitStats", menuName = "Unit/UnitStats")]
+public class UnitStats : ScriptableObject
+{
+    [SerializeField] float _baseDamageResistance = 0f;
+    [SerializeField] float _baseSpeedMultiplier = 1f;
+    [SerializeField] int _baseMaxHealth = 100;
+    [SerializeField] float _baseEvasion = 0f;
+    [SerializeField] float _baseRegen = 0f;
+    [SerializeField] float _baseDamageMultiplier = 1f;
+    
+    public float baseDamageResistance {get {return _baseDamageResistance;}}
+    public float baseSpeedMultiplier {get {return _baseSpeedMultiplier;}}
+    public int baseMaxhealth {get {return _baseMaxHealth;}}
+    public float baseEvasion {get {return _baseEvasion;}}
+    public float baseRegen {get {return _baseRegen;}}
+    public float damageMultiplier {get {return _baseDamageMultiplier;}} 
+
+    [SerializeField] Armour _armour;
+    public Armour armour {get; {return _armour;} set {_armour = value;}}
+
+    public float DamageResistance() {
+        if (_armour != null) {
+            return _baseDamageResistance + armour.damageResistanceBonus;
+        }
+        return _baseDamageResistance;
+    }
+    
+    public float SpeedMultiplier() {
+        if (_armour != null) {
+            return _baseSpeedMultiplier + armour.speedMultiplierBonus;
+        }
+        return _baseSpeedMultiplier;
+    }
+    
+    public int MaxHealth() {
+        if (_armour != null) {
+            return _baseMaxHealth + armour.maxHealthBonus;
+        }
+        return _baseMaxHealth;
+    }
+    
+    public float Evasion() {
+        if (_armour != null) {
+            return _baseEvasion + armour.evasionBonus;
+        }
+        return _baseEvasion;
+    }
+
+    public float Regen() {
+        if (_armour != null) {
+            return _baseRegen + armour.regenBonus;
+        }
+        return _baseRegen;
+    }
+    
+    public float DamageMultiplier() {
+        if (_armour != null) {
+            return _baseDamageMultiplier + armour.damageMultiplierBonus;
+        }
+        return _baseDamageMultiplier;
+    }
+}
+
