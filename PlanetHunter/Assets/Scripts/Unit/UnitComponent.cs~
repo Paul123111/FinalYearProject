@@ -1,0 +1,34 @@
+using UnityEngine;
+
+public class UnitComponent : MonoBehaviour
+{
+    [SerializeField] UnitStats stats;
+    Vector3 direction = new Vector3(0, 0);
+    Vector3 targetPos = new Vector3(0, 0);
+    [SerializeField] Transform body;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    { 
+    
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += direction * stats.speed * Time.deltaTime;
+        LookAtTarget();
+    }
+
+    void LookAtTarget() {
+        Vector3 newPos = targetPos;
+        newPos -= transform.position;
+        float angle = Mathf.Atan2(newPos.y, newPos.x) * Mathf.Rad2Deg;
+        body.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+    }
+
+    void SetTarget(Vector3 target) {
+        targetPos = target;
+    }
+}
+

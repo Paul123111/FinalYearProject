@@ -1,0 +1,56 @@
+using UnityEngine;
+using Unity.Profiling;
+
+// reused from one of my other games
+
+public class Hitbox : MonoBehaviour
+{
+    // whether this hitbox belongs to an enemy or not
+    [SerializeField] bool _isEnemy = false;
+    [SerializeField] int _damage = 10;
+
+    bool _hit = false;
+    string hurtboxTag;
+    
+    static readonly ProfilerMarker k_hitboxMarker = new ProfilerMarker("Hitbox.Hit");
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    { 
+        hurtboxTag = _isEnemy ? "PlayerHurtbox" : "EnemyHurtbox";
+    }
+ 
+    void OnTriggerEnter2D(Collider2D col) {
+        using (k_hitboxMarker.Auto()) {
+            if (col.gameObject.tag == hurtboxTag) {
+                if (!ServiceLocator.instance.GetHitAudio().isPlaying) {
+                    ServiceLocator.instance.GetHitAudio().Play();
+                }
+                HealthSystem healthSystem = col.gameObject.GetComponentInParent<HealthSystem>();
+                healthSystem?.Damage(this);
+                _hit = true;
+            }
+        }
+    }
+
+    public void SetDamage(int damage) {
+        _damage = damage;
+    }
+
+    public int GetDamage() {
+        return _damage;
+    }
+
+    public float GetKnockback() {
+        return _knockback;
+    }
+
+    public bool IsHit() {
+        return _hit;
+    }
+
+    public void ResetHit() {
+        _hit = false;
+    }
+}
+

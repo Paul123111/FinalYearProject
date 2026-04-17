@@ -1,0 +1,20 @@
+using UnityEngine;
+
+public class PickupHitbox : MonoBehaviour
+{
+    
+    [SerializeField] Weapon weapon;
+    void Start()
+    {
+       GetComponent<SpriteRenderer>().sprite = weapon.GetSprite; 
+    }
+
+    void OnTriggerEnter2D(Collider2D col) {
+        UseEquipment useEquipment = col.gameObject.transform.parent.gameObject.GetComponent<UseEquipment>();
+        if (useEquipment != null) {
+            useEquipment.SetWeapon(weapon);
+            Destroy(gameObject);
+        }
+    }
+
+}

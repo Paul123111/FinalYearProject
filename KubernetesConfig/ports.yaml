@@ -1,0 +1,12 @@
+---
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+  extraPortMappings:
+  - containerPort: 7000
+    hostPort: 7000
+    protocol: UDP
+  - containerPort: 7001
+    hostPort: 7001
+    protocol: UDP
