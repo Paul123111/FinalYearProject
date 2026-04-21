@@ -19,11 +19,10 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Mirror;
 
-namespace AgonesExample
-{
-    public class UdpEchoClient : MonoBehaviour
-    {
+namespace AgonesExample {
+    public class UdpEchoClient : NetworkBehaviour {
         [SerializeField]
         private TMP_InputField sendTextField;
         [SerializeField]
@@ -37,18 +36,15 @@ namespace AgonesExample
         public string ServerAddress { get; private set; } = "127.0.0.1";
         public int ServerPort { get; private set; } = 7777;
 
-        void Start()
-        {
+        void Start() {
             serverAddressField.text = ServerAddress;
             serverPortField.text = ServerPort.ToString();
 
             client = new UdpClient(ServerAddress, ServerPort);
         }
 
-        void Update()
-        {
-            if (client.Available > 0)
-            {
+        void Update() {
+            if (client.Available > 0) {
                 IPEndPoint remote = null;
                 byte[] rbytes = client.Receive(ref remote);
                 string received = Encoding.UTF8.GetString(rbytes);
@@ -60,14 +56,11 @@ namespace AgonesExample
         }
 
         // Invoke by "Change Server" Button.
-        public void ChangeServer()
-        {
-            if (IPAddress.TryParse(serverAddressField.text, out IPAddress ip))
-            {
+        public void ChangeServer() {
+            if (IPAddress.TryParse(serverAddressField.text, out IPAddress ip)) {
                 ServerAddress = ip.ToString();
             }
-            if (int.TryParse(serverPortField.text, out int port))
-            {
+            if (int.TryParse(serverPortField.text, out int port)) {
                 ServerPort = port;
             }
 
@@ -77,10 +70,9 @@ namespace AgonesExample
         }
 
         // Invoke by "Send" Button.
-        public void SendTextToServer()
-        {
-            if (string.IsNullOrWhiteSpace(sendTextField.text))
-            {
+        [Command]
+        public void SendTextToServer() {
+            if (string.IsNullOrWhiteSpace(sendTextField.text)) {
                 return;
             }
 
