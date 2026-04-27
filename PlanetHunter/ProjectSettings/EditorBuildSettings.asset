@@ -11,9 +11,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Demo.unity
     guid: 024a62916c7501349a9ca8fe0054224d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/networking/NetworkingMenu.unity
     guid: 0b40e1229c5bd6e4fb8223c9a4d75fdb
+  - enabled: 1
+    path: Assets/Scenes/networking/GameNetworking.unity
+    guid: ce5a2cc4a07ef8f4a8209def57be5b15
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

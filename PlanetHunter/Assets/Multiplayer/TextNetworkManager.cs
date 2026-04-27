@@ -1,7 +1,10 @@
-using System;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+using Agones;
+using AgonesExample;
 using Mirror;
+using System;
+using TMPro;
+using Unity.Services.Authentication;
+using UnityEngine;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/components/network-manager
@@ -13,6 +16,9 @@ public class TextNetworkManager : NetworkManager
     // Overrides the base singleton so we don't
     // have to cast to this type everywhere.
     public static new TextNetworkManager singleton => (TextNetworkManager)NetworkManager.singleton;
+    public AgonesStartup startup;
+    public AgonesAlphaSdk agones;
+    public AgonesServer server;
 
     /// <summary>
     /// Runs on both Server and Client
@@ -130,7 +136,9 @@ public class TextNetworkManager : NetworkManager
     /// <para>Unity calls this on the Server when a Client connects to the Server. Use an override to tell the NetworkManager what to do when a client connects to the server.</para>
     /// </summary>
     /// <param name="conn">Connection from client.</param>
-    public override void OnServerConnect(NetworkConnectionToClient conn) {}
+    public override void OnServerConnect(NetworkConnectionToClient conn) {
+    
+    }
 
     /// <summary>
     /// Called on the server when a client is ready.
@@ -151,7 +159,7 @@ public class TextNetworkManager : NetworkManager
     /// <para>The default implementation for this function creates a new player object from the playerPrefab.</para>
     /// </summary>
     /// <param name="conn">Connection from client.</param>
-    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
+    public override async void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
     }
@@ -161,9 +169,11 @@ public class TextNetworkManager : NetworkManager
     /// <para>This is called on the Server when a Client disconnects from the Server. Use an override to decide what should happen when a disconnection is detected.</para>
     /// </summary>
     /// <param name="conn">Connection from client.</param>
-    public override void OnServerDisconnect(NetworkConnectionToClient conn)
+    public override async void OnServerDisconnect(NetworkConnectionToClient conn)
     {
         base.OnServerDisconnect(conn);
+        //await agones.PlayerDisconnect(conn.connectionId);
+        server.playerCountString = agones.GetPlayerCount().Result.ToString();
     }
 
     /// <summary>
@@ -194,6 +204,12 @@ public class TextNetworkManager : NetworkManager
     public override void OnClientConnect()
     {
         base.OnClientConnect();
+        var msg = new PlayerAuthMessage {
+            id = AuthenticationService.Instance.PlayerId,
+            token = AuthenticationService.Instance.AccessToken
+        };
+        Debug.Log(msg.id + ", token: " + msg.token);
+        NetworkClient.Send(msg);
     }
 
     /// <summary>
@@ -242,8 +258,21 @@ public class TextNetworkManager : NetworkManager
     /// </summary>
     public override void OnStartServer() {
         base.OnStartServer();
-        //GameObject go = Instantiate(mirrorServer, transform.position + new Vector3(1, 0, 1), transform.rotation);
-        //NetworkServer.Spawn(go);
+        //bool ok = await agones.Connect();
+        NetworkServer.RegisterHandler<PlayerAuthMessage>(OnPlayerAuthReceived);
+        Debug.Log("handle started");
+    }
+
+    private async void OnPlayerAuthReceived(NetworkConnectionToClient conn, PlayerAuthMessage msg) {
+        Debug.Log($"SDK: {agones != null}, Id: {msg.id}");
+        Debug.Log("1111");
+        bool ok = await agones.PlayerConnect(msg.id);
+        if (ok) {
+            server.playerCountString = agones.GetPlayerCount().Result.ToString() + "/4";
+            Debug.Log(agones.GetPlayerCount().Result.ToString() + "/4");
+        } else {
+            Debug.Log("problem counting player");
+        }
     }
 
     /// <summary>

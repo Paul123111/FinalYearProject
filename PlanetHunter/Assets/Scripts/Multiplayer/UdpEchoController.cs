@@ -20,17 +20,17 @@ namespace AgonesExample
     public class UdpEchoController : MonoBehaviour
     {
         [SerializeField]
-        private GameObject server;
+        private AgonesServer server;
         [SerializeField]
         private GameObject client;
 
-        void Start()
+        void Awake()
         {
-            server.SetActive(false);
+            server.enabled = false;
             client.SetActive(false);
 
 #if (UNITY_EDITOR || UNITY_SERVER)
-            server.SetActive(true);
+            server.enabled = true;
 #endif
 #if !UNITY_SERVER
             client.SetActive(true);

@@ -23,7 +23,7 @@ namespace AgonesExample.Editor
         [MenuItem("Build Tool/Build Server")]
         public static void BuildServer()
         {
-            string[] scenes = new[] { "Assets/Scenes/networking/NetworkingMenu.unity" };
+            string[] scenes = new[] { "Assets/Scenes/networking/GameNetworking.unity" };
             string dir = "Builds/Server";
 
             Directory.CreateDirectory(dir);
@@ -41,8 +41,8 @@ namespace AgonesExample.Editor
         [MenuItem("Build Tool/Build Client")]
         public static void BuildClient()
         {
-            string[] scenes = new[] { "Assets/Scenes/networking/NetworkingMenu.unity" };
-            string dir = "Builds/Client";
+            string[] scenes = new[] { "Assets/Scenes/networking/GameNetworking.unity" };
+            string dir = "Builds/ClientGame";
 
             Directory.CreateDirectory(dir);
 

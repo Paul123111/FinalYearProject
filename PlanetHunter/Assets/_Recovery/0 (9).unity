@@ -1039,7 +1039,7 @@ MonoBehaviour:
   dontDestroyOnLoad: 1
   runInBackground: 1
   headlessStartMode: 1
-  editorAutoStart: 1
+  editorAutoStart: 0
   sendRate: 60
   offlineScene: 
   onlineScene: 
