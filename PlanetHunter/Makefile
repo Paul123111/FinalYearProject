@@ -28,7 +28,7 @@ REPOSITORY = planet-hunter/simple-server
 
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 project_path := $(dir $(mkfile_path))
-version := 0.2
+version := 0.3
 server_tag = $(REPOSITORY)/unity-simple-server:$(version)
 
 #   _____                    _

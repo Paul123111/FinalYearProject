@@ -1,0 +1,28 @@
+apiVersion: agones.dev/v1
+kind: Fleet
+metadata:
+  name: planet-hunter-fleet
+spec:
+  replicas: 2
+  template:
+    spec:
+      sdkServer:
+        logLevel: Debug
+      players:
+        initialCapacity: 4
+      ports:
+        - name: default
+          containerPort: 7777
+      template:
+        spec:
+          containers:
+            - name: unity-simple-server
+              image: planet-hunter/simple-server/unity-simple-server:0.3
+              imagePullPolicy: Never
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: 128m
+            limits:
+              memory: 256Mi
+              cpu: 128m
