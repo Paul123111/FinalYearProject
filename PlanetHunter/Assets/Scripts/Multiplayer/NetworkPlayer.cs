@@ -34,8 +34,4 @@ public class NetworkPlayer : NetworkBehaviour
         Vector2 move = value.Get<Vector2>();
         body.linearVelocity = new Vector3(move.x, move.y, 0);
     }
-
-    async void OnDestroy() {
-        await agones.PlayerDisconnect(startup.playerId);
-    }
 }

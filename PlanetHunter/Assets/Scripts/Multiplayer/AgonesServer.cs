@@ -20,16 +20,14 @@ using TMPro;
 
 namespace AgonesExample {
     [RequireComponent(typeof(AgonesAlphaSdk))]
-    public class AgonesServer : NetworkBehaviour {
+    public class AgonesServer : MonoBehaviour {
         
         private AgonesAlphaSdk agones = null;
-        [SyncVar(hook = nameof(SetPlayerCountText))] public string playerCountString = "0/4";
-        public TextMeshProUGUI text;
+
 
         async void Start() {
             agones = GetComponent<AgonesAlphaSdk>();
             bool ok = await agones.Connect();
-            Debug.Log("can you see this");
             if (ok) {
                 Debug.Log(("Server - Connected"));
             } else {
@@ -38,6 +36,7 @@ namespace AgonesExample {
             }
 
             ok = await agones.Ready();
+            await agones.SetPlayerCapacity(4);
             if (ok) {
                 Debug.Log($"Server - Ready");
             } else {
@@ -46,17 +45,13 @@ namespace AgonesExample {
             }
         }
 
-        void SetPlayerCountText(string oldValue, string newValue) {
-            text.text = newValue;
-        }
-
-        async void OnDestroy() {
-            bool ok = await agones.Shutdown();
-            if (ok) {
-                Debug.Log("Server - Close");
-            } else {
-                Debug.Log("Server did not shutdown properly");
-            }
-        }
+        //void OnDestroy() {
+        //    //bool ok = await agones.Shutdown();
+        //    //if (ok) {
+        //    //    Debug.Log("Server - Close");
+        //    //} else {
+        //    //    Debug.Log("Server did not shutdown properly");
+        //    //}
+        //}
     }
 }

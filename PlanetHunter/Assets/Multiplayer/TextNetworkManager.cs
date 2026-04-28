@@ -2,6 +2,7 @@ using Agones;
 using AgonesExample;
 using Mirror;
 using System;
+using System.Collections.Generic;
 using TMPro;
 using Unity.Services.Authentication;
 using UnityEngine;
@@ -18,7 +19,9 @@ public class TextNetworkManager : NetworkManager
     public static new TextNetworkManager singleton => (TextNetworkManager)NetworkManager.singleton;
     public AgonesStartup startup;
     public AgonesAlphaSdk agones;
-    public AgonesServer server;
+    public PlayerCounterUI playerCounter;
+
+    Dictionary<NetworkConnectionToClient, string> _playerIds = new Dictionary<NetworkConnectionToClient, string>();
 
     /// <summary>
     /// Runs on both Server and Client
@@ -148,10 +151,7 @@ public class TextNetworkManager : NetworkManager
     public override void OnServerReady(NetworkConnectionToClient conn)
     {
         base.OnServerReady(conn);
-
-        //GameObject go = Instantiate(mirrorServer);
-        //go.transform.parent = null;
-        //NetworkServer.Spawn(go);
+        NetworkServer.SpawnObjects();
     }
 
     /// <summary>
@@ -159,7 +159,7 @@ public class TextNetworkManager : NetworkManager
     /// <para>The default implementation for this function creates a new player object from the playerPrefab.</para>
     /// </summary>
     /// <param name="conn">Connection from client.</param>
-    public override async void OnServerAddPlayer(NetworkConnectionToClient conn)
+    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
     }
@@ -172,8 +172,11 @@ public class TextNetworkManager : NetworkManager
     public override async void OnServerDisconnect(NetworkConnectionToClient conn)
     {
         base.OnServerDisconnect(conn);
-        //await agones.PlayerDisconnect(conn.connectionId);
-        server.playerCountString = agones.GetPlayerCount().Result.ToString();
+        string pid;
+        _playerIds.TryGetValue(conn, out pid);
+        await agones.PlayerDisconnect(pid);
+        var task = await agones.GetPlayerCount();
+        playerCounter.playerCountString = task.ToString();
     }
 
     /// <summary>
@@ -264,14 +267,18 @@ public class TextNetworkManager : NetworkManager
     }
 
     private async void OnPlayerAuthReceived(NetworkConnectionToClient conn, PlayerAuthMessage msg) {
-        Debug.Log($"SDK: {agones != null}, Id: {msg.id}");
-        Debug.Log("1111");
-        bool ok = await agones.PlayerConnect(msg.id);
-        if (ok) {
-            server.playerCountString = agones.GetPlayerCount().Result.ToString() + "/4";
-            Debug.Log(agones.GetPlayerCount().Result.ToString() + "/4");
-        } else {
-            Debug.Log("problem counting player");
+        try {
+            Debug.Log($"SDK: {agones != null}, Id: {msg.id}");
+            _playerIds.Add(conn, msg.id);
+            bool ok = await agones.PlayerConnect(msg.id);
+            if (ok) {
+                var count = await agones.GetPlayerCount();
+                playerCounter.playerCountString = count + "/4";
+            } else {
+                Debug.Log("problem counting player");
+            }
+        } catch (Exception ex) {
+            Debug.LogException(ex);
         }
     }
 
