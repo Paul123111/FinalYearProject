@@ -1,18 +1,5 @@
-﻿// Copyright 2019 Google LLC
-// All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
+﻿using Mirror;
+using ParrelSync;
 using UnityEngine;
 
 namespace AgonesExample
@@ -20,21 +7,27 @@ namespace AgonesExample
     public class UdpEchoController : MonoBehaviour
     {
         [SerializeField]
-        private AgonesServer server;
+        private GameObject server;
         [SerializeField]
         private GameObject client;
 
         void Awake()
         {
-            server.enabled = false;
+            server.SetActive(false);
             client.SetActive(false);
 
-#if (UNITY_EDITOR || UNITY_SERVER)
-            server.enabled = true;
-#endif
-#if !UNITY_SERVER
-            client.SetActive(true);
-#endif
+            if (ClonesManager.IsClone()) {
+                server.SetActive(true);
+            } else {
+                client.SetActive(true);
+            }
+
+//#if UNITY_SERVER
+//            server.SetActive(true);
+//#endif
+//#if !UNITY_SERVER
+//            client.SetActive(true);
+//#endif
         }
     }
 }
