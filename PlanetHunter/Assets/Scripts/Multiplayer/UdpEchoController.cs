@@ -1,6 +1,8 @@
-﻿using Mirror;
-using ParrelSync;
-using UnityEngine;
+﻿using UnityEngine;
+using Mirror;
+#if UNITY_EDITOR
+    using ParrelSync;
+#endif
 
 namespace AgonesExample
 {
@@ -16,18 +18,20 @@ namespace AgonesExample
             server.SetActive(false);
             client.SetActive(false);
 
+#if UNITY_EDITOR
             if (ClonesManager.IsClone()) {
                 server.SetActive(true);
             } else {
                 client.SetActive(true);
             }
+#endif
 
-//#if UNITY_SERVER
-//            server.SetActive(true);
-//#endif
-//#if !UNITY_SERVER
-//            client.SetActive(true);
-//#endif
+#if UNITY_SERVER && !UNITY_EDITOR
+            server.SetActive(true);
+#elif !UNITY_EDITOR
+            client.SetActive(true);
+#endif
+
         }
     }
 }
