@@ -9,6 +9,11 @@ public class NetworkPlayer : NetworkBehaviour
     AgonesAlphaSdk agones;
     AgonesStartup startup;
 
+    float rotateDir;
+    float moveforward;
+    [SerializeField] float rotateSpeed = 1f;
+    [SerializeField] float moveSpeed = 1f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     async void Start()
     {
@@ -25,13 +30,16 @@ public class NetworkPlayer : NetworkBehaviour
 
     // Update is called once per frame
     void Update() {
-        if (!isLocalPlayer) return;
+        //if (!isLocalPlayer) return;
         //SyncPos();
+        body.rotation += rotateSpeed * rotateDir;
+        body.linearVelocity = transform.up * moveforward * moveSpeed;
     }
 
     void OnMove(InputValue value) {
         if (!isLocalPlayer) return;
         Vector2 move = value.Get<Vector2>();
-        body.linearVelocity = new Vector3(move.x, move.y, 0);
+        rotateDir = -move.x;
+        moveforward = move.y > 0 ? move.y : 0;
     }
 }
