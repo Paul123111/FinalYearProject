@@ -6,6 +6,7 @@ using Agones;
 public class NetworkPlayer : NetworkBehaviour
 {
     Rigidbody2D body;
+    NetworkTransformReliable networkTransform;
     AgonesAlphaSdk agones;
     AgonesStartup startup;
 
@@ -14,10 +15,14 @@ public class NetworkPlayer : NetworkBehaviour
     [SerializeField] float rotateSpeed = 1f;
     [SerializeField] float moveSpeed = 1f;
 
+    [SerializeField] int worldWidth = 22;
+    [SerializeField] int worldHeight = 12;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     async void Start()
     {
         body = GetComponent<Rigidbody2D>();
+        networkTransform = GetComponent<NetworkTransformReliable>();
         agones = FindFirstObjectByType<AgonesAlphaSdk>();
         startup = FindFirstObjectByType<AgonesStartup>();
     }
@@ -30,10 +35,9 @@ public class NetworkPlayer : NetworkBehaviour
 
     // Update is called once per frame
     void Update() {
-        //if (!isLocalPlayer) return;
-        //SyncPos();
-        body.rotation += rotateSpeed * rotateDir;
+        body.rotation += rotateSpeed * rotateDir * Time.deltaTime;
         body.linearVelocity = transform.up * moveforward * moveSpeed;
+        LoopHelper.LoopPosNetwork(transform, worldWidth, worldHeight, networkTransform);
     }
 
     void OnMove(InputValue value) {
