@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 5464815064943987372}
   - component: {fileID: 6939482188815130554}
   - component: {fileID: 2950421960627695144}
+  - component: {fileID: 6455780736856776185}
   m_Layer: 0
   m_Name: networkPlayer
   m_TagString: Player
@@ -67,7 +68,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: bdd18b8993e69ec4caeded78a46ebf35, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -90,7 +91,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -9158349384845336690, guid: b391ebd6dae241842a60ac1a605385bf, type: 3}
+  m_Sprite: {fileID: 4818553969367352106, guid: 8c3d5a3616c9d354783211e65c92c15c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -200,6 +201,7 @@ MonoBehaviour:
   moveSpeed: 4
   worldWidth: 24
   worldHeight: 12
+  playerNum: 0
 --- !u!114 &4537197428056501505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,3 +339,18 @@ CapsuleCollider2D:
   m_Offset: {x: -0.06516893, y: 0.16156462}
   m_Size: {x: 0.2722803, y: 0.6442862}
   m_Direction: 0
+--- !u!114 &6455780736856776185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941372358305961626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b63c267912d2f848b3ff5a4448fbfac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerColour
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
