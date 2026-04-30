@@ -24,6 +24,7 @@ public class TextNetworkManager : NetworkManager
 
     Dictionary<NetworkConnectionToClient, string> _playerIds = new Dictionary<NetworkConnectionToClient, string>();
     long count = 0;
+    NetworkConnectionToClient[] playerOrder = new NetworkConnectionToClient[4];
 
     public async Task<long> GetPlayerCount() {
         return await agones.GetPlayerCount();
@@ -172,17 +173,23 @@ public class TextNetworkManager : NetworkManager
         // spawn player in random radius near centre
         Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * 5f;
         Vector3 spawnPos = new Vector3(randomCircle.x, randomCircle.y, 0);
-        
+
         // immediately assigning count on server to prevent confusion when multiple players join at once
         // syncs with AgonesAlphaSdk.PlayerCount() later
-        count++;
-        long assignedNum = count;
+        long assignedNum = -1;
+        for (int i = 0; i < playerOrder.Length; i++) {
+            if (playerOrder[i] == null) {
+                playerOrder[i] = conn;
+                assignedNum = i+1;
+                break;
+            }
+        }
 
         GameObject player = Instantiate(playerPrefab, spawnPos, Quaternion.identity);
         NetworkServer.AddPlayerForConnection(conn, player);
 
         PlayerColour playerColour = conn.identity.gameObject.GetComponent<PlayerColour>();
-        playerColour.playerNum = count;
+        playerColour.playerNum = assignedNum;
     }
 
     /// <summary>
@@ -196,6 +203,8 @@ public class TextNetworkManager : NetworkManager
         string pid;
         _playerIds.TryGetValue(conn, out pid);
         _playerIds.Remove(conn);
+        int index = Array.FindIndex(playerOrder, x => x == conn);
+        playerOrder[index] = null; 
         await agones.PlayerDisconnect(pid);
         count = await agones.GetPlayerCount();
         playerCounter.playerCountString = count.ToString() + "/4";
