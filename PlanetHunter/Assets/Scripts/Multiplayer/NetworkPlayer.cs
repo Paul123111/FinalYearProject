@@ -7,8 +7,7 @@ public class NetworkPlayer : NetworkBehaviour
 {
     Rigidbody2D body;
     NetworkTransformReliable networkTransform;
-    AgonesAlphaSdk agones;
-    AgonesStartup startup;
+    Animator anim;
 
     float rotateDir;
     float moveforward;
@@ -23,8 +22,7 @@ public class NetworkPlayer : NetworkBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         networkTransform = GetComponent<NetworkTransformReliable>();
-        agones = FindFirstObjectByType<AgonesAlphaSdk>();
-        startup = FindFirstObjectByType<AgonesStartup>();
+        anim = GetComponent<Animator>();
     }
 
     public override void OnStartAuthority() {
@@ -44,6 +42,11 @@ public class NetworkPlayer : NetworkBehaviour
         if (!isLocalPlayer) return;
         Vector2 move = value.Get<Vector2>();
         rotateDir = -move.x;
+        if (move.y > 0) {
+            anim.SetBool("RocketOn", true);
+        } else {
+            anim.SetBool("RocketOn", false);
+        }
         moveforward = move.y > 0 ? move.y : 0;
     }
 }
