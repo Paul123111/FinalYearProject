@@ -24,7 +24,6 @@ namespace AgonesExample {
         
         private AgonesAlphaSdk agones = null;
 
-
         async void Start() {
             agones = GetComponent<AgonesAlphaSdk>();
             bool ok = await agones.Connect();
