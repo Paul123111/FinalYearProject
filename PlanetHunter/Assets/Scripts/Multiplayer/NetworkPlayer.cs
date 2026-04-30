@@ -8,6 +8,7 @@ public class NetworkPlayer : NetworkBehaviour
     Rigidbody2D body;
     NetworkTransformReliable networkTransform;
     Animator anim;
+    PlayerColour playerColour;
 
     float rotateDir;
     float moveforward;
@@ -23,6 +24,7 @@ public class NetworkPlayer : NetworkBehaviour
         body = GetComponent<Rigidbody2D>();
         networkTransform = GetComponent<NetworkTransformReliable>();
         anim = GetComponent<Animator>();
+        playerColour = GetComponent<PlayerColour>();
     }
 
     public override void OnStartAuthority() {
