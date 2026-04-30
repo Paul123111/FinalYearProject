@@ -275,7 +275,8 @@ public class TextNetworkManager : NetworkManager
                 var count = await agones.GetPlayerCount();
                 playerCounter.playerCountString = count + "/4";
             } else {
-                Debug.Log("problem counting player");
+                Debug.Log("Server Full! Kicking player...");
+                conn.Disconnect();
             }
         } catch (Exception ex) {
             Debug.LogException(ex);

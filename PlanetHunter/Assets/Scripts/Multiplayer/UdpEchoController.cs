@@ -33,5 +33,13 @@ namespace AgonesExample
 #endif
 
         }
+
+#if UNITY_EDITOR
+        void Start() {
+            if (ClonesManager.IsClone()) {
+                NetworkManager.singleton.StartServer();
+            }
+        }
+#endif
     }
 }

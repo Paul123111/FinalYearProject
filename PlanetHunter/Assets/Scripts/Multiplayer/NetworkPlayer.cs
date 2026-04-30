@@ -18,7 +18,7 @@ public class NetworkPlayer : NetworkBehaviour
     [SerializeField] int worldHeight = 12;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    async void Start()
+    void Start()
     {
         body = GetComponent<Rigidbody2D>();
         networkTransform = GetComponent<NetworkTransformReliable>();
@@ -49,4 +49,14 @@ public class NetworkPlayer : NetworkBehaviour
         }
         moveforward = move.y > 0 ? move.y : 0;
     }
+
+    [ServerCallback]
+    void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.CompareTag("Player")) {
+            Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
+            Vector3 pushDir = collision.contacts[0].point - transform.position;
+            rb.AddForce(-pushDir.normalized, ForceMode.Impulse);
+        }
+    }
+
 }

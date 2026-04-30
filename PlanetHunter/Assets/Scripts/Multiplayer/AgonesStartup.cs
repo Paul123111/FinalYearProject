@@ -9,18 +9,19 @@ using Mirror;
 
 public class AgonesStartup : MonoBehaviour
 {
-    AgonesAlphaSdk agones;
-    bool ok = false;
     public string playerName;
     public string playerId;
     public string accessToken;
-
+    public bool authRequiredForClients = true;
+    PlayerAuthMessage authMessage;
 
     private async void Awake() {
-#if !UNITY_SERVER
         try {
             Debug.Log("Auth Start");
-            await UnityServices.InitializeAsync();
+            string profileName = GetCommandLineArg("-profile") ?? "DefaultPlayer";
+            var options = new InitializationOptions();
+            options.SetProfile(profileName);
+            await UnityServices.InitializeAsync(options);
 
             PlayerAccountService.Instance.SignedIn += SignedIn;
             if (PlayerAccountService.Instance.IsSignedIn) {
@@ -28,7 +29,12 @@ public class AgonesStartup : MonoBehaviour
                 return;
             }
             try {
-                await PlayerAccountService.Instance.StartSignInAsync();
+                if (authRequiredForClients) {
+                    await PlayerAccountService.Instance.StartSignInAsync();
+                } else {
+                    await AuthenticationService.Instance.SignInAnonymouslyAsync();
+                    Debug.Log("Signed in anonymously, id is " + AuthenticationService.Instance.PlayerId);
+                }
             } catch (PlayerAccountsException ex) {
                 Debug.LogException(ex);
             } catch (RequestFailedException ex) {
@@ -37,25 +43,18 @@ public class AgonesStartup : MonoBehaviour
         } catch (Exception ex) {
             Debug.LogError($"Error initializing Unity services {ex.Message}");
         }
-#else
-        Debug.Log("Skipping auth login - Server build detected");
-#endif
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    async void Start()
-    {
-        agones = GetComponent<AgonesAlphaSdk>();
-
+        NetworkManager.singleton.StartClient();
     }
 
     private async void SignedIn() {
         try {
-            await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
-            Debug.Log("SignIn is successful.");
-            // Fetch the human-friendly display name from Unity Player Accounts.
-            playerName = await AuthenticationService.Instance.GetPlayerNameAsync();
-            Debug.Log($"Player name: {playerName}");
+            if (authRequiredForClients) {
+                await AuthenticationService.Instance.SignInWithUnityAsync(PlayerAccountService.Instance.AccessToken);
+                Debug.Log("SignIn is successful.");
+                // Fetch the human-friendly display name from Unity Player Accounts.
+                playerName = await AuthenticationService.Instance.GetPlayerNameAsync();
+                Debug.Log($"Player name: {playerName}");
+            }
         } catch (AuthenticationException ex) {
             // Compare error code to AuthenticationErrorCodes
             // Notify the player with the proper error message
@@ -65,28 +64,17 @@ public class AgonesStartup : MonoBehaviour
             // Notify the player with the proper error message
             Debug.LogException(ex);
         }
+    }
 
-        playerId = AuthenticationService.Instance.PlayerId;
-        accessToken = AuthenticationService.Instance.AccessToken;
-        playerName = AuthenticationService.Instance.PlayerName;
-
-        PlayerAuthMessage message = new PlayerAuthMessage { id = playerId };
-        //NetworkClient.Send(message);
-        //ok = await agones.Connect();
-
-        //if (ok) {
-        //    var gameServer = await agones.GameServer();
-        //    Debug.Log(gameServer.Status);
-        //}
-
-        //agones = FindFirstObjectByType<AgonesSdk2>(FindObjectsInactive.Include);
-
-        //ok = await agones.Connect();
-
-        //if (ok) {
-        //    var gameServer = await agones.GameServer();
-        //    Debug.Log(gameServer.Status);
-        //}
+    // helper function for testing
+    private string GetCommandLineArg(string name) {
+        string[] args = Environment.GetCommandLineArgs();
+        for (int i = 0; i < args.Length; i++) {
+            if (args[i] == name && args.Length > i + 1) {
+                return args[i + 1];
+            }
+        }
+        return null;
     }
 
 }
