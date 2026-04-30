@@ -174,9 +174,10 @@ public class TextNetworkManager : NetworkManager
         base.OnServerDisconnect(conn);
         string pid;
         _playerIds.TryGetValue(conn, out pid);
+        _playerIds.Remove(conn);
         await agones.PlayerDisconnect(pid);
         var task = await agones.GetPlayerCount();
-        playerCounter.playerCountString = task.ToString();
+        playerCounter.playerCountString = task.ToString() + "/4";
     }
 
     /// <summary>
@@ -269,13 +270,21 @@ public class TextNetworkManager : NetworkManager
     private async void OnPlayerAuthReceived(NetworkConnectionToClient conn, PlayerAuthMessage msg) {
         try {
             Debug.Log($"SDK: {agones != null}, Id: {msg.id}");
+            if (_playerIds.ContainsValue(msg.id)) {
+                Debug.Log(msg.id + " is already connected!");
+                conn.Disconnect();
+                return;
+            }
             _playerIds.Add(conn, msg.id);
             bool ok = await agones.PlayerConnect(msg.id);
             if (ok) {
                 var count = await agones.GetPlayerCount();
+                var ids = await agones.GetConnectedPlayers();
+                Debug.Log(ids);
                 playerCounter.playerCountString = count + "/4";
             } else {
                 Debug.Log("Server Full! Kicking player...");
+                _playerIds.Remove(conn);
                 conn.Disconnect();
             }
         } catch (Exception ex) {
