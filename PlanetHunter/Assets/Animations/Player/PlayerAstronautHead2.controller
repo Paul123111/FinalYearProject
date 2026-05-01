@@ -20,7 +20,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 280fb0a37c9957341bb1cb4659c3bf42, type: 2}
+  m_Motion: {fileID: 7400000, guid: 8c9960801b2956848a5e1989596b6072, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -47,7 +47,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerAstronaut
+  m_Name: PlayerAstronautHead2
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Direction
@@ -169,7 +169,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: e3f8b85bb3d25fd4aa0befdd391c7e42, type: 2}
+  m_Motion: {fileID: 7400000, guid: 00fde1c033fff6a4fb0030135ec0d0a1, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -220,7 +220,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: bdc8548bba4f8e94f89a5e61aaaec2f8, type: 2}
+  m_Motion: {fileID: 7400000, guid: 1e9501c0934ebcc478daa81645a5aeb9, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -321,7 +321,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: aa91915a095b2544fa945bcdd7f2d39e, type: 2}
+  m_Motion: {fileID: 7400000, guid: 3d5a036578287c9499dd0608ed174193, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
