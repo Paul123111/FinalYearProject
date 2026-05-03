@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Lowercase Repo Name
+        run: |
+          echo "REPO_NAME=${GITHUB_REPOSITORY,,} >> $GITHUB_ENV"
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
@@ -24,6 +27,6 @@ jobs:
           context: ./PlanetHunter
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}/planet-hunter-server:latest
-            ghcr.io/${{ github.repository }}/planet-hunter-server:${{ github.sha }}
+            ghcr.io/${{ env.REPO_NAME }}/planet-hunter-server:latest
+            ghcr.io/${{ env.REPO_NAME }}/planet-hunter-server:${{ github.sha }}
 
