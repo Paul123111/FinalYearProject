@@ -24,12 +24,12 @@
 #     \_/ \__,_|_|  |_|\__,_|_.__/|_|\___|___/
 #
 
-REPOSITORY = planet-hunter/simple-server
+REPOSITORY = localhost:5000
 
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 project_path := $(dir $(mkfile_path))
-version := 0.3
-server_tag = $(REPOSITORY)/unity-simple-server:$(version)
+version := 0.4
+server_tag = $(REPOSITORY)/planet-hunter-server:$(version)
 
 #   _____                    _
 #  |_   _|_ _ _ __ __ _  ___| |_ ___
