@@ -12,7 +12,6 @@ spec:
       containers:
         - name: unity-simple-server
           image: planet-hunter/simple-server/unity-simple-server:0.3
-          imagePullPolicy: Never
       resources:
         requests:
           memory: 128Mi
