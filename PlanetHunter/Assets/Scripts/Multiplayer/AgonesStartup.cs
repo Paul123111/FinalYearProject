@@ -16,6 +16,7 @@ public class AgonesStartup : MonoBehaviour
     PlayerAuthMessage authMessage;
 
     private async void Awake() {
+        Debug.Log($"{Application.cloudProjectId}");
         try {
             Debug.Log("Auth Start");
             string profileName = GetCommandLineArg("-profile") ?? "DefaultPlayer";
@@ -43,6 +44,9 @@ public class AgonesStartup : MonoBehaviour
         } catch (Exception ex) {
             Debug.LogError($"Error initializing Unity services {ex.Message}");
         }
+        string token = AuthenticationService.Instance.AccessToken;
+        Debug.Log($"BEARER_TOKEN: {token}");
+
         NetworkManager.singleton.StartClient();
     }
 
