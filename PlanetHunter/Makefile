@@ -24,7 +24,7 @@
 #     \_/ \__,_|_|  |_|\__,_|_.__/|_|\___|___/
 #
 
-REPOSITORY = localhost:5000
+REPOSITORY = AWS_ACCOUNT_ID.dkr.ecr.eu-west-1.amazonaws.com
 
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 project_path := $(dir $(mkfile_path))
