@@ -26,6 +26,8 @@ public class TextNetworkManager : NetworkManager
     long count = 0;
     NetworkConnectionToClient[] playerOrder = new NetworkConnectionToClient[4];
 
+    bool hadPlayers = false;
+
     public async Task<long> GetPlayerCount() {
         return await agones.GetPlayerCount();
     }
@@ -190,6 +192,8 @@ public class TextNetworkManager : NetworkManager
 
         PlayerColour playerColour = conn.identity.gameObject.GetComponent<PlayerColour>();
         playerColour.playerNum = assignedNum;
+
+        hadPlayers = true;
     }
 
     /// <summary>
@@ -208,6 +212,16 @@ public class TextNetworkManager : NetworkManager
         await agones.PlayerDisconnect(pid);
         count = await agones.GetPlayerCount();
         playerCounter.playerCountString = count.ToString() + "/4";
+
+        if (hadPlayers && count <= 0) {
+            ShutdownServer();
+        }
+    }
+
+    private async void ShutdownServer() {
+        await agones.Shutdown();
+        await Task.Delay(1000);
+        Application.Quit();
     }
 
     /// <summary>
