@@ -70,7 +70,7 @@ app.MapPost("/allocate", async (IKubernetes client) => {
             body, "allocation.agones.dev", "v1", "default", "gameserverallocations");
     
         var item = ((JsonElement)response);
-        return Results.Ok(GameServerResponseUtils.ParseJson(item));
+        return Results.Ok(GameServerResponseUtils.ParseAllocationJson(item));
     } catch (Exception ex) {
         Console.WriteLine($"Error: {ex.Message}");
         return Results.Problem(ex.Message);
@@ -84,7 +84,7 @@ app.MapGet("/listrooms", async (IKubernetes client) => {
         var root = ((JsonElement) response);
         if (root.TryGetProperty("items", out var items) && items.ValueKind == JsonValueKind.Array) {
             var result = items.EnumerateArray().Select(item => {
-                return GameServerResponseUtils.ParseJson(item);
+                return GameServerResponseUtils.ParseGameServerJson(item);
             });
             return Results.Ok(result);
         }
