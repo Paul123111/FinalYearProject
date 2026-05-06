@@ -47,7 +47,7 @@ public class AgonesStartup : MonoBehaviour
         string token = AuthenticationService.Instance.AccessToken;
         Debug.Log($"BEARER_TOKEN: {token}");
 
-        NetworkManager.singleton.StartClient();
+        //NetworkManager.singleton.StartClient();
     }
 
     private async void SignedIn() {

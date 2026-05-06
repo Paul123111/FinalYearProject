@@ -1,13 +1,16 @@
 using k8s;
 using k8s.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.Json;
+using System.Threading.RateLimiting;
 
 // --------------------------------------------------------------------------------------------
 //  ServerApi is a web API that allocates and finds Agones GameServers on a Kubernetes cluster
+//
 //  Endpoints:
 //  /test - test endpoint to check authentication works
 //  /allocate - allocates ready GameServer from cluster
@@ -17,6 +20,26 @@ using System.Text.Json;
 // --------------------------------------------------------------------------------------------
 
 var builder = WebApplication.CreateBuilder(args);
+
+// rate limit by ip for anonymous players
+builder.Services.AddRateLimiter(options => {
+    options.AddPolicy("anonymous-ip", httpContext => {
+        var remoteIp = httpContext.Connection.RemoteIpAddress?.ToString();
+
+        Console.WriteLine($"[RateLimit] Request from: {remoteIp}");
+
+        return RateLimitPartition.GetFixedWindowLimiter(remoteIp, _ => new FixedWindowRateLimiterOptions {
+            PermitLimit = 10,
+            Window = TimeSpan.FromSeconds(10),
+            QueueLimit = 0
+        });
+    });
+
+    options.OnRejected = async (context, token) => {
+        context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+        await context.HttpContext.Response.WriteAsync("Too many requests. Wait a few seconds before retrying.", token);
+    };
+});
 
 var config = KubernetesClientConfiguration.BuildDefaultConfig();
 builder.Services.AddSingleton<IKubernetes>(new Kubernetes(config));
@@ -54,8 +77,21 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+// if an ip doesn't exist, stop request
+app.Use(async (context, next) => {
+    if (context.Connection.RemoteIpAddress == null) {
+        context.Response.StatusCode = StatusCodes.Status403Forbidden;
+        await context.Response.WriteAsync("Forbidden: Unknown IP Address.");
+        return;
+    }
+    await next();
+});
+
+
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseRateLimiter();
 
 app.MapPost("/allocate", async (IKubernetes client) => {
     try {
@@ -75,7 +111,7 @@ app.MapPost("/allocate", async (IKubernetes client) => {
         Console.WriteLine($"Error: {ex.Message}");
         return Results.Problem(ex.Message);
     }
-}).RequireAuthorization();
+}).RequireAuthorization().RequireRateLimiting("anonymous-ip");
 
 app.MapGet("/listrooms", async (IKubernetes client) => {
     try {
@@ -93,11 +129,11 @@ app.MapGet("/listrooms", async (IKubernetes client) => {
         return Results.Problem(ex.Message);
     }
     return Results.Problem();
-}).RequireAuthorization();
+}).RequireAuthorization().RequireRateLimiting("anonymous-ip"); ;
 
 app.MapGet("/test", async (IKubernetes client) => {
     return Results.Ok("Auth Succeeded");
-}).RequireAuthorization();
+}).RequireAuthorization().RequireRateLimiting("anonymous-ip"); ;
 
 app.Run();
 
