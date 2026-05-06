@@ -2,7 +2,7 @@ REPOSITORY = localhost:5000
 
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 project_path := $(dir $(mkfile_path))
-version := 0.3
+version := 0.4
 server_tag = $(REPOSITORY)/planet-hunter-api:$(version)
 
 # build docker image
