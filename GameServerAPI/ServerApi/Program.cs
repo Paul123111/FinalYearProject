@@ -1,4 +1,5 @@
 using k8s;
+using k8s.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
@@ -57,38 +58,35 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapPost("/allocate", async (IKubernetes client) => {
-    var body = new {
-        apiVersion = "allocation.agones.dev/v1",
-        kind = "GameServerAllocation",
-        spec = new {
-            selectors = new[] { new { matchLabels = new Dictionary<string, string>() } }
-        }
-    };
-
-    var result = await client.CustomObjects.CreateNamespacedCustomObjectAsync(
-        body, "allocation.agones.dev", "v1", "default", "gameserverallocations");
-
-    return Results.Ok(result);
+    try {
+        var body = new {
+            apiVersion = "allocation.agones.dev/v1",
+            kind = "GameServerAllocation",
+            spec = new {
+                selectors = new[] { new { matchLabels = new Dictionary<string, string>() } }
+            }
+        };
+        var response = await client.CustomObjects.CreateNamespacedCustomObjectAsync(
+            body, "allocation.agones.dev", "v1", "default", "gameserverallocations");
+    
+        var item = ((JsonElement)response);
+        return Results.Ok(GameServerResponseUtils.ParseJson(item));
+    } catch (Exception ex) {
+        Console.WriteLine($"Error: {ex.Message}");
+        return Results.Problem(ex.Message);
+    }
 }).RequireAuthorization();
 
 app.MapGet("/listrooms", async (IKubernetes client) => {
     try {
-        var resp = await client.CustomObjects.ListNamespacedCustomObjectAsync(
+        var response = await client.CustomObjects.ListNamespacedCustomObjectAsync(
             "agones.dev", "v1", "default", "gameservers");
-        var root = ((JsonElement)resp);
+        var root = ((JsonElement) response);
         if (root.TryGetProperty("items", out var items) && items.ValueKind == JsonValueKind.Array) {
-                var result = items.EnumerateArray().Select(item => {
-                    var status = items.GetProperty("status");
-                    var ip = status.GetProperty("ip").GetString();
-                    var port = status.GetProperty("port").GetInt32();
-                    var state = status.GetProperty("state").GetString();
-                    var players = status.GetProperty("players");
-                    var count = players.GetProperty("count").GetInt32();
-                    var capacity = players.GetProperty("capacity").GetInt32();
-
-                    return new GameServerResponse(ip, port, state, count, capacity);
-                });
-            return Results.Ok(items);
+            var result = items.EnumerateArray().Select(item => {
+                return GameServerResponseUtils.ParseJson(item);
+            });
+            return Results.Ok(result);
         }
     } catch (Exception ex) {
         Console.WriteLine($"Error: {ex.Message}");
