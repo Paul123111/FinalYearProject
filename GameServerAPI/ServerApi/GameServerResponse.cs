@@ -10,11 +10,12 @@ public record GameServerResponse(
 );
 
 public static class GameServerResponseUtils {
-    public static GameServerResponse ParseJson(JsonElement item) {
+    public static GameServerResponse ParseGameServerJson(JsonElement item) {
         var status = item.GetProperty("status");
 
-        var ip = status.GetProperty("ip").GetString();
-        var port = status.GetProperty("port").GetInt32();
+        var ip = status.GetProperty("address").GetString();
+        var ports = status.GetProperty("port");
+        var port = ports[0].GetProperty("port").GetInt32();
         var state = status.GetProperty("state").GetString();
         
         var players = status.GetProperty("players");
@@ -22,5 +23,16 @@ public static class GameServerResponseUtils {
         var capacity = players.GetProperty("capacity").GetInt32();
 
         return new GameServerResponse(ip, port, state, count, capacity);
+    }
+
+    public static GameServerResponse ParseAllocationJson(JsonElement item) {
+        var status = item.GetProperty("status");
+
+        var ip = status.GetProperty("address").GetString();
+        var ports = status.GetProperty("port");
+        var port = ports[0].GetProperty("port").GetInt32();
+        var state = status.GetProperty("state").GetString();
+
+        return new GameServerResponse(ip, port, state, -1, -1);
     }
 }
