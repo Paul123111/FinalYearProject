@@ -14,7 +14,7 @@ public static class GameServerResponseUtils {
         var status = item.GetProperty("status");
 
         var ip = status.GetProperty("address").GetString();
-        var ports = status.GetProperty("port");
+        var ports = status.GetProperty("ports");
         var port = ports[0].GetProperty("port").GetInt32();
         var state = status.GetProperty("state").GetString();
         
@@ -29,7 +29,7 @@ public static class GameServerResponseUtils {
         var status = item.GetProperty("status");
 
         var ip = status.GetProperty("address").GetString();
-        var ports = status.GetProperty("port");
+        var ports = status.GetProperty("ports");
         var port = ports[0].GetProperty("port").GetInt32();
         var state = status.GetProperty("state").GetString();
 
