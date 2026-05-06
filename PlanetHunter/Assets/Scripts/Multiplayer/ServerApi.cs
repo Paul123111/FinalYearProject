@@ -1,4 +1,6 @@
+using kcp2k;
 using MiniJSON;
+using Mirror;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
@@ -14,6 +16,7 @@ public class ServerApi : MonoBehaviour
 {
     [SerializeField] string baseUrl = "http://192.168.1.19:30001";
     [SerializeField] Button refreshButton;
+    [SerializeField] Button createButton;
     [SerializeField] GameObject roomUI;
     [SerializeField] RectTransform roomsPanel;
 
@@ -70,18 +73,19 @@ public class ServerApi : MonoBehaviour
             Destroy(child.gameObject);
         }
         foreach (GameServerResponse server in serversJson) {
-            for (int i = 0; i < 3; i++) {
-                CreateRoomUI(server);
-            }
+            CreateRoomUI(server);
         }
         refreshButton.interactable = true;
     }
 
     public async void ButtonAllocate() {
-        refreshButton.interactable = false;
+        createButton.interactable = false;
         Debug.Log("Calling API...");
         string jsonResponse = await Allocate();
-        refreshButton.interactable = true;
+        GameServerResponse serversJson = JsonUtility.FromJson<GameServerResponse>(jsonResponse);
+        NetworkManager.singleton.networkAddress = serversJson.ip;
+        NetworkManager.singleton.GetComponent<KcpTransport>().Port = (ushort) serversJson.port;
+        NetworkManager.singleton.StartClient();
     }
 
     void CreateRoomUI(GameServerResponse json) {
