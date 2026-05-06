@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: debugLog
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2063581674153730992, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2594417446091293026, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
       propertyPath: m_Name
       value: networkManager
@@ -645,7 +649,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5502599689216413956, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
   m_PrefabInstance: {fileID: 1635477053}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &391268416
+--- !u!114 &391268418
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1696,7 +1700,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5502599689216413956, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 391268416}
+      addedObject: {fileID: 391268418}
   m_SourcePrefab: {fileID: 100100000, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
 --- !u!1 &1886485430
 GameObject:

@@ -60,7 +60,7 @@ public class ServerApi : MonoBehaviour
     }
 
     async void Start() {
-        ButtonListRooms();
+        //ButtonListRooms();
     }
 
     public async void ButtonListRooms() {

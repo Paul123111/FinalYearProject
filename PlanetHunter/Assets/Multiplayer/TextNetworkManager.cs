@@ -214,14 +214,15 @@ public class TextNetworkManager : NetworkManager
         playerCounter.playerCountString = count.ToString() + "/4";
 
         if (hadPlayers && count <= 0) {
+            Debug.Log("No players! Shutting down server...");
             ShutdownServer();
         }
     }
 
     private async void ShutdownServer() {
-        await agones.Shutdown();
-        await Task.Delay(1000);
-        Application.Quit();
+        //await agones.Shutdown();
+        //await Task.Delay(1000);
+        //Application.Quit();
     }
 
     /// <summary>
