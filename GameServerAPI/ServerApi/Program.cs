@@ -1,7 +1,5 @@
 using k8s;
-using k8s.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
@@ -15,6 +13,7 @@ using System.Threading.RateLimiting;
 //  /test - test endpoint to check authentication works
 //  /allocate - allocates ready GameServer from cluster
 //  /listrooms - get all allocated GameServers
+//  /get/{server} - find if server exists and is allocated from ip and port in the form ip:port
 //  
 //  Note: AI was used for some parts of this code
 // --------------------------------------------------------------------------------------------
@@ -46,11 +45,13 @@ builder.Services.AddSingleton<IKubernetes>(new Kubernetes(config));
 
 var unityProjectId = Environment.GetEnvironmentVariable("UNITY_PROJECT_ID");
 
+// get unity jwks keys and add to configManager for auth
 var jwksUrl = "https://player-auth.services.api.unity.com/.well-known/jwks.json";
 var configManager = new ConfigurationManager<OpenIdConnectConfiguration>(
     jwksUrl,
     new UnityJwksRetriever());
 
+// authorise token from unity sign-in
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => {
         //options.Authority = "https://player-auth.services.api.unity.com";
@@ -88,13 +89,17 @@ app.Use(async (context, next) => {
     await next();
 });
 
-
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseRateLimiter();
 
+
+// -----------
+//  Endpoints
+// -----------
 app.MapPost("/allocate", async (IKubernetes client) => {
     try {
+        // body of GameServerAllocation
         var body = new {
             apiVersion = "allocation.agones.dev/v1",
             kind = "GameServerAllocation",
@@ -102,9 +107,12 @@ app.MapPost("/allocate", async (IKubernetes client) => {
                 selectors = new[] { new { matchLabels = new Dictionary<string, string>() } }
             }
         };
+
+        // allocate GameServer using body
         var response = await client.CustomObjects.CreateNamespacedCustomObjectAsync(
             body, "allocation.agones.dev", "v1", "default", "gameserverallocations");
     
+        // return allocated GameServer
         var item = ((JsonElement)response);
         return Results.Ok(GameServerResponseUtils.ParseAllocationJson(item));
     } catch (Exception ex) {
@@ -115,13 +123,18 @@ app.MapPost("/allocate", async (IKubernetes client) => {
 
 app.MapGet("/listrooms", async (IKubernetes client) => {
     try {
+        // get all GameServers
         var response = await client.CustomObjects.ListNamespacedCustomObjectAsync(
             "agones.dev", "v1", "default", "gameservers");
         var root = ((JsonElement) response);
+
+        // get all GameServers
         if (root.TryGetProperty("items", out var items) && items.ValueKind == JsonValueKind.Array) {
             var result = items.EnumerateArray().Select(item => {
                 return GameServerResponseUtils.ParseGameServerJson(item);
             });
+            // only return allocated - allocated servers are only servers that should have players to join
+            result = result.Where(server => (server.State == "Allocated"));
             return Results.Ok(result);
         }
     } catch (Exception ex) {
@@ -130,6 +143,36 @@ app.MapGet("/listrooms", async (IKubernetes client) => {
     }
     return Results.Problem();
 }).RequireAuthorization().RequireRateLimiting("anonymous-ip"); ;
+
+app.MapGet("/get/{server}", async (IKubernetes client, string server) => {
+    try {
+        // get desired ip and port
+        string[] tmp = server.Split(':');
+        string ip = tmp[0];
+        int port = Int32.Parse(tmp[1]);
+
+        // get all GameServers
+        var response = await client.CustomObjects.ListNamespacedCustomObjectAsync(
+            "agones.dev", "v1", "default", "gameservers");
+        var root = ((JsonElement)response);
+        
+        // filter for correct GameServer
+        if (root.TryGetProperty("items", out var items) && items.ValueKind == JsonValueKind.Array) {
+            var result = items.EnumerateArray().Select(item => {
+                return GameServerResponseUtils.ParseGameServerJson(item);
+            });
+            // only return allocated - don't want to join servers that aren't allocated!
+            result = result.Where(server => (server.State == "Allocated" && server.Ip == ip && server.Port == port));
+            // return true if server was found
+            return Results.Ok(result.Count() == 1);
+        }
+        return Results.Ok(false);
+
+    } catch (Exception ex) {
+        Console.WriteLine($"Error: {ex.Message}");
+        return Results.Problem(ex.Message);
+    }
+}).RequireAuthorization().RequireRateLimiting("anonymous-ip");
 
 app.MapGet("/test", async (IKubernetes client) => {
     return Results.Ok("Auth Succeeded");
