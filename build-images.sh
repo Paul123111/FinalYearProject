@@ -4,9 +4,9 @@
 # build-images.sh
 ##############################
 # Script to be used in root directory of local repository
-# /PlanetHunter/Build/Server and /GameServerApi/ServerApi need to be present
+# /PlanetHunter/Build/Server and /ServerApi need to be present
 #
-# This script runs the makefile in /PlanetHunter and /GameServerApi to build
+# This script runs the makefile in /PlanetHunter and /ServerApi to build
 # and push a container image
 #
 # This could be done automatically using a GitHub Action if you had a Unity
@@ -62,9 +62,9 @@ if [[ -n "$SERVER_VERSION" ]]; then
 fi
 
 if [[ -n "$API_VERSION" ]]; then
-  cd GameServerAPI/ServerApi
+  cd ServerApi
   echo "Building API..."
   make build-image-script
-  cd ../..
+  cd ..
 fi
 
