@@ -220,9 +220,9 @@ public class TextNetworkManager : NetworkManager
     }
 
     private async void ShutdownServer() {
-        //await agones.Shutdown();
-        //await Task.Delay(1000);
-        //Application.Quit();
+        await agones.Shutdown();
+        await Task.Delay(1000);
+        Application.Quit();
     }
 
     /// <summary>

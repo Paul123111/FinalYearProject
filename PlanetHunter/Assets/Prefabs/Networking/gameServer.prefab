@@ -394,7 +394,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7252759415404577888}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2039146623184660919}
+        m_TargetAssemblyTypeName: RoomItemUI, Assembly-CSharp
+        m_MethodName: JoinServer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3991352746001322911
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,3 +637,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomItemUI
   roomName: {fileID: 975453653956083818}
   playerCount: {fileID: 2281989967519711842}
+  joinButton: {fileID: 9154810278921212281}

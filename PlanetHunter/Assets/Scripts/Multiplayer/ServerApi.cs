@@ -59,6 +59,26 @@ public class ServerApi : MonoBehaviour
         }
     }
 
+    public async Task<bool> GetServer(string ip, int port) {
+        string token = AuthenticationService.Instance.AccessToken;
+        string server = ip + ":" + port;
+        using (UnityWebRequest request = UnityWebRequest.Get($"{baseUrl}/get/{server}")) {
+            request.SetRequestHeader("Authorization", "Bearer " + token);
+            request.SetRequestHeader("Accept", "application/json");
+
+            var operation = request.SendWebRequest();
+            while (!operation.isDone) await Task.Yield();
+
+            if (request.result == UnityWebRequest.Result.Success) {
+                Debug.Log("Response: " + request.downloadHandler.text);
+                return bool.Parse(request.downloadHandler.text);
+            } else {
+                Debug.LogError($"Error {request.responseCode}: {request.error}");
+                return false;
+            }
+        }
+    }
+
     async void Start() {
         //ButtonListRooms();
     }
