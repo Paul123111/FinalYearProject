@@ -10,6 +10,14 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using static System.Net.WebRequestMethods;
 
+public class BypassStagingCertificate : CertificateHandler {
+    protected override bool ValidateCertificate(byte[] certificateData) {
+        // In a real production build, you'd check the certificateData
+        // for your specific staging thumbprint, but for now:
+        return true;
+    }
+}
+
 // calls the api server endpoints
 
 public class ServerApi : MonoBehaviour
@@ -25,6 +33,7 @@ public class ServerApi : MonoBehaviour
         using (UnityWebRequest request = UnityWebRequest.Get($"{baseUrl}/listrooms")) {
             request.SetRequestHeader("Authorization", "Bearer " + token);
             request.SetRequestHeader("Accept", "application/json");
+            request.certificateHandler = new BypassStagingCertificate();
 
             var operation = request.SendWebRequest();
             while (!operation.isDone) await Task.Yield();
@@ -45,6 +54,7 @@ public class ServerApi : MonoBehaviour
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Authorization", "Bearer " + token);
             request.SetRequestHeader("Accept", "application/json");
+            request.certificateHandler = new BypassStagingCertificate();
 
             var operation = request.SendWebRequest();
             while (!operation.isDone) await Task.Yield();
@@ -65,6 +75,7 @@ public class ServerApi : MonoBehaviour
         using (UnityWebRequest request = UnityWebRequest.Get($"{baseUrl}/get/{server}")) {
             request.SetRequestHeader("Authorization", "Bearer " + token);
             request.SetRequestHeader("Accept", "application/json");
+            request.certificateHandler = new BypassStagingCertificate();
 
             var operation = request.SendWebRequest();
             while (!operation.isDone) await Task.Yield();
