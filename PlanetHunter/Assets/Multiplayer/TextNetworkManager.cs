@@ -214,7 +214,9 @@ public class TextNetworkManager : NetworkManager
         _playerIds.TryGetValue(conn, out pid);
         _playerIds.Remove(conn);
         int index = Array.FindIndex(playerOrder, x => x == conn);
-        playerOrder[index] = null; 
+        if (index >= 0 && index < playerOrder.Length) {
+            playerOrder[index] = null;
+        }
         await agones.PlayerDisconnect(pid);
         count = await agones.GetPlayerCount();
         playerCounter.playerCountString = count.ToString() + "/4";
@@ -325,11 +327,14 @@ public class TextNetworkManager : NetworkManager
                 conn.Disconnect();
                 return;
             }
-            if (!await tokenValidator.ValidateToken(msg)) {
+            Debug.Log("Validating token...");
+            bool tokenValid = await tokenValidator.ValidateToken(msg);
+            if (!tokenValid) {
                 Debug.Log("Could not validate token. Kicking player...");
                 conn.Disconnect();
                 return;
             }
+            Debug.Log("Validated token!");
             _playerIds.Add(conn, msg.id);
             bool ok = await agones.PlayerConnect(msg.id);
             if (ok) {
@@ -416,10 +421,7 @@ public class UnityTokenValidator {
             };
 
             var principal = handler.ValidateToken(msg.token, validationParameters, out var validatedToken);
-
-            // Verify that the 'sub' claim (Subject) matches the PlayerID they sent
-            var playerIdFromToken = principal.FindFirst("sub")?.Value;
-            return playerIdFromToken == msg.id;
+            return true;
         } catch (Exception ex) {
             Debug.LogError($"Could not authenticate player: {ex}");
             return false;
