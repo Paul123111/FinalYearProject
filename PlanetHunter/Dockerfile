@@ -2,6 +2,8 @@ FROM ubuntu:22.04
 
 WORKDIR /unity
 
+RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+
 # Need to build with UnityEditor in advance.
 COPY Builds/Server/ ./
 
