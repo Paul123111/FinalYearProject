@@ -17,10 +17,11 @@
 ##############################
 # --server-version - the version for the server image
 # --api-version - the version for the api image
+# --aws-id - AWS account id for ECR image repository
 ##############################
 
 show_help() {
-  echo "Usage: $0 [--server-version] [0.1] [--api-version] [0.2]"
+  echo "Usage: $0 [--server-version] [0.1] [--api-version] [0.2] [--aws-id] [123456789012]"
   echo "       Use at root of repository (directory this script is in)"
   exit 1
 }
@@ -52,11 +53,21 @@ while [[ $# -gt 0 ]]; do
       export API_VERSION="$1"
       shift
       ;;
+    --aws-id)
+      shift
+      if [[ "$1" == "" ]]; then 
+        show_help
+      fi
+      export AWS_ACCOUNT_ID="$1"
+      shift
+      ;;
     *)
       show_help
       ;;
   esac
 done
+
+
 
 if [[ -n "$SERVER_VERSION" ]]; then
   cd PlanetHunter
