@@ -42,7 +42,8 @@ namespace AgonesExample.Editor
         [MenuItem("Build Tool/Build Client")]
         public static void BuildClient()
         {
-            string[] scenes = new[] { "Assets/Scenes/networking/GameNetworking.unity" };
+            string[] scenes = new[] { "Assets/Scenes/networking/MultiplayerMenu.unity", 
+                "Assets/Scenes/networking/GameNetworking.unity" };
             string dir = "Builds/ClientGame";
 
             Directory.CreateDirectory(dir);

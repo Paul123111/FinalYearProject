@@ -29,6 +29,10 @@ if [[ $(basename $(pwd)) != "FinalYearProject" ]]; then
     echo "Error: Please move to root of repository (directory this script is in)"
 fi
 
+if [[ $# -eq 0 ]]; then
+    show_help
+fi
+
 # arguments
 while [[ $# -gt 0 ]]; do
   case "$1" in

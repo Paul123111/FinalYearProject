@@ -1,10 +1,14 @@
 using Agones;
-using AgonesExample;
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
 using Mirror;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
-using TMPro;
 using Unity.Services.Authentication;
 using UnityEngine;
 
@@ -25,6 +29,8 @@ public class TextNetworkManager : NetworkManager
     Dictionary<NetworkConnectionToClient, string> _playerIds = new Dictionary<NetworkConnectionToClient, string>();
     long count = 0;
     NetworkConnectionToClient[] playerOrder = new NetworkConnectionToClient[4];
+
+    UnityTokenValidator tokenValidator = new UnityTokenValidator();
 
     bool hadPlayers = false;
 
@@ -319,6 +325,11 @@ public class TextNetworkManager : NetworkManager
                 conn.Disconnect();
                 return;
             }
+            if (!await tokenValidator.ValidateToken(msg)) {
+                Debug.Log("Could not validate token. Kicking player...");
+                conn.Disconnect();
+                return;
+            }
             _playerIds.Add(conn, msg.id);
             bool ok = await agones.PlayerConnect(msg.id);
             if (ok) {
@@ -355,4 +366,63 @@ public class TextNetworkManager : NetworkManager
     public override void OnStopClient() { }
 
     #endregion
+    }
+
+//unity has no OIDC discovery document, so get the JWKS and add to an openidConnectConfig for auth
+public class UnityJwksRetriever : IConfigurationRetriever<OpenIdConnectConfiguration> {
+    public async Task<OpenIdConnectConfiguration> GetConfigurationAsync(string address, IDocumentRetriever retriever, CancellationToken cancel) {
+        string doc = await retriever.GetDocumentAsync(address, cancel);
+        var jwks = new JsonWebKeySet(doc);
+        var config = new OpenIdConnectConfiguration();
+        foreach (var key in jwks.GetSigningKeys()) {
+            config.SigningKeys.Add(key);
+        }
+        return config;
+    }
+}
+
+// validate jwt token
+public class UnityTokenValidator {
+    private ConfigurationManager<OpenIdConnectConfiguration> _configManager;
+
+    public UnityTokenValidator() {
+        var jwksUrl = "https://player-auth.services.api.unity.com/.well-known/jwks.json";
+        _configManager = new ConfigurationManager<OpenIdConnectConfiguration>(
+            jwksUrl,
+            new UnityJwksRetriever());
+    }
+
+    public async Task<bool> ValidateToken(PlayerAuthMessage msg) {
+        try {
+            var config = await _configManager.GetConfigurationAsync();
+            var handler = new JwtSecurityTokenHandler();
+
+            var validationParameters = new TokenValidationParameters {
+                ValidateIssuer = true,
+                ValidIssuer = "https://player-auth.services.api.unity.com",
+
+                ValidateAudience = true,
+                AudienceValidator = (audiences, securityToken, validationParameters) => {
+                    string projectId = "b3e96b7f-8284-47ea-bec0-90e51607c3b9";
+                    return audiences.Any(aud => aud.Contains(projectId));
+                },
+                ValidateLifetime = true,
+                ConfigurationManager = _configManager,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKeyResolver = (token, securityToken, kid, parameters) => {
+                    var config = _configManager.GetConfigurationAsync().Result;
+                    return config.SigningKeys;
+                }
+            };
+
+            var principal = handler.ValidateToken(msg.token, validationParameters, out var validatedToken);
+
+            // Verify that the 'sub' claim (Subject) matches the PlayerID they sent
+            var playerIdFromToken = principal.FindFirst("sub")?.Value;
+            return playerIdFromToken == msg.id;
+        } catch (Exception ex) {
+            Debug.LogError($"Could not authenticate player: {ex}");
+            return false;
+        }
+    }
 }
