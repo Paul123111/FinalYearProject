@@ -1,4 +1,4 @@
-REPOSITORY = AWS_ACCOUNT_ID.dkr.ecr.eu-west-1.amazonaws.com
+REPOSITORY = .dkr.ecr.eu-west-1.amazonaws.com
 
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 project_path := $(dir $(mkfile_path))
@@ -13,10 +13,10 @@ build-image:
 	docker build $(project_path) --tag=$(server_tag)
 
 build-image-script:
-	docker build $(project_path) --tag=$(REPOSITORY)/$(name):$(SERVER_VERSION)
-	docker push $(REPOSITORY)/$(name):$(SERVER_VERSION)
+	docker build $(project_path) --tag=$(AWS_ACCOUNT_ID)$(REPOSITORY)/$(name):$(SERVER_VERSION)
+	docker push $(AWS_ACCOUNT_ID)$(REPOSITORY)/$(name):$(SERVER_VERSION)
 
-#output the server_tag
+# output the server_tag
 echo-image-tag:
 	@echo $(server_tag)
 
