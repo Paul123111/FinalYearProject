@@ -1,0 +1,1599 @@
+fileFormatVersion: 2
+guid: 3d4047766ec00c941835e8bc525d96d6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1358087267068070188
+    second: ice-clouds_0
+  - first:
+      213: 4200275803311512918
+    second: ice-clouds_1
+  - first:
+      213: 6190322455986791583
+    second: ice-clouds_2
+  - first:
+      213: -7215025470363843141
+    second: ice-clouds_3
+  - first:
+      213: -8794847160282359925
+    second: ice-clouds_4
+  - first:
+      213: 1015940070251482022
+    second: ice-clouds_5
+  - first:
+      213: -7727268587063312554
+    second: ice-clouds_6
+  - first:
+      213: 1461770518069207786
+    second: ice-clouds_7
+  - first:
+      213: -4224710992910060781
+    second: ice-clouds_8
+  - first:
+      213: 3999682224669024687
+    second: ice-clouds_9
+  - first:
+      213: -4944917912853972427
+    second: ice-clouds_10
+  - first:
+      213: -3975313852825831136
+    second: ice-clouds_11
+  - first:
+      213: -6237864609673772399
+    second: ice-clouds_12
+  - first:
+      213: -5059414083509494673
+    second: ice-clouds_13
+  - first:
+      213: 7580492140849396558
+    second: ice-clouds_14
+  - first:
+      213: 4380827881373036621
+    second: ice-clouds_15
+  - first:
+      213: 8837850117949329914
+    second: ice-clouds_16
+  - first:
+      213: 1527120931278405633
+    second: ice-clouds_17
+  - first:
+      213: 6482701158191440392
+    second: ice-clouds_18
+  - first:
+      213: 6286679696009713950
+    second: ice-clouds_19
+  - first:
+      213: -6689790353045184842
+    second: ice-clouds_20
+  - first:
+      213: -1358305303844172737
+    second: ice-clouds_21
+  - first:
+      213: 5256348345273189075
+    second: ice-clouds_22
+  - first:
+      213: 2701615569689026502
+    second: ice-clouds_23
+  - first:
+      213: -3034674516955356339
+    second: ice-clouds_24
+  - first:
+      213: 4966851189244528823
+    second: ice-clouds_25
+  - first:
+      213: 1019043597843040074
+    second: ice-clouds_26
+  - first:
+      213: 6849157400867464741
+    second: ice-clouds_27
+  - first:
+      213: 5411398997867457818
+    second: ice-clouds_28
+  - first:
+      213: 5337411926908673409
+    second: ice-clouds_29
+  - first:
+      213: 1125526096563119364
+    second: ice-clouds_30
+  - first:
+      213: -3456326834426232612
+    second: ice-clouds_31
+  - first:
+      213: -1291091120413713851
+    second: ice-clouds_32
+  - first:
+      213: -7120060860493316619
+    second: ice-clouds_33
+  - first:
+      213: 1943686648290060140
+    second: ice-clouds_34
+  - first:
+      213: 7100197499300488399
+    second: ice-clouds_35
+  - first:
+      213: 1199520793172135179
+    second: ice-clouds_36
+  - first:
+      213: -7289058192039470730
+    second: ice-clouds_37
+  - first:
+      213: 3527022170461002108
+    second: ice-clouds_38
+  - first:
+      213: 6833631851884553424
+    second: ice-clouds_39
+  - first:
+      213: -4469959927736234203
+    second: ice-clouds_40
+  - first:
+      213: -4952225526208646936
+    second: ice-clouds_41
+  - first:
+      213: -8306155712772042705
+    second: ice-clouds_42
+  - first:
+      213: 2961525035414566898
+    second: ice-clouds_43
+  - first:
+      213: -1591529327219490075
+    second: ice-clouds_44
+  - first:
+      213: -390322371198197305
+    second: ice-clouds_45
+  - first:
+      213: 5817038937994008452
+    second: ice-clouds_46
+  - first:
+      213: -426751477084761305
+    second: ice-clouds_47
+  - first:
+      213: 8844737537009526112
+    second: ice-clouds_48
+  - first:
+      213: 1738051802155254577
+    second: ice-clouds_49
+  - first:
+      213: 4358788510436675199
+    second: ice-clouds_50
+  - first:
+      213: 7124446982616790784
+    second: ice-clouds_51
+  - first:
+      213: 7874247685661565920
+    second: ice-clouds_52
+  - first:
+      213: -6283654114374457593
+    second: ice-clouds_53
+  - first:
+      213: 4911698997947194233
+    second: ice-clouds_54
+  - first:
+      213: -4898312953840615553
+    second: ice-clouds_55
+  - first:
+      213: 3068292869097100897
+    second: ice-clouds_56
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ice-clouds_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 31
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d63d6873da172de0800000000000000
+      internalID: -1358087267068070188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65d1d0fc6906a4a30800000000000000
+      internalID: 4200275803311512918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_2
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 37
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f94673ad97178e550800000000000000
+      internalID: 6190322455986791583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_3
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 21
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb54191cf841fdb90800000000000000
+      internalID: -7215025470363843141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_4
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 25
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b875485da1d62f580800000000000000
+      internalID: -8794847160282359925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_5
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 21
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6abcc687c18591e00800000000000000
+      internalID: 1015940070251482022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_6
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 33
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65f7e00392a33c490800000000000000
+      internalID: -7727268587063312554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_7
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 46
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae267a89a80494410800000000000000
+      internalID: 1461770518069207786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_8
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 44
+        width: 35
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31378e44cbfce55c0800000000000000
+      internalID: -4224710992910060781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_9
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 30
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa167d7cac9b18730800000000000000
+      internalID: 3999682224669024687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_10
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 41
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53a7fd88b5f106bb0800000000000000
+      internalID: -4944917912853972427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_11
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 27
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02970abec19d4d8c0800000000000000
+      internalID: -3975313852825831136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_12
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 30
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1920a67ef27ae69a0800000000000000
+      internalID: -6237864609673772399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_13
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 39
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6cdecc62b959c9b0800000000000000
+      internalID: -5059414083509494673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_14
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 29
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4bf7fd5071533960800000000000000
+      internalID: 7580492140849396558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_15
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 25
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d40fd5b5fb3dbcc30800000000000000
+      internalID: 4380827881373036621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_16
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 34
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af1938a7bd956aa70800000000000000
+      internalID: 8837850117949329914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_17
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 37
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 100c9ed556c613510800000000000000
+      internalID: 1527120931278405633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_18
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 32
+        width: 68
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 802a3074b5e27f950800000000000000
+      internalID: 6482701158191440392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_19
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 25
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e19d15110e5ce3750800000000000000
+      internalID: 6286679696009713950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_20
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 30
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6be18e03e171923a0800000000000000
+      internalID: -6689790353045184842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_21
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 37
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3cc6d3d584562de0800000000000000
+      internalID: -1358305303844172737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_22
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 9
+        width: 27
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d288bf78fc42f840800000000000000
+      internalID: 5256348345273189075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_23
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 42
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cf9afefb011e7520800000000000000
+      internalID: 2701615569689026502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_24
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 38
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4322ffea9ba2e5d0800000000000000
+      internalID: -3034674516955356339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_25
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 42
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b8852357dccde440800000000000000
+      internalID: 4966851189244528823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_26
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 34
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a47021cc0ce542e00800000000000000
+      internalID: 1019043597843040074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_27
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 33
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52661712e581d0f50800000000000000
+      internalID: 6849157400867464741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_28
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 0
+        width: 23
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1d6bcdb7b6291b40800000000000000
+      internalID: 5411398997867457818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_29
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 37
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18d13536edb421a40800000000000000
+      internalID: 5337411926908673409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_30
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 18
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 405a313850cae9f00800000000000000
+      internalID: 1125526096563119364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_31
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 22
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd0cf567e09a800d0800000000000000
+      internalID: -3456326834426232612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_32
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 18
+        width: 20
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54a541b677f151ee0800000000000000
+      internalID: -1291091120413713851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_33
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 20
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fd322ffe56703d90800000000000000
+      internalID: -7120060860493316619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_34
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 15
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c67aff165bc59fa10800000000000000
+      internalID: 1943686648290060140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_35
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 19
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc42ce4d108f88260800000000000000
+      internalID: 7100197499300488399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_36
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 25
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0d48b95ecd85a010800000000000000
+      internalID: 1199520793172135179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_37
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 20
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6791654813018da90800000000000000
+      internalID: -7289058192039470730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_38
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 9
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7951412aff72f030800000000000000
+      internalID: 3527022170461002108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_39
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 0
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d4af5196ffe5de50800000000000000
+      internalID: 6833631851884553424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_40
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 14
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52f0d0be02387f1c0800000000000000
+      internalID: -4469959927736234203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_41
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 0
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e036b63f19264bb0800000000000000
+      internalID: -4952225526208646936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_42
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 11
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f20142b136b9abc80800000000000000
+      internalID: -8306155712772042705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_43
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 16
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f7bf413453791920800000000000000
+      internalID: 2961525035414566898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_44
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 0
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e247795280c9e9e0800000000000000
+      internalID: -1591529327219490075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_45
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 10
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c1e7d41fdb459af0800000000000000
+      internalID: -390322371198197305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_46
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 17
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4879fb718164ab050800000000000000
+      internalID: 5817038937994008452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_47
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 1
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7235df8eacfd31af0800000000000000
+      internalID: -426751477084761305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_48
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 6
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0652401bde1deba70800000000000000
+      internalID: 8844737537009526112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_49
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 10
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13301bcc7ecce1810800000000000000
+      internalID: 1738051802155254577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_50
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 14
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7ec1af6e078d7c30800000000000000
+      internalID: 4358788510436675199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_51
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 3
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0073af3a8ce1fd260800000000000000
+      internalID: 7124446982616790784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_52
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 0
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e3ac41fc82f64d60800000000000000
+      internalID: 7874247685661565920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_53
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 0
+        width: 18
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 707e94d00e9fbc8a0800000000000000
+      internalID: -6283654114374457593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_54
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 0
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97bd840273cd92440800000000000000
+      internalID: 4911698997947194233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_55
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 3
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7fb2a32252b50cb0800000000000000
+      internalID: -4898312953840615553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ice-clouds_56
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 0
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1669561ab14c49a20800000000000000
+      internalID: 3068292869097100897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ice-clouds_0: -1358087267068070188
+      ice-clouds_1: 4200275803311512918
+      ice-clouds_10: -4944917912853972427
+      ice-clouds_11: -3975313852825831136
+      ice-clouds_12: -6237864609673772399
+      ice-clouds_13: -5059414083509494673
+      ice-clouds_14: 7580492140849396558
+      ice-clouds_15: 4380827881373036621
+      ice-clouds_16: 8837850117949329914
+      ice-clouds_17: 1527120931278405633
+      ice-clouds_18: 6482701158191440392
+      ice-clouds_19: 6286679696009713950
+      ice-clouds_2: 6190322455986791583
+      ice-clouds_20: -6689790353045184842
+      ice-clouds_21: -1358305303844172737
+      ice-clouds_22: 5256348345273189075
+      ice-clouds_23: 2701615569689026502
+      ice-clouds_24: -3034674516955356339
+      ice-clouds_25: 4966851189244528823
+      ice-clouds_26: 1019043597843040074
+      ice-clouds_27: 6849157400867464741
+      ice-clouds_28: 5411398997867457818
+      ice-clouds_29: 5337411926908673409
+      ice-clouds_3: -7215025470363843141
+      ice-clouds_30: 1125526096563119364
+      ice-clouds_31: -3456326834426232612
+      ice-clouds_32: -1291091120413713851
+      ice-clouds_33: -7120060860493316619
+      ice-clouds_34: 1943686648290060140
+      ice-clouds_35: 7100197499300488399
+      ice-clouds_36: 1199520793172135179
+      ice-clouds_37: -7289058192039470730
+      ice-clouds_38: 3527022170461002108
+      ice-clouds_39: 6833631851884553424
+      ice-clouds_4: -8794847160282359925
+      ice-clouds_40: -4469959927736234203
+      ice-clouds_41: -4952225526208646936
+      ice-clouds_42: -8306155712772042705
+      ice-clouds_43: 2961525035414566898
+      ice-clouds_44: -1591529327219490075
+      ice-clouds_45: -390322371198197305
+      ice-clouds_46: 5817038937994008452
+      ice-clouds_47: -426751477084761305
+      ice-clouds_48: 8844737537009526112
+      ice-clouds_49: 1738051802155254577
+      ice-clouds_5: 1015940070251482022
+      ice-clouds_50: 4358788510436675199
+      ice-clouds_51: 7124446982616790784
+      ice-clouds_52: 7874247685661565920
+      ice-clouds_53: -6283654114374457593
+      ice-clouds_54: 4911698997947194233
+      ice-clouds_55: -4898312953840615553
+      ice-clouds_56: 3068292869097100897
+      ice-clouds_6: -7727268587063312554
+      ice-clouds_7: 1461770518069207786
+      ice-clouds_8: -4224710992910060781
+      ice-clouds_9: 3999682224669024687
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

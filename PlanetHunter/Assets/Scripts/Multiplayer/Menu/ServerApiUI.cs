@@ -65,6 +65,12 @@ public class ServerApiUI : MonoBehaviour
         EnableAllButtons();
     }
 
+    public void SinglePlayer() {
+        DisableAllButtons();
+        NetworkManager.singleton.StartHost();
+        EnableAllButtons();
+    }
+
     //--------------------
     // Helper Methods
     //--------------------
