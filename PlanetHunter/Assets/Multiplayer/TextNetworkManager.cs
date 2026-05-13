@@ -32,8 +32,6 @@ public class TextNetworkManager : NetworkManager
 
     UnityTokenValidator tokenValidator = new UnityTokenValidator();
 
-    bool hadPlayers = false;
-
     public async Task<long> GetPlayerCount() {
         return await agones.GetPlayerCount();
     }
@@ -198,8 +196,6 @@ public class TextNetworkManager : NetworkManager
 
         PlayerColour playerColour = conn.identity.gameObject.GetComponent<PlayerColour>();
         playerColour.playerNum = assignedNum;
-
-        hadPlayers = true;
     }
 
     /// <summary>
@@ -221,7 +217,8 @@ public class TextNetworkManager : NetworkManager
         count = await agones.GetPlayerCount();
         playerCounter.playerCountString = count.ToString() + "/4";
 
-        if (hadPlayers && count <= 0) {
+        var gameserver = await agones.GameServer();
+        if (gameserver.Status.State == "Allocated" && count <= 0) {
             Debug.Log("No players! Shutting down server...");
             ShutdownServer();
         }

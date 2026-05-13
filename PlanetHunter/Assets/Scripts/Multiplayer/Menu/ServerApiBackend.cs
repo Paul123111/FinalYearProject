@@ -1,39 +1,52 @@
 using kcp2k;
-using MiniJSON;
 using Mirror;
-using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
+using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using static System.Net.WebRequestMethods;
 
-public class BypassStagingCertificate : CertificateHandler {
-    protected override bool ValidateCertificate(byte[] certificateData) {
-        // In a real production build, you'd check the certificateData
-        // for your specific staging thumbprint, but for now:
-        return true;
-    }
-}
+// calls the api server endpoints and authorises player
+// TODO make apiServerBackend script auth if not logged in
+// TOOD move ui logic out of ServerApi
 
-// calls the api server endpoints
-
-public class ServerApi : MonoBehaviour
-{
+public class ServerApiBackend : MonoBehaviour {
     [SerializeField] string baseUrl = "http://192.168.1.19:30001";
-    [SerializeField] Button refreshButton;
-    [SerializeField] Button createButton;
-    [SerializeField] GameObject roomUI;
-    [SerializeField] RectTransform roomsPanel;
+    bool auth = false;
 
+    // anonymously signs in a player using Unity Player Services
+    async Task UnityAuth() {
+        if (!auth) {
+            try {
+                Debug.Log("Auth Start");
+
+                string profileName = GetCommandLineArg("-profile") ?? "DefaultPlayer";
+                var options = new InitializationOptions();
+                options.SetProfile(profileName);
+                await UnityServices.InitializeAsync(options);
+
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+                Debug.Log("Signed in anonymously, id is " + AuthenticationService.Instance.PlayerId);
+                auth = true;
+            } catch(Exception ex) {
+                Debug.LogException(ex);
+            }
+        } else {
+            Debug.Log("Already authorised!");
+        }
+    }
+
+    //----------------------
+    //  Endpoints
+    //----------------------
     public async Task<string> ListRooms() {
+        await UnityAuth();
         string token = AuthenticationService.Instance.AccessToken;
         using (UnityWebRequest request = UnityWebRequest.Get($"{baseUrl}/listrooms")) {
             request.SetRequestHeader("Authorization", "Bearer " + token);
             request.SetRequestHeader("Accept", "application/json");
-            request.certificateHandler = new BypassStagingCertificate();
 
             var operation = request.SendWebRequest();
             while (!operation.isDone) await Task.Yield();
@@ -49,12 +62,12 @@ public class ServerApi : MonoBehaviour
     }
 
     public async Task<string> Allocate() {
+        await UnityAuth();
         string token = AuthenticationService.Instance.AccessToken;
         using (UnityWebRequest request = new UnityWebRequest($"{baseUrl}/allocate", "POST")) {
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Authorization", "Bearer " + token);
             request.SetRequestHeader("Accept", "application/json");
-            request.certificateHandler = new BypassStagingCertificate();
 
             var operation = request.SendWebRequest();
             while (!operation.isDone) await Task.Yield();
@@ -70,12 +83,12 @@ public class ServerApi : MonoBehaviour
     }
 
     public async Task<bool> GetServer(string ip, int port) {
+        await UnityAuth();
         string token = AuthenticationService.Instance.AccessToken;
         string server = ip + ":" + port;
         using (UnityWebRequest request = UnityWebRequest.Get($"{baseUrl}/get/{server}")) {
             request.SetRequestHeader("Authorization", "Bearer " + token);
             request.SetRequestHeader("Accept", "application/json");
-            request.certificateHandler = new BypassStagingCertificate();
 
             var operation = request.SendWebRequest();
             while (!operation.isDone) await Task.Yield();
@@ -90,40 +103,17 @@ public class ServerApi : MonoBehaviour
         }
     }
 
-    async void Start() {
-        //ButtonListRooms();
-    }
-
-    public async void ButtonListRooms() {
-        refreshButton.interactable = false;
-        Debug.Log("Calling API...");
-        string jsonResponse = await ListRooms();
-        GameServerResponse[] serversJson = JsonHelper.ParseArray<GameServerResponse>(jsonResponse);
-        Debug.Log(serversJson);
-        foreach (Transform child in roomsPanel) {
-            Destroy(child.gameObject);
+    //----------------------
+    //  Helper Methods
+    //----------------------
+    // helper function for testing different unity clients on one machine
+    private string GetCommandLineArg(string name) {
+        string[] args = Environment.GetCommandLineArgs();
+        for (int i = 0; i < args.Length; i++) {
+            if (args[i] == name && args.Length > i + 1) {
+                return args[i + 1];
+            }
         }
-        foreach (GameServerResponse server in serversJson) {
-            CreateRoomUI(server);
-        }
-        refreshButton.interactable = true;
-    }
-
-    public async void ButtonAllocate() {
-        if (!Application.isBatchMode) {
-            createButton.interactable = false;
-        }
-        Debug.Log("Calling API...");
-        string jsonResponse = await Allocate();
-        GameServerResponse serversJson = JsonUtility.FromJson<GameServerResponse>(jsonResponse);
-        NetworkManager.singleton.networkAddress = serversJson.ip;
-        NetworkManager.singleton.GetComponent<KcpTransport>().Port = (ushort) serversJson.port;
-        NetworkManager.singleton.StartClient();
-    }
-
-    void CreateRoomUI(GameServerResponse json) {
-        GameObject room = Instantiate(roomUI, roomsPanel);
-        RoomItemUI roomItemUI = room.GetComponent<RoomItemUI>();
-        roomItemUI.SetServerJson(json);
+        return null;
     }
 }
