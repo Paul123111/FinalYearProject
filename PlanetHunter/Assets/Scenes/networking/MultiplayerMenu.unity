@@ -815,19 +815,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlanetHunterNetworkManager
   dontDestroyOnLoad: 1
   runInBackground: 1
-  headlessStartMode: 0
+  headlessStartMode: 1
   editorAutoStart: 0
   sendRate: 60
-  offlineScene: 
-  onlineScene: 
+  offlineScene: Assets/Scenes/networking/MultiplayerMenu.unity
+  onlineScene: Assets/Scenes/networking/GameNetworking.unity
   offlineSceneLoadDelay: 0
-  transport: {fileID: 0}
+  transport: {fileID: 668045255}
   networkAddress: localhost
   maxConnections: 100
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 0}
+  playerPrefab: {fileID: 941372358305961626, guid: c0c8d31212c571c48b61be9925c56996, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs: []
@@ -846,8 +846,19 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
-  agones: {fileID: 0}
+  agones: {fileID: 2285366997711687107}
   mirrorServer: {fileID: 0}
+--- !u!114 &668045255 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 738925712001102654, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
+  m_PrefabInstance: {fileID: 21996396}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668045248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Mirror.Transports::kcp2k.KcpTransport
 --- !u!1 &713177273
 GameObject:
   m_ObjectHideFlags: 0
@@ -1682,9 +1693,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 327375485}
-        m_TargetAssemblyTypeName: ServerApi, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 327375487}
+        m_TargetAssemblyTypeName: ServerApiUI, Assembly-CSharp
+        m_MethodName: SinglePlayer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
