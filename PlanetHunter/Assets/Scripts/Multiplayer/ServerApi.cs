@@ -110,7 +110,9 @@ public class ServerApi : MonoBehaviour
     }
 
     public async void ButtonAllocate() {
-        createButton.interactable = false;
+        if (!Application.isBatchMode) {
+            createButton.interactable = false;
+        }
         Debug.Log("Calling API...");
         string jsonResponse = await Allocate();
         GameServerResponse serversJson = JsonUtility.FromJson<GameServerResponse>(jsonResponse);
