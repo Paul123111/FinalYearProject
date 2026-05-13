@@ -104,8 +104,13 @@ app.MapPost("/allocate", async (IKubernetes client) => {
             apiVersion = "allocation.agones.dev/v1",
             kind = "GameServerAllocation",
             spec = new {
-                selectors = new[] { new { matchLabels = new Dictionary<string, string>() } }
-            }
+                selectors = new[] { new { matchLabels = new Dictionary<string, string>() } },
+                metadata = new {
+                    labels = new Dictionary<string, string> {
+                        { "game.display-name", $"Room-{GameServerResponseUtils.GenerateRoomId()}" }
+                    }
+                }
+            },
         };
 
         // allocate GameServer using body

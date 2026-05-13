@@ -20,7 +20,7 @@ public class RoomItemUI : MonoBehaviour
 
     public async Task SetServerJson(GameServerResponse server) {
         serverJson = server;
-        roomName.text = server.ip + ":" + server.port;
+        roomName.text = server.name;
         playerCount.text = server.players + "/" + server.capacity;
     }
 
@@ -43,6 +43,7 @@ public class RoomItemUI : MonoBehaviour
 
 [System.Serializable]
 public class GameServerResponse {
+    public string name;
     public string ip;
     public int port;
     public string state;
@@ -50,7 +51,7 @@ public class GameServerResponse {
     public int capacity;
 
     public override string ToString() {
-        return "{" + $"\"ip\":\"{ip}\",\"port\":{port},\"state\":\"{state}\",\"players\":{players},\"capacity\":{capacity}" + "}";
+        return "{" + $"\"name\":\"{name}\",\"ip\":\"{ip}\",\"port\":{port},\"state\":\"{state}\",\"players\":{players},\"capacity\":{capacity}" + "}";
     }
 }
 
