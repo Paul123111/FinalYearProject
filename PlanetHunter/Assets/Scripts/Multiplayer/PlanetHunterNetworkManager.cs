@@ -17,14 +17,12 @@ using UnityEngine;
 	API Reference: https://mirror-networking.com/docs/api/Mirror.NetworkManager.html
 */
 
-public class TextNetworkManager : NetworkManager
+public class PlanetHunterNetworkManager : NetworkManager
 {
     // Overrides the base singleton so we don't
     // have to cast to this type everywhere.
-    public static new TextNetworkManager singleton => (TextNetworkManager)NetworkManager.singleton;
-    public AgonesStartup startup;
+    public static new PlanetHunterNetworkManager singleton => (PlanetHunterNetworkManager)NetworkManager.singleton;
     public AgonesAlphaSdk agones;
-    public PlayerCounterUI playerCounter;
 
     Dictionary<NetworkConnectionToClient, string> _playerIds = new Dictionary<NetworkConnectionToClient, string>();
     long count = 0;
@@ -215,7 +213,6 @@ public class TextNetworkManager : NetworkManager
         }
         await agones.PlayerDisconnect(pid);
         count = await agones.GetPlayerCount();
-        playerCounter.playerCountString = count.ToString() + "/4";
 
         var gameserver = await agones.GameServer();
         if (gameserver.Status.State == "Allocated" && count <= 0) {
@@ -336,7 +333,6 @@ public class TextNetworkManager : NetworkManager
             bool ok = await agones.PlayerConnect(msg.id);
             if (ok) {
                 count = await agones.GetPlayerCount();
-                playerCounter.playerCountString = count + "/4";
             } else {
                 Debug.Log("Server Full! Kicking player...");
                 _playerIds.Remove(conn);

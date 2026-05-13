@@ -60,7 +60,7 @@ MonoBehaviour:
   MaximizeSocketBuffers: 1
   ReliableMaxMessageSize: 297433
   UnreliableMaxMessageSize: 1194
-  debugLog: 0
+  debugLog: 1
   statisticsGUI: 0
   statisticsLog: 0
 --- !u!114 &7794592812794221416
@@ -80,8 +80,8 @@ MonoBehaviour:
   headlessStartMode: 1
   editorAutoStart: 1
   sendRate: 60
-  offlineScene: 
-  onlineScene: 
+  offlineScene: Assets/Scenes/networking/MultiplayerMenu.unity
+  onlineScene: Assets/Scenes/networking/GameNetworking.unity
   offlineSceneLoadDelay: 0
   transport: {fileID: 738925712001102654}
   networkAddress: localhost
@@ -108,9 +108,7 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
-  startup: {fileID: 0}
   agones: {fileID: 0}
-  playerCounter: {fileID: 0}
   mirrorServer: {fileID: 0}
 --- !u!114 &2063581674153730992
 MonoBehaviour:
