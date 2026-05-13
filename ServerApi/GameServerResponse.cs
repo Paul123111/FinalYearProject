@@ -23,7 +23,7 @@ public static class GameServerResponseUtils {
             if (status.TryGetProperty("address", out var addr)) {
                 ip = addr.GetString() ?? ip;
             }
-            if (status.TryGetProperty("ports", out var ports) && ports.GetArrayLength() > 0 && ports.EnumerateArray().FirstOrDefault().TryGetProperty("port", out var p)) {
+            if (status.TryGetProperty("ports", out var ports) && ports.ValueKind == JsonValueKind.Array && ports.GetArrayLength() > 0 && ports.EnumerateArray().FirstOrDefault().TryGetProperty("port", out var p)) {
                 port = p.GetInt32();
             }
             if (status.TryGetProperty("state", out var s)) {
@@ -55,7 +55,7 @@ public static class GameServerResponseUtils {
             if (status.TryGetProperty("address", out var addr)) {
                 ip = addr.GetString() ?? ip;
             }
-            if (status.TryGetProperty("ports", out var ports) && ports.GetArrayLength() > 0 && ports.EnumerateArray().FirstOrDefault().TryGetProperty("port", out var p)) {
+            if (status.TryGetProperty("ports", out var ports) && ports.ValueKind == JsonValueKind.Array && ports.GetArrayLength() > 0 && ports.EnumerateArray().FirstOrDefault().TryGetProperty("port", out var p)) {
                 port = p.GetInt32();
             }
             if (status.TryGetProperty("state", out var s)) {

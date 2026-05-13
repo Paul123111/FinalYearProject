@@ -182,11 +182,11 @@ PrefabInstance:
     - target: {fileID: 7794592812794221416, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
       propertyPath: agones
       value: 
-      objectReference: {fileID: 803999000}
+      objectReference: {fileID: 2285366997711687107}
     - target: {fileID: 7794592812794221416, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
       propertyPath: startup
       value: 
-      objectReference: {fileID: 1405450525}
+      objectReference: {fileID: 0}
     - target: {fileID: 7794592812794221416, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
       propertyPath: onlineScene
       value: Assets/Scenes/networking/GameNetworking.unity
@@ -194,7 +194,7 @@ PrefabInstance:
     - target: {fileID: 7794592812794221416, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
       propertyPath: mirrorServer
       value: 
-      objectReference: {fileID: 803998999}
+      objectReference: {fileID: 1993889893649007587}
     - target: {fileID: 7794592812794221416, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
       propertyPath: offlineScene
       value: Assets/Scenes/networking/MultiplayerMenu.unity
@@ -706,6 +706,7 @@ GameObject:
   m_Component:
   - component: {fileID: 327375486}
   - component: {fileID: 327375485}
+  - component: {fileID: 327375487}
   m_Layer: 0
   m_Name: ServerApi
   m_TagString: Untagged
@@ -726,10 +727,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ServerApi
   baseUrl: https://api.planethunter-game.uk
-  refreshButton: {fileID: 1370779849}
-  createButton: {fileID: 1886485432}
-  roomUI: {fileID: 5014694749956625656, guid: 9d8596c86dfe289479096a6cda3593b4, type: 3}
-  roomsPanel: {fileID: 257597306}
 --- !u!4 &327375486
 Transform:
   m_ObjectHideFlags: 0
@@ -745,6 +742,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &327375487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327375484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ece032a496842064ca1033f570f6d8e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ServerApiUI
+  roomUi: {fileID: 5014694749956625656, guid: 9d8596c86dfe289479096a6cda3593b4, type: 3}
+  roomsPanel: {fileID: 257597306}
 --- !u!1 &331891249
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,23 +792,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &391268414 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5502599689216413956, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-  m_PrefabInstance: {fileID: 1635477053}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &391268418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 391268414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f210879a604e0cb4e8467d9e960acaf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DontDestroyOnLoad
 --- !u!1001 &434222624
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -976,7 +970,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1305442505}
   m_HandleRect: {fileID: 1305442504}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1232,22 +1226,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755014108}
   m_CullTransparentMesh: 1
---- !u!1 &803998999 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1993889893130675678, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-  m_PrefabInstance: {fileID: 1635477053}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &803999000 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2285366999347031038, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-  m_PrefabInstance: {fileID: 1635477053}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 803998999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4bfa24699304c85ad1b9ef381ab10ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Agones::Agones.AgonesAlphaSdk
 --- !u!1 &998433669
 GameObject:
   m_ObjectHideFlags: 0
@@ -1264,7 +1242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &998433670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1277,7 +1255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e3e1108a4f37d4a91d2847c6d1d217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeadlessBootstrap
-  serverApi: {fileID: 327375485}
 --- !u!4 &998433671
 Transform:
   m_ObjectHideFlags: 0
@@ -2008,9 +1985,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 327375485}
-        m_TargetAssemblyTypeName: ServerApi, Assembly-CSharp
-        m_MethodName: ButtonListRooms
+      - m_Target: {fileID: 327375487}
+        m_TargetAssemblyTypeName: ServerApiUI, Assembly-CSharp
+        m_MethodName: ListRooms
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2077,17 +2054,6 @@ RectTransform:
   m_AnchoredPosition: {x: 262, y: -31.000015}
   m_SizeDelta: {x: -760, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1405450525 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7151549438891707033, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-  m_PrefabInstance: {fileID: 1635477053}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 899e2f0cca103e64d8cce84183c7fc3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AgonesStartup
 --- !u!1 &1468208535
 GameObject:
   m_ObjectHideFlags: 0
@@ -2178,86 +2144,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468208535}
   m_CullTransparentMesh: 1
---- !u!1001 &1635477053
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2243104463175347813, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-      propertyPath: m_Name
-      value: Controller
-      objectReference: {fileID: 0}
-    - target: {fileID: 2671247038488359164, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-      propertyPath: m_Name
-      value: Auth
-      objectReference: {fileID: 0}
-    - target: {fileID: 5502599689216413956, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-      propertyPath: m_Name
-      value: -- AGONES
-      objectReference: {fileID: 0}
-    - target: {fileID: 5502599689216413956, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785706984407423784, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 331.62122
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785706984407423784, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 198.32289
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785706984407423784, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785706984407423784, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785706984407423784, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785706984407423784, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785706984407423784, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785706984407423784, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785706984407423784, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785706984407423784, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7151549438891707033, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7151549438891707033, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-      propertyPath: authRequiredForClients
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5502599689216413956, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 391268418}
-  m_SourcePrefab: {fileID: 100100000, guid: afda7713c26ba6c4e9a8f1c5367b9a01, type: 3}
 --- !u!1 &1795501947
 GameObject:
   m_ObjectHideFlags: 0
@@ -2416,9 +2302,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 327375485}
-        m_TargetAssemblyTypeName: ServerApi, Assembly-CSharp
-        m_MethodName: ButtonAllocate
+      - m_Target: {fileID: 327375487}
+        m_TargetAssemblyTypeName: ServerApiUI, Assembly-CSharp
+        m_MethodName: Allocate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2545,6 +2431,66 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1993889893649007587
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7670830791781848082}
+  - component: {fileID: 4259811660303148535}
+  - component: {fileID: 2285366997711687107}
+  m_Layer: 0
+  m_Name: EchoServer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &2285366997711687107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993889893649007587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bfa24699304c85ad1b9ef381ab10ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Agones::Agones.AgonesAlphaSdk
+  healthIntervalSecond: 5
+  healthEnabled: 1
+  logEnabled: 1
+--- !u!114 &4259811660303148535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993889893649007587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d03f40e45c07534d9e719af230ca09a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AgonesExample.AgonesServer
+--- !u!4 &7670830791781848082
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993889893649007587}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 331.62122, y: 198.32289, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2554,6 +2500,6 @@ SceneRoots:
   - {fileID: 2099565117}
   - {fileID: 327375486}
   - {fileID: 21996396}
-  - {fileID: 1635477053}
+  - {fileID: 7670830791781848082}
   - {fileID: 434222624}
   - {fileID: 998433671}

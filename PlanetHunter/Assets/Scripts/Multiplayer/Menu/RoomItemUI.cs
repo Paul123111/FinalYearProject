@@ -12,32 +12,17 @@ public class RoomItemUI : MonoBehaviour
     [SerializeField] Button joinButton;
 
     GameServerResponse serverJson;
-    ServerApi serverApi;
+    ServerApiUI serverApi;
 
     void Start() {
-        serverApi = FindFirstObjectByType<ServerApi>();
+        serverApi = FindFirstObjectByType<ServerApiUI>();
+        joinButton.onClick.AddListener(delegate { serverApi.JoinServer(serverJson); });
     }
 
-    public async Task SetServerJson(GameServerResponse server) {
+    public void SetServerJson(GameServerResponse server) {
         serverJson = server;
         roomName.text = server.name;
         playerCount.text = server.players + "/" + server.capacity;
-    }
-
-    public async void JoinServer() {
-        joinButton.interactable = false;
-
-        Debug.Log("Calling API...");
-        bool exists = await serverApi.GetServer(serverJson.ip, serverJson.port);
-        if (!exists) {
-            Debug.LogWarning("Server doesn't exist!");
-            return;
-        }
-
-        Debug.Log($"Server found! Joining {serverJson.ip}:{serverJson.port}...");
-        NetworkManager.singleton.networkAddress = serverJson.ip;
-        NetworkManager.singleton.GetComponent<KcpTransport>().Port = (ushort)serverJson.port;
-        NetworkManager.singleton.StartClient();
     }
 }
 
