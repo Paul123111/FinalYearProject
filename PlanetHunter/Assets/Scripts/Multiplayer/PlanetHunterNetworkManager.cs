@@ -22,17 +22,9 @@ public class PlanetHunterNetworkManager : NetworkManager
     // Overrides the base singleton so we don't
     // have to cast to this type everywhere.
     public static new PlanetHunterNetworkManager singleton => (PlanetHunterNetworkManager)NetworkManager.singleton;
-    public AgonesAlphaSdk agones;
+    public AgonesBetaSdk agones;
 
-    Dictionary<NetworkConnectionToClient, string> _playerIds = new Dictionary<NetworkConnectionToClient, string>();
-    long count = 0;
     NetworkConnectionToClient[] playerOrder = new NetworkConnectionToClient[4];
-
-    UnityTokenValidator tokenValidator = new UnityTokenValidator();
-
-    public async Task<long> GetPlayerCount() {
-        return await agones.GetPlayerCount();
-    }
 
     /// <summary>
     /// Runs on both Server and Client
@@ -151,7 +143,7 @@ public class PlanetHunterNetworkManager : NetworkManager
     /// </summary>
     /// <param name="conn">Connection from client.</param>
     public override void OnServerConnect(NetworkConnectionToClient conn) {
-    
+        base.OnServerConnect(conn);
     }
 
     /// <summary>
@@ -174,26 +166,32 @@ public class PlanetHunterNetworkManager : NetworkManager
     {
         //base.OnServerAddPlayer(conn);
 
+
         // spawn player in random radius near centre
         Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * 5f;
         Vector3 spawnPos = new Vector3(randomCircle.x, randomCircle.y, 0);
 
         // immediately assigning count on server to prevent confusion when multiple players join at once
-        // syncs with AgonesAlphaSdk.PlayerCount() later
-        long assignedNum = -1;
-        for (int i = 0; i < playerOrder.Length; i++) {
-            if (playerOrder[i] == null) {
-                playerOrder[i] = conn;
-                assignedNum = i+1;
-                break;
+        if (conn.authenticationData is AuthResponseMessage session) {
+            session.localPlayerNumber = CalculatePlayerNumber();
+            if (session.localPlayerNumber == -1) {
+                conn.Disconnect();
             }
+
+
+            GameObject player = Instantiate(playerPrefab, spawnPos, Quaternion.identity);
+            NetworkServer.AddPlayerForConnection(conn, player);
+
+            PlayerColour playerColour = conn.identity.gameObject.GetComponent<PlayerColour>();
+            playerColour.playerNum = session.localPlayerNumber;
+
+            // session is only local, need to assign it here
+            conn.authenticationData = session;
+
+        } else {
+            conn.Disconnect();
         }
-
-        GameObject player = Instantiate(playerPrefab, spawnPos, Quaternion.identity);
-        NetworkServer.AddPlayerForConnection(conn, player);
-
-        PlayerColour playerColour = conn.identity.gameObject.GetComponent<PlayerColour>();
-        playerColour.playerNum = assignedNum;
+        Debug.Log(((AuthResponseMessage)conn.authenticationData).localPlayerNumber);
     }
 
     /// <summary>
@@ -203,19 +201,20 @@ public class PlanetHunterNetworkManager : NetworkManager
     /// <param name="conn">Connection from client.</param>
     public override async void OnServerDisconnect(NetworkConnectionToClient conn)
     {
-        base.OnServerDisconnect(conn);
-        string pid;
-        _playerIds.TryGetValue(conn, out pid);
-        _playerIds.Remove(conn);
-        int index = Array.FindIndex(playerOrder, x => x == conn);
-        if (index >= 0 && index < playerOrder.Length) {
-            playerOrder[index] = null;
+        if (conn.authenticationData is AuthResponseMessage session) {
+            Debug.Log($"Removing {session.id} from player list");
+            await agones.DeleteListValue("players", session.id);
         }
-        await agones.PlayerDisconnect(pid);
-        count = await agones.GetPlayerCount();
+        base.OnServerDisconnect(conn);
+
+        //int index = Array.FindIndex(playerOrder, x => x == conn);
+        //if (index >= 0 && index < playerOrder.Length) {
+        //    playerOrder[index] = null;
+        //}
 
         var gameserver = await agones.GameServer();
-        if (gameserver.Status.State == "Allocated" && count <= 0) {
+        bool serverEmpty = await agones.GetListLength("players") != 0;
+        if (gameserver.Status.State == "Allocated" && serverEmpty) {
             Debug.Log("No players! Shutting down server...");
             ShutdownServer();
         }
@@ -254,13 +253,14 @@ public class PlanetHunterNetworkManager : NetworkManager
     /// </summary>
     public override void OnClientConnect()
     {
+        Debug.Log("Client Connected");
         base.OnClientConnect();
-        var msg = new PlayerAuthMessage {
-            id = AuthenticationService.Instance.PlayerId,
-            token = AuthenticationService.Instance.AccessToken
-        };
-        Debug.Log(msg.id + ", token: " + msg.token);
-        NetworkClient.Send(msg);
+        //var msg = new AuthRequestMessage {
+        //    id = AuthenticationService.Instance.PlayerId,
+        //    token = AuthenticationService.Instance.AccessToken
+        //};
+        //Debug.Log(msg.id + ", token: " + msg.token);
+        //NetworkClient.Send(msg);
     }
 
     /// <summary>
@@ -302,51 +302,20 @@ public class PlanetHunterNetworkManager : NetworkManager
     /// </summary>
     public override void OnStartHost() { }
 
-    public GameObject mirrorServer;
     /// <summary>
     /// This is invoked when a server is started - including when a host is started.
     /// <para>StartServer has multiple signatures, but they all cause this hook to be called.</para>
     /// </summary>
     public override void OnStartServer() {
         base.OnStartServer();
-        NetworkServer.RegisterHandler<PlayerAuthMessage>(OnPlayerAuthReceived);
-        Debug.Log("handle started");
-    }
-
-    private async void OnPlayerAuthReceived(NetworkConnectionToClient conn, PlayerAuthMessage msg) {
-        try {
-            Debug.Log($"SDK: {agones != null}, Id: {msg.id}");
-            if (_playerIds.ContainsValue(msg.id)) {
-                Debug.Log(msg.id + " is already connected!");
-                conn.Disconnect();
-                return;
-            }
-            Debug.Log("Validating token...");
-            bool tokenValid = await tokenValidator.ValidateToken(msg);
-            if (!tokenValid) {
-                Debug.Log("Could not validate token. Kicking player...");
-                conn.Disconnect();
-                return;
-            }
-            Debug.Log("Validated token!");
-            _playerIds.Add(conn, msg.id);
-            bool ok = await agones.PlayerConnect(msg.id);
-            if (ok) {
-                count = await agones.GetPlayerCount();
-            } else {
-                Debug.Log("Server Full! Kicking player...");
-                _playerIds.Remove(conn);
-                conn.Disconnect();
-            }
-        } catch (Exception ex) {
-            Debug.LogException(ex);
-        }
     }
 
     /// <summary>
     /// This is invoked when the client is started.
     /// </summary>
-    public override void OnStartClient() { }
+    public override void OnStartClient() {
+        base.OnStartClient();
+    }
 
     /// <summary>
     /// This is called when a host is stopped.
@@ -364,60 +333,15 @@ public class PlanetHunterNetworkManager : NetworkManager
     public override void OnStopClient() { }
 
     #endregion
-    }
 
-//unity has no OIDC discovery document, so get the JWKS and add to an openidConnectConfig for auth
-public class UnityJwksRetriever : IConfigurationRetriever<OpenIdConnectConfiguration> {
-    public async Task<OpenIdConnectConfiguration> GetConfigurationAsync(string address, IDocumentRetriever retriever, CancellationToken cancel) {
-        string doc = await retriever.GetDocumentAsync(address, cancel);
-        var jwks = new JsonWebKeySet(doc);
-        var config = new OpenIdConnectConfiguration();
-        foreach (var key in jwks.GetSigningKeys()) {
-            config.SigningKeys.Add(key);
+    int CalculatePlayerNumber() {
+        // get set of currently used player seats (1, 2, 3, 4)
+        HashSet<int> claimedSeats = NetworkServer.connections.Values
+            .Where(c => c.authenticationData is AuthResponseMessage session && session.localPlayerNumber > 0)
+            .Select(c => ((AuthResponseMessage)c.authenticationData).localPlayerNumber).ToHashSet();
+        for (int i = 1; i <= 4; i++) {
+            if (!claimedSeats.Contains(i)) return i;
         }
-        return config;
-    }
-}
-
-// validate jwt token
-public class UnityTokenValidator {
-    private ConfigurationManager<OpenIdConnectConfiguration> _configManager;
-
-    public UnityTokenValidator() {
-        var jwksUrl = "https://player-auth.services.api.unity.com/.well-known/jwks.json";
-        _configManager = new ConfigurationManager<OpenIdConnectConfiguration>(
-            jwksUrl,
-            new UnityJwksRetriever());
-    }
-
-    public async Task<bool> ValidateToken(PlayerAuthMessage msg) {
-        try {
-            var config = await _configManager.GetConfigurationAsync();
-            var handler = new JwtSecurityTokenHandler();
-
-            var validationParameters = new TokenValidationParameters {
-                ValidateIssuer = true,
-                ValidIssuer = "https://player-auth.services.api.unity.com",
-
-                ValidateAudience = true,
-                AudienceValidator = (audiences, securityToken, validationParameters) => {
-                    string projectId = "b3e96b7f-8284-47ea-bec0-90e51607c3b9";
-                    return audiences.Any(aud => aud.Contains(projectId));
-                },
-                ValidateLifetime = true,
-                ConfigurationManager = _configManager,
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKeyResolver = (token, securityToken, kid, parameters) => {
-                    var config = _configManager.GetConfigurationAsync().Result;
-                    return config.SigningKeys;
-                }
-            };
-
-            var principal = handler.ValidateToken(msg.token, validationParameters, out var validatedToken);
-            return true;
-        } catch (Exception ex) {
-            Debug.LogError($"Could not authenticate player: {ex}");
-            return false;
-        }
+        return -1;
     }
 }
