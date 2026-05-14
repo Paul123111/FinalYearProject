@@ -18,15 +18,18 @@ public class ServerApiBackend : MonoBehaviour {
 
     // anonymously signs in a player using Unity Player Services
     async Task UnityAuth() {
-        if (!auth) {
+        // initialise unityservices
+        if (!(UnityServices.State == ServicesInitializationState.Initialized)) {
+            Debug.Log("Initialising UnityServices...");
+            string profileName = GetCommandLineArg("-profile") ?? "DefaultPlayer";
+            var options = new InitializationOptions();
+            options.SetProfile(profileName);
+            await UnityServices.InitializeAsync(options);
+        }
+        // sign in anonymously
+        if (!AuthenticationService.Instance.IsSignedIn) {
             try {
                 Debug.Log("Auth Start");
-
-                string profileName = GetCommandLineArg("-profile") ?? "DefaultPlayer";
-                var options = new InitializationOptions();
-                options.SetProfile(profileName);
-                await UnityServices.InitializeAsync(options);
-
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();
                 Debug.Log("Signed in anonymously, id is " + AuthenticationService.Instance.PlayerId);
                 auth = true;
