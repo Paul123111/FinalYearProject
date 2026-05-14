@@ -756,7 +756,7 @@ MonoBehaviour:
   offlineScene: Assets/Scenes/networking/MultiplayerMenu.unity
   onlineScene: Assets/Scenes/networking/GameNetworking.unity
   offlineSceneLoadDelay: 0
-  transport: {fileID: 738925711988215890}
+  transport: {fileID: 5436009510129184793}
   networkAddress: localhost
   maxConnections: 100
   disconnectInactiveConnections: 0
@@ -2360,35 +2360,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &738925711988215890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2594417446070166030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Mirror.Transports::kcp2k.KcpTransport
-  port: 7777
-  DualMode: 1
-  NoDelay: 1
-  Interval: 10
-  Timeout: 10000
-  RecvBufferSize: 7361536
-  SendBufferSize: 7361536
-  FastResend: 2
-  ReceiveWindowSize: 4096
-  SendWindowSize: 4096
-  MaxRetransmit: 40
-  MaximizeSocketBuffers: 1
-  ReliableMaxMessageSize: 297433
-  UnreliableMaxMessageSize: 1194
-  debugLog: 1
-  statisticsGUI: 0
-  statisticsLog: 0
 --- !u!1 &1993889893649007587
 GameObject:
   m_ObjectHideFlags: 0
@@ -2416,10 +2387,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5436009510129184791}
-  - component: {fileID: 738925711988215890}
   - component: {fileID: 668045258}
   - component: {fileID: 668045257}
   - component: {fileID: 668045256}
+  - component: {fileID: 5436009510129184792}
+  - component: {fileID: 5436009510129184793}
   m_Layer: 0
   m_Name: networkManager
   m_TagString: Untagged
@@ -2454,6 +2426,47 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1550868413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5436009510129184792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2594417446070166030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e4c049247a81a04d9786c8772141e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ForceMirrorQuit
+--- !u!114 &5436009510129184793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2594417446070166030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88ff5f43e8f71042ba26fdb3f460c62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mirror.BackgroundKcpTransport
+  port: 7777
+  DualMode: 1
+  NoDelay: 1
+  Interval: 10
+  Timeout: 10000
+  RecvBufferSize: 7361536
+  SendBufferSize: 7361536
+  FastResend: 2
+  ReceiveWindowSize: 4096
+  SendWindowSize: 4096
+  MaxRetransmit: 40
+  MaximizeSocketBuffers: 1
+  ReliableMaxMessageSize: 297433
+  UnreliableMaxMessageSize: 1194
+  debugLog: 0
+  statisticsGUI: 0
+  statisticsLog: 0
 --- !u!4 &7670830791781848082
 Transform:
   m_ObjectHideFlags: 0
