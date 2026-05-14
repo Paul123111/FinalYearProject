@@ -23,6 +23,7 @@ public class AgonesServer : MonoBehaviour {
     }
 
     async void Start() {
+        DontDestroyOnLoad(gameObject);
         agones = GetComponent<AgonesBetaSdk>();
         bool ok = await agones.Connect();
         if (ok) {
