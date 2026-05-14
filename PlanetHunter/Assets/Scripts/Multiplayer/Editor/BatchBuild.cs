@@ -52,10 +52,15 @@ namespace AgonesExample.Editor {
         [MenuItem("Build Tool/Build Client")]
         public static void BuildClient() {
             PlayerSettings.runInBackground = true;
-            EditorUserBuildSettings.connectProfiler = false;
             PlayerSettings.visibleInBackground = true;
             string[] scenes = new[] { "Assets/Scenes/networking/MultiplayerMenu.unity",
                 "Assets/Scenes/networking/GameNetworking.unity" };
+
+            PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64, new[] {
+                UnityEngine.Rendering.GraphicsDeviceType.Direct3D12,
+                UnityEngine.Rendering.GraphicsDeviceType.Direct3D11
+            });
+
             string dir = "Builds/PlanetHunter";
 
             Debug.Log("Building Client...");
