@@ -864,7 +864,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1305442505}
   m_HandleRect: {fileID: 1305442504}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1400,6 +1400,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -2447,9 +2448,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2594417446070166030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b88ff5f43e8f71042ba26fdb3f460c62, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Mirror.BackgroundKcpTransport
+  m_EditorClassIdentifier: Mirror.Transports::kcp2k.KcpTransport
   port: 7777
   DualMode: 1
   NoDelay: 1
@@ -2464,7 +2465,7 @@ MonoBehaviour:
   MaximizeSocketBuffers: 1
   ReliableMaxMessageSize: 297433
   UnreliableMaxMessageSize: 1194
-  debugLog: 0
+  debugLog: 1
   statisticsGUI: 0
   statisticsLog: 0
 --- !u!4 &7670830791781848082
