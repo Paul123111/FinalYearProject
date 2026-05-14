@@ -119,80 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &21996396
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1550868413}
-    m_Modifications:
-    - target: {fileID: 2594417446091293026, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-      propertyPath: m_Name
-      value: networkManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 5436009510142120827, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -160.26813
-      objectReference: {fileID: 0}
-    - target: {fileID: 5436009510142120827, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -109.29521
-      objectReference: {fileID: 0}
-    - target: {fileID: 5436009510142120827, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5436009510142120827, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5436009510142120827, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5436009510142120827, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5436009510142120827, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5436009510142120827, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5436009510142120827, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5436009510142120827, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7794592812794221416, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-      propertyPath: agones
-      value: 
-      objectReference: {fileID: 2285366997711687107}
-    - target: {fileID: 7794592812794221416, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-      propertyPath: mirrorServer
-      value: 
-      objectReference: {fileID: 1993889893649007587}
-    m_RemovedComponents:
-    - {fileID: 7794592812794221416, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-    - {fileID: 2063581674153730992, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-    - {fileID: 5803730255282591449, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2594417446091293026, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 668045254}
-    - targetCorrespondingSourceObject: {fileID: 2594417446091293026, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 668045253}
-  m_SourcePrefab: {fileID: 100100000, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
 --- !u!1 &125803996
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,37 +703,46 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &668045248 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2594417446091293026, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-  m_PrefabInstance: {fileID: 21996396}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &668045252 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5436009510142120827, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-  m_PrefabInstance: {fileID: 21996396}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &668045253
+--- !u!114 &668045256
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668045248}
-  m_Enabled: 0
+  m_GameObject: {fileID: 2594417446070166030}
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Mirror::Mirror.NetworkManagerHUD
   offsetX: 0
   offsetY: 0
---- !u!114 &668045254
+--- !u!114 &668045257
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668045248}
+  m_GameObject: {fileID: 2594417446070166030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87f46c420c7bf6148b8136d95f057309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlanetHunterAuth
+  OnServerAuthenticated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientAuthenticated:
+    m_PersistentCalls:
+      m_Calls: []
+  agones: {fileID: 7670830791781848083}
+--- !u!114 &668045258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2594417446070166030}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1cf5c7d20e51ab4884e35cf338d99b3, type: 3}
@@ -815,18 +750,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlanetHunterNetworkManager
   dontDestroyOnLoad: 1
   runInBackground: 1
-  headlessStartMode: 1
+  headlessStartMode: 0
   editorAutoStart: 0
   sendRate: 60
   offlineScene: Assets/Scenes/networking/MultiplayerMenu.unity
   onlineScene: Assets/Scenes/networking/GameNetworking.unity
   offlineSceneLoadDelay: 0
-  transport: {fileID: 668045255}
+  transport: {fileID: 738925711988215890}
   networkAddress: localhost
   maxConnections: 100
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
-  authenticator: {fileID: 0}
+  authenticator: {fileID: 668045257}
   playerPrefab: {fileID: 941372358305961626, guid: c0c8d31212c571c48b61be9925c56996, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
@@ -846,19 +781,7 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
-  agones: {fileID: 2285366997711687107}
-  mirrorServer: {fileID: 0}
---- !u!114 &668045255 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 738925712001102654, guid: 8af8002197f68e345b2a24782f3cae84, type: 3}
-  m_PrefabInstance: {fileID: 21996396}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668045248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Mirror.Transports::kcp2k.KcpTransport
+  agones: {fileID: 7670830791781848083}
 --- !u!1 &713177273
 GameObject:
   m_ObjectHideFlags: 0
@@ -2145,7 +2068,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 327375486}
-  - {fileID: 668045252}
+  - {fileID: 5436009510129184791}
   - {fileID: 7670830791781848082}
   - {fileID: 998433671}
   m_Father: {fileID: 0}
@@ -2437,6 +2360,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &738925711988215890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2594417446070166030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Mirror.Transports::kcp2k.KcpTransport
+  port: 7777
+  DualMode: 1
+  NoDelay: 1
+  Interval: 10
+  Timeout: 10000
+  RecvBufferSize: 7361536
+  SendBufferSize: 7361536
+  FastResend: 2
+  ReceiveWindowSize: 4096
+  SendWindowSize: 4096
+  MaxRetransmit: 40
+  MaximizeSocketBuffers: 1
+  ReliableMaxMessageSize: 297433
+  UnreliableMaxMessageSize: 1194
+  debugLog: 1
+  statisticsGUI: 0
+  statisticsLog: 0
 --- !u!1 &1993889893649007587
 GameObject:
   m_ObjectHideFlags: 0
@@ -2447,7 +2399,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7670830791781848082}
   - component: {fileID: 4259811660303148535}
-  - component: {fileID: 2285366997711687107}
+  - component: {fileID: 7670830791781848083}
   m_Layer: 0
   m_Name: Server
   m_TagString: Untagged
@@ -2455,21 +2407,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2285366997711687107
-MonoBehaviour:
+--- !u!1 &2594417446070166030
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1993889893649007587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4bfa24699304c85ad1b9ef381ab10ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Agones::Agones.AgonesAlphaSdk
-  healthIntervalSecond: 5
-  healthEnabled: 1
-  logEnabled: 1
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5436009510129184791}
+  - component: {fileID: 738925711988215890}
+  - component: {fileID: 668045258}
+  - component: {fileID: 668045257}
+  - component: {fileID: 668045256}
+  m_Layer: 0
+  m_Name: networkManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!114 &4259811660303148535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2482,6 +2439,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d03f40e45c07534d9e719af230ca09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AgonesExample.AgonesServer
+--- !u!4 &5436009510129184791
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2594417446070166030}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -160.26813, y: -109.29521, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1550868413}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &7670830791781848082
 Transform:
   m_ObjectHideFlags: 0
@@ -2497,6 +2469,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1550868413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7670830791781848083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993889893649007587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f44128187c9744e8922d81fbb9b102ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Agones::Agones.AgonesBetaSdk
+  healthIntervalSecond: 5
+  healthEnabled: 1
+  logEnabled: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

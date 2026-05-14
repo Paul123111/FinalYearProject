@@ -6,21 +6,24 @@ using UnityEngine;
 using ParrelSync;
 #endif
 
-[RequireComponent(typeof(AgonesAlphaSdk))]
+[RequireComponent(typeof(AgonesBetaSdk))]
 public class AgonesServer : MonoBehaviour {
         
-    private AgonesAlphaSdk agones;
+    private AgonesBetaSdk agones;
 
-#if UNITY_EDITOR || !UNITY_SERVER
     void Awake() {
+#if UNITY_EDITOR
         if (!ClonesManager.IsClone()) {
             Destroy(gameObject);
         }
-    }
+#elif !UNITY_SERVER
+        Destroy(gameObject);
 #endif
 
+    }
+
     async void Start() {
-        agones = GetComponent<AgonesAlphaSdk>();
+        agones = GetComponent<AgonesBetaSdk>();
         bool ok = await agones.Connect();
         if (ok) {
             Debug.Log(("Server - Connected"));
@@ -30,7 +33,6 @@ public class AgonesServer : MonoBehaviour {
         }
 
         ok = await agones.Ready();
-        await agones.SetPlayerCapacity(4);
         if (ok) {
             Debug.Log($"Server - Ready");
         } else {
