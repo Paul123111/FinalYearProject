@@ -207,13 +207,8 @@ public class PlanetHunterNetworkManager : NetworkManager
         }
         base.OnServerDisconnect(conn);
 
-        //int index = Array.FindIndex(playerOrder, x => x == conn);
-        //if (index >= 0 && index < playerOrder.Length) {
-        //    playerOrder[index] = null;
-        //}
-
         var gameserver = await agones.GameServer();
-        bool serverEmpty = await agones.GetListLength("players") != 0;
+        bool serverEmpty = await agones.GetListLength("players") <= 0;
         if (gameserver.Status.State == "Allocated" && serverEmpty) {
             Debug.Log("No players! Shutting down server...");
             ShutdownServer();

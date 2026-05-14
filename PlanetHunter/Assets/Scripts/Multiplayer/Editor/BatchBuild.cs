@@ -14,39 +14,56 @@
 // limitations under the License.
 
 using System.IO;
+using System.Threading;
 using UnityEditor;
+using UnityEditor.Build.Reporting;
+using UnityEngine;
 
-namespace AgonesExample.Editor
-{
-    public class BatchBuild
-    {
+namespace AgonesExample.Editor {
+    public class BatchBuild {
         [MenuItem("Build Tool/Build Server")]
-        public static void BuildServer()
-        {
-            string[] scenes = new[] { "Assets/Scenes/networking/MultiplayerMenu.unity", 
+        public static void BuildServer() {
+            string[] scenes = new[] { "Assets/Scenes/networking/MultiplayerMenu.unity",
                 "Assets/Scenes/networking/GameNetworking.unity" };
             string dir = "Builds/Server";
 
-            Directory.CreateDirectory(dir);
+            bool ok = SafeCleanDirectory(dir);
+            if (!ok) {
+                Debug.LogError($"Error: Directory could not be deleted: {dir}");
+                return;
+            }
 
-            BuildPlayerOptions option = new BuildPlayerOptions
-            {
+            BuildPlayerOptions option = new BuildPlayerOptions {
                 scenes = scenes,
                 locationPathName = dir + "/UnitySimpleServer.x86_64",
                 target = BuildTarget.StandaloneLinux64,
-                options = BuildOptions.EnableHeadlessMode
+                subtarget = (int)StandaloneBuildSubtarget.Server,
+                options = BuildOptions.None
             };
-            BuildPipeline.BuildPlayer(option);
+            BuildReport report = BuildPipeline.BuildPlayer(option);
+            BuildSummary summary = report.summary;
+            if (summary.result == BuildResult.Succeeded) {
+                Debug.Log($"Server Build Succeeded: {summary.totalSize / 1024 / 1024} MB");
+            } else {
+                Debug.LogError("Server Build Failed");
+            }
         }
 
         [MenuItem("Build Tool/Build Client")]
-        public static void BuildClient()
-        {
-            string[] scenes = new[] { "Assets/Scenes/networking/MultiplayerMenu.unity", 
+        public static void BuildClient() {
+            PlayerSettings.runInBackground = true;
+            EditorUserBuildSettings.connectProfiler = false;
+            PlayerSettings.visibleInBackground = true;
+            string[] scenes = new[] { "Assets/Scenes/networking/MultiplayerMenu.unity",
                 "Assets/Scenes/networking/GameNetworking.unity" };
-            string dir = "Builds/ClientGame";
+            string dir = "Builds/PlanetHunter";
 
-            Directory.CreateDirectory(dir);
+            Debug.Log("Building Client...");
+            bool ok = SafeCleanDirectory(dir);
+            if (!ok) {
+                Debug.LogError($"Error: Directory could not be deleted: {dir}");
+                return;
+            }
 
             var target = BuildTarget.StandaloneWindows64;
 #if UNITY_EDITOR_OSX
@@ -54,15 +71,63 @@ namespace AgonesExample.Editor
 #elif !UNITY_EDITOR_WIN && !UNITY_EDITOR_OSX
             target = BuildTarget.StandaloneLinux64;
 #endif
-            BuildPlayerOptions option = new BuildPlayerOptions
-            {
+            BuildPlayerOptions option = new BuildPlayerOptions {
                 scenes = scenes,
-                locationPathName = dir + "/UnitySimpleClient.exe",
+                locationPathName = dir + "/PlanetHunterClient.exe",
                 target = target,
+                subtarget = (int)StandaloneBuildSubtarget.Player,
                 options = BuildOptions.None
             };
             BuildPipeline.BuildPlayer(option);
         }
+
+        private static bool SafeCleanDirectory(string relativePath) {
+            // convert to absolute path
+            string absolutePath = Path.GetFullPath(Path.Combine(Application.dataPath, "..", relativePath));
+            string projectRoot = Path.GetFullPath(Path.Combine(Application.dataPath, ".."));
+            Debug.Log("abspath: " + absolutePath + ", root: " + projectRoot);
+
+            // block important Unity folders
+            string folderName = Path.GetFileName(absolutePath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)).ToLower();
+            if (folderName == "assets" || folderName == "library" || folderName == "projectsettings" || absolutePath == projectRoot) {
+                Debug.LogError($"SAFETY TRIGGERED: Blocked attempt to delete a critical project directory: {absolutePath}");
+                return false;
+            }
+
+            // ensure the path is strictly nested inside a designated "Builds" subdirectory
+            string buildsDirectory = Path.Combine(projectRoot, "Builds");
+            if (!absolutePath.StartsWith(buildsDirectory, System.StringComparison.OrdinalIgnoreCase)) {
+                Debug.LogError($"SAFETY TRIGGERED: Path is outside the designated Builds folder! Aborting wipe for: {absolutePath}");
+                return false;
+            }
+
+            // if guards pass, execute the deletion safely
+            if (Directory.Exists(absolutePath)) {
+                try {
+                    Directory.Delete(absolutePath, true);
+                    Debug.Log($"Cleaned old build artifacts safely at: {relativePath}");
+                } catch (IOException ex) {
+                    Debug.LogWarning($"Could not wipe folder. A file might be locked by a running process: {ex.Message}");
+                    return false;
+                }
+            }
+
+            int retries = 0;
+            while (Directory.Exists(absolutePath) && retries < 10) {
+                // wait for OS to delete files
+                Thread.Sleep(200);
+                Debug.Log("Waiting for deletion");
+                retries++;
+            }
+
+            if (Directory.Exists(absolutePath)) {
+                Debug.LogError($"OS failed to release directory lock in time: {absolutePath}");
+                return false;
+            }
+
+            // Always re-ensure the directory structure exists for the upcoming compilation step
+            Directory.CreateDirectory(absolutePath);
+            return true;
+        }
     }
 }
-

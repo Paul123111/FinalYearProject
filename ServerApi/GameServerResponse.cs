@@ -32,12 +32,14 @@ public static class GameServerResponseUtils {
             if (item.TryGetProperty("metadata", out var metadata) && metadata.TryGetProperty("labels", out var labels) && labels.TryGetProperty("game.display-name", out var n)) {
                 displayName = n.GetString() ?? displayName;
             }
-            if (status.TryGetProperty("players", out var players)) {
-                if (players.TryGetProperty("count", out var c)) {
-                    count = c.GetInt32();
-                }
-                if (players.TryGetProperty("capacity", out var d)) {
-                    capacity = d.GetInt32();
+            if (status.TryGetProperty("lists", out var lists)) {
+                if (lists.TryGetProperty("players", out var players)) {
+                    if (players.TryGetProperty("values", out var v) && v.ValueKind == JsonValueKind.Array) {
+                        count = v.GetArrayLength();
+                    }
+                    if (players.TryGetProperty("capacity", out var d)) {
+                        capacity = d.GetInt32();
+                    }
                 }
             }
         }
