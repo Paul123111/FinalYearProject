@@ -15,6 +15,6 @@ public class PlayerMoveTest : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        body.MovePosition(body.position + moveInput * moveSpeed * Time.fixedDeltaTime);
+        body.linearVelocity = moveInput * moveSpeed;
     }
 }

@@ -10,8 +10,13 @@ public class LookSpriteSheet : MonoBehaviour
     Animator[] anims;
     [SerializeField] Transform head;
     [SerializeField] Transform body;
+    [SerializeField] Transform gun;
+    [SerializeField] SpriteRenderer gunRenderer;
+    [SerializeField] Sprite gunHorizontal;
+    [SerializeField] Sprite gunVertical;
     float myScale = 1f;
     float bodyScale = 1.5f;
+    float gunScale = 1f;
 
     int headR = 120;
     int bodyR = 60;
@@ -27,11 +32,11 @@ public class LookSpriteSheet : MonoBehaviour
     void Update() {
         angle = GetMouseAngle();
         //direction = ((angle + 45) / 90) % 4;
-        if (angle >= 270-(bodyR/2) && angle < 270+(bodyR/2)) {
+        if (angle >= 270 - (bodyR / 2) && angle < 270 + (bodyR / 2)) {
             direction = 3;
-        } else if (angle >= 90-(bodyR/2) && angle < 90+(bodyR/2)) {
+        } else if (angle >= 90 - (bodyR / 2) && angle < 90 + (bodyR / 2)) {
             direction = 1;
-        } else if (angle >= 270+(bodyR/2) || angle < 90-(bodyR/2)) {
+        } else if (angle >= 270 + (bodyR / 2) || angle < 90 - (bodyR / 2)) {
             direction = 0;
         } else {
             direction = 2;
@@ -57,7 +62,7 @@ public class LookSpriteSheet : MonoBehaviour
         Debug.Log("Angle: " + angle + ", Direction: " + direction + ", head: " + calc);
 
         if (direction % 2 == 0) {
-            head.rotation = Quaternion.Euler(0, 0, calc / 4);
+            head.rotation = Quaternion.Euler(0, 0, calc);
             float scale = myScale - Mathf.Abs(calc / 360f);
             head.localScale = new Vector3(scale, myScale, 1f);
             head.localPosition = new Vector3((calc / (360f * 4f)) - 0.073f, 0.45f, 0f);
@@ -66,6 +71,11 @@ public class LookSpriteSheet : MonoBehaviour
             scale = bodyScale - Mathf.Abs(calc / 360f);
             body.localScale = new Vector3(scale, bodyScale, 1f);
             body.localPosition = new Vector3((calc / (360f * 2f)), 0f, 0f);
+
+            gun.rotation = Quaternion.Euler(0, 0, calc);
+            scale = gunScale - Mathf.Abs(calc / 360f);
+            gun.localScale = new Vector3(scale, gunScale, 1f);
+            gun.localPosition = new Vector3((calc / (360f * 2f)), 0f, 0f);
         } else {
             head.rotation = Quaternion.Euler(0, 0, calc / 2);
             float scale = myScale - Mathf.Abs(calc / 360f) * 4f;
@@ -76,8 +86,32 @@ public class LookSpriteSheet : MonoBehaviour
             scale = bodyScale - Mathf.Abs(calc / 360f) * 4f;
             body.localScale = new Vector3(scale, bodyScale, 1f);
             body.localPosition = new Vector3((calc / (360f * 2f)), 0f, 0f);
+
+            gun.rotation = Quaternion.Euler(0, 0, 90 + (calc));
+            scale = gunScale - Mathf.Abs(calc / 360f) * 4f;
+            gun.localScale = new Vector3(gunScale, scale, 1f);
+            gun.localPosition = new Vector3((calc / (360f * 4f)) - 0.32f, 0f, 0f);
         }
 
+        switch (direction) {
+            case 0: gunRenderer.sortingOrder = 6;
+                gunRenderer.sprite = gunHorizontal;
+                gun.localScale = new Vector3(gun.localScale.x, gun.localScale.y, gun.localScale.z);
+                break;
+            case 1: gunRenderer.sortingOrder = -1;
+                gunRenderer.sprite = gunVertical;
+                gun.localScale = new Vector3(gun.localScale.x, gun.localScale.y, gun.localScale.z);
+                break;
+            case 2: gunRenderer.sortingOrder = -1;
+                gunRenderer.sprite = gunHorizontal;
+                gun.localScale = new Vector3(gun.localScale.x * -1, gun.localScale.y, gun.localScale.z);
+                break;
+            case 3: gunRenderer.sortingOrder = 1;
+                gunRenderer.sprite = gunVertical;
+                gun.localScale = new Vector3(gun.localScale.x * -1, gun.localScale.y, gun.localScale.z);
+                break;
+            default: break;
+        }
     }
 
     int GetMouseAngle() {
