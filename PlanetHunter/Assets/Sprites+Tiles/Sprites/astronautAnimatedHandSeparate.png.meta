@@ -1,10 +1,46 @@
 fileFormatVersion: 2
-guid: 99643a4626862bf48a2b762f85959ab8
+guid: d685c943a0f88024e881c38301ec97d1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2842115010816093039
-    second: wall 4_0
+      213: 2339801153024952297
+    second: astronautAnimatedHandSeparate_0
+  - first:
+      213: -3387420084627675678
+    second: astronautAnimatedHandSeparate_1
+  - first:
+      213: 6163995838445961551
+    second: astronautAnimatedHandSeparate_2
+  - first:
+      213: 4651337091273010058
+    second: astronautAnimatedHandSeparate_3
+  - first:
+      213: -4053510758165424720
+    second: astronautAnimatedHandSeparate_4
+  - first:
+      213: 3757699547551707996
+    second: astronautAnimatedHandSeparate_5
+  - first:
+      213: 4958322223321778997
+    second: astronautAnimatedHandSeparate_6
+  - first:
+      213: -603702541938471490
+    second: astronautAnimatedHandSeparate_7
+  - first:
+      213: 8784812935335325885
+    second: astronautAnimatedHandSeparate_8
+  - first:
+      213: 5557751605365512176
+    second: astronautAnimatedHandSeparate_9
+  - first:
+      213: 945685875453159305
+    second: astronautAnimatedHandSeparate_10
+  - first:
+      213: -3690881542647677960
+    second: astronautAnimatedHandSeparate_11
+  - first:
+      213: 5979818561878450518
+    second: astronautAnimatedHandSeparate_12
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,7 +84,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
@@ -75,7 +111,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wall 4_0
+      name: astronautAnimatedHandSeparate_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,14 +151,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1945081b477ce88d0800000000000000
-      internalID: -2842115010816093039
+      spriteID: 9e70a1b70c4a87020800000000000000
+      internalID: 2339801153024952297
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wall 4_1
+      name: astronautAnimatedHandSeparate_1
       rect:
         serializedVersion: 2
         x: 32
@@ -135,16 +171,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 3254d4be6f75a384bb221a610e7c0b8b
-      internalID: 241178127
+      spriteID: 2e56ebe51677df0d0800000000000000
+      internalID: -3387420084627675678
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wall 4_2
+      name: astronautAnimatedHandSeparate_2
       rect:
         serializedVersion: 2
         x: 64
@@ -157,16 +193,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 98387feacbef8c1449f355bacc7bfb84
-      internalID: -2135854804
+      spriteID: f41ce8b8e89ea8550800000000000000
+      internalID: 6163995838445961551
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wall 4_3
+      name: astronautAnimatedHandSeparate_3
       rect:
         serializedVersion: 2
         x: 96
@@ -179,16 +215,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: a251505dcccb9754cbdf19760187e30d
-      internalID: -846850836
+      spriteID: a8b2defc07edc8040800000000000000
+      internalID: 4651337091273010058
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wall 4_4
+      name: astronautAnimatedHandSeparate_4
       rect:
         serializedVersion: 2
         x: 0
@@ -201,16 +237,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 4785b0ba67b40cd4888f59edde4cd303
-      internalID: -827039596
+      spriteID: 0b5535e11790fb7c0800000000000000
+      internalID: -4053510758165424720
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wall 4_5
+      name: astronautAnimatedHandSeparate_5
       rect:
         serializedVersion: 2
         x: 32
@@ -223,16 +259,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 7327bac2937bb064e9a6b051e87306f7
-      internalID: 2018422062
+      spriteID: c53377054d7062430800000000000000
+      internalID: 3757699547551707996
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wall 4_6
+      name: astronautAnimatedHandSeparate_6
       rect:
         serializedVersion: 2
         x: 64
@@ -245,38 +281,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: c9fc46c639119ed4c968bb2f31f4b9ce
-      internalID: -917864839
+      spriteID: 53b0503bacf7fc440800000000000000
+      internalID: 4958322223321778997
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wall 4_7
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 64
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: eba63089f020bd043b1b6edd45ecefc3
-      internalID: -1733352531
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wall 4_8
+      name: astronautAnimatedHandSeparate_7
       rect:
         serializedVersion: 2
         x: 0
@@ -289,16 +303,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: b9984552dacd84440a9c3e95bc9de21e
-      internalID: 284866167
+      spriteID: ebdc1c59cb73f97f0800000000000000
+      internalID: -603702541938471490
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wall 4_9
+      name: astronautAnimatedHandSeparate_8
       rect:
         serializedVersion: 2
         x: 32
@@ -311,16 +325,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 628ff6f9bb855ab4aaa53f62c00c53c0
-      internalID: -1397171131
+      spriteID: db03bec12dce9e970800000000000000
+      internalID: 8784812935335325885
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wall 4_10
+      name: astronautAnimatedHandSeparate_9
       rect:
         serializedVersion: 2
         x: 64
@@ -333,38 +347,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: db804729e514af54eb1a8af03d4ac825
-      internalID: -767957423
+      spriteID: 0f71bab83a9112d40800000000000000
+      internalID: 5557751605365512176
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wall 4_11
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f668a92c46bf7cc4bb5124a687ed26a9
-      internalID: 21856556
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wall 4_12
+      name: astronautAnimatedHandSeparate_10
       rect:
         serializedVersion: 2
         x: 0
@@ -377,16 +369,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 14e447236d441904285d798cca6e0122
-      internalID: 109710257
+      spriteID: 9876d731b40cf1d00800000000000000
+      internalID: 945685875453159305
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wall 4_13
+      name: astronautAnimatedHandSeparate_11
       rect:
         serializedVersion: 2
         x: 32
@@ -399,16 +391,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 66c906dec23eec04193b3fceb5cbf686
-      internalID: 2066047171
+      spriteID: 8fb7076caca57ccc0800000000000000
+      internalID: -3690881542647677960
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wall 4_14
+      name: astronautAnimatedHandSeparate_12
       rect:
         serializedVersion: 2
         x: 64
@@ -421,32 +413,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: e3dae70fbb1cdd84f9ba00ffb035c129
-      internalID: 675881243
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wall 4_15
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 929d7df39545aca42b1f79ac2eb783e4
-      internalID: -1313583228
+      spriteID: 6516d02bc459cf250800000000000000
+      internalID: 5979818561878450518
       vertices: []
       indices: 
       edges: []
@@ -455,7 +425,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ea84ac0838591f545906f0823ad06ad5
+    spriteID: 4cd45a9200ff8b34daaf818a77cc9df0
     internalID: 0
     vertices: []
     indices: 
@@ -467,22 +437,19 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      wall 4_0: -2842115010816093039
-      wall 4_1: 241178127
-      wall 4_10: -767957423
-      wall 4_11: 21856556
-      wall 4_12: 109710257
-      wall 4_13: 2066047171
-      wall 4_14: 675881243
-      wall 4_15: -1313583228
-      wall 4_2: -2135854804
-      wall 4_3: -846850836
-      wall 4_4: -827039596
-      wall 4_5: 2018422062
-      wall 4_6: -917864839
-      wall 4_7: -1733352531
-      wall 4_8: 284866167
-      wall 4_9: -1397171131
+      astronautAnimatedHandSeparate_0: 2339801153024952297
+      astronautAnimatedHandSeparate_1: -3387420084627675678
+      astronautAnimatedHandSeparate_10: 945685875453159305
+      astronautAnimatedHandSeparate_11: -3690881542647677960
+      astronautAnimatedHandSeparate_12: 5979818561878450518
+      astronautAnimatedHandSeparate_2: 6163995838445961551
+      astronautAnimatedHandSeparate_3: 4651337091273010058
+      astronautAnimatedHandSeparate_4: -4053510758165424720
+      astronautAnimatedHandSeparate_5: 3757699547551707996
+      astronautAnimatedHandSeparate_6: 4958322223321778997
+      astronautAnimatedHandSeparate_7: -603702541938471490
+      astronautAnimatedHandSeparate_8: 8784812935335325885
+      astronautAnimatedHandSeparate_9: 5557751605365512176
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
