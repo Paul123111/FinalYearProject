@@ -1,8 +1,8 @@
+using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
-public class LookSpriteSheet : MonoBehaviour
+public class LookSpriteSheet : NetworkBehaviour
 {
 
     int angle;
@@ -38,8 +38,8 @@ public class LookSpriteSheet : MonoBehaviour
     }
 
     void Update() {
+        if (!isLocalPlayer) return;
         angle = GetMouseAngle();
-        //direction = ((angle + 45) / 90) % 4;
         if (angle >= 270 - (bodyR / 2) && angle < 270 + (bodyR / 2)) {
             direction = 3;
         } else if (angle >= 90 - (bodyR / 2) && angle < 90 + (bodyR / 2)) {
@@ -66,8 +66,6 @@ public class LookSpriteSheet : MonoBehaviour
         } else {
             calc = ((angle) % r) - (r / 2);
         }
-
-        Debug.Log("Angle: " + angle + ", Direction: " + direction + ", head: " + calc);
 
         if (direction % 2 == 0) {
             head.rotation = Quaternion.Euler(0, 0, calc / 2);

@@ -1,15 +1,9 @@
 using Agones;
-using Microsoft.IdentityModel.Protocols;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using Microsoft.IdentityModel.Tokens;
 using Mirror;
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using Unity.Services.Authentication;
 using UnityEngine;
 
 /*
@@ -24,7 +18,10 @@ public class PlanetHunterNetworkManager : NetworkManager
     public static new PlanetHunterNetworkManager singleton => (PlanetHunterNetworkManager)NetworkManager.singleton;
     public AgonesBetaSdk agones;
 
-    NetworkConnectionToClient[] playerOrder = new NetworkConnectionToClient[4];
+    bool shouldSpawnAstronaut = false;
+
+    [Header("Custom Spawning Options")]
+    [SerializeField] private GameObject astronautPrefab;
 
     /// <summary>
     /// Runs on both Server and Client
@@ -146,6 +143,12 @@ public class PlanetHunterNetworkManager : NetworkManager
         base.OnServerConnect(conn);
     }
 
+    [Server]
+    public void TravelToPlanet(string sceneName) {
+        shouldSpawnAstronaut = true;
+        ServerChangeScene(sceneName);
+    }
+
     /// <summary>
     /// Called on the server when a client is ready.
     /// <para>The default implementation of this function calls NetworkServer.SetClientReady() to continue the network setup process.</para>
@@ -153,7 +156,35 @@ public class PlanetHunterNetworkManager : NetworkManager
     /// <param name="conn">Connection from client.</param>
     public override void OnServerReady(NetworkConnectionToClient conn)
     {
-        base.OnServerReady(conn);
+        if (shouldSpawnAstronaut) {
+            conn.isReady = true;
+
+            GameObject oldRocket = conn.identity != null ? conn.identity.gameObject : null;
+
+            Transform startPos = GetStartPosition();
+            Vector3 spawnPos = startPos != null ? startPos.position : Vector3.zero;
+            Quaternion spawnRot = startPos != null ? startPos.rotation : Quaternion.identity;
+
+            if (conn.authenticationData is AuthResponseMessage session) {
+                // keep auth data
+                AuthResponseMessage msg = session;
+                // replace rocket with astronaut
+                GameObject newAstronaut = Instantiate(astronautPrefab, spawnPos, spawnRot);
+                NetworkServer.ReplacePlayerForConnection(conn, newAstronaut, ReplacePlayerOptions.KeepAuthority);
+                conn.authenticationData = msg;
+                Debug.Log(msg);
+                PlayerColour[] playerColours = conn.identity.gameObject.GetComponentsInChildren<PlayerColour>();
+                foreach (PlayerColour playerColour in playerColours) {
+                    playerColour.playerNum = msg.localPlayerNumber;
+                }
+            }
+
+            if (oldRocket != null) {
+                NetworkServer.Destroy(oldRocket);
+            }
+        } else {
+            base.OnServerReady(conn);
+        }
         NetworkServer.SpawnObjects();
     }
 
@@ -166,7 +197,6 @@ public class PlanetHunterNetworkManager : NetworkManager
     {
         //base.OnServerAddPlayer(conn);
 
-
         // spawn player in random radius near centre
         Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * 5f;
         Vector3 spawnPos = new Vector3(randomCircle.x, randomCircle.y, 0);
@@ -177,7 +207,6 @@ public class PlanetHunterNetworkManager : NetworkManager
             if (session.localPlayerNumber == -1) {
                 conn.Disconnect();
             }
-
 
             GameObject player = Instantiate(playerPrefab, spawnPos, Quaternion.identity);
             NetworkServer.AddPlayerForConnection(conn, player);
@@ -248,14 +277,11 @@ public class PlanetHunterNetworkManager : NetworkManager
     /// </summary>
     public override void OnClientConnect()
     {
-        Debug.Log("Client Connected");
         base.OnClientConnect();
-        //var msg = new AuthRequestMessage {
-        //    id = AuthenticationService.Instance.PlayerId,
-        //    token = AuthenticationService.Instance.AccessToken
-        //};
-        //Debug.Log(msg.id + ", token: " + msg.token);
-        //NetworkClient.Send(msg);
+        if (!NetworkClient.ready) {
+            NetworkClient.Ready();
+        }
+        NetworkClient.AddPlayer();
     }
 
     /// <summary>

@@ -2,6 +2,7 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.InputSystem;
 using Agones;
+using System.Threading.Tasks;
 
 public class NetworkPlayer : NetworkBehaviour
 {

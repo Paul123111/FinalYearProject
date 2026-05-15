@@ -121,7 +121,7 @@ MonoBehaviour:
   syncScale: 0
   onlySyncOnChange: 1
   compressRotation: 1
-  interpolatePosition: 1
+  interpolatePosition: 0
   interpolateRotation: 1
   interpolateScale: 1
   coordinateSpace: 0
@@ -198,7 +198,7 @@ MonoBehaviour:
   syncInterval: 0
   rotateSpeed: 180
   moveSpeed: 4
-  worldWidth: 21
+  worldWidth: 20
   worldHeight: 12
 --- !u!50 &6704754597447056446
 Rigidbody2D:

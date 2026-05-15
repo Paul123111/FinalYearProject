@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/networking/GameNetworking.unity
     guid: ce5a2cc4a07ef8f4a8209def57be5b15
+  - enabled: 1
+    path: Assets/Scenes/networking/AstronautTest.unity
+    guid: 4daccf53c2866a24ba53cd0a5dcb1a85
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

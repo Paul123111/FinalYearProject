@@ -14,6 +14,8 @@ public class StartPlanet : NetworkBehaviour
     readonly SyncList<PlanetSelect> voteList = new SyncList<PlanetSelect>();
     [SerializeField] double countdownLength;
 
+    bool changingScene = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,6 +38,10 @@ public class StartPlanet : NetworkBehaviour
                 int index = Random.Range(0, voteList.Count);
                 countdownText.text = $"Landing on {voteList[index]}!";
                 startedCountdown = false;
+                if (!changingScene) {
+                    changingScene = true;
+                    PlanetHunterNetworkManager.singleton.TravelToPlanet("Assets/Scenes/networking/AstronautTest.unity");
+                }
             }
         }
     }

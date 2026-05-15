@@ -29,6 +29,9 @@ public class PlayerColour : NetworkBehaviour
         myRenderer.GetPropertyBlock(propBlock);
         propBlock.SetColor("_NewColour", colourScheme[0]);
         propBlock.SetColor("_NewOutline", colourScheme[1]);
+        if (colourScheme.Length >= 3) {
+            propBlock.SetColor("_NewColour2", colourScheme[2]);
+        }
         myRenderer.SetPropertyBlock(propBlock);
         Debug.Log("Colour Changed");
     }
@@ -46,16 +49,16 @@ public static class PlayerColourSchemes {
         { 4, new string[] { "#fcc400", "#884c00" } }, // yellow, light brown
     };
     public static readonly Dictionary<long, string[]> entityHexMap = new Dictionary<long, string[]> {
-        { 1, new string[] { "#0098fc", "#000060", "#7cfcfc" } }, // blue, dark blue
-        { 2, new string[] { "#e41800", "#480014", "#fc2800" } }, // red, dark red
-        { 3, new string[] { "#24d000", "#002400", "#c0f800" } }, // green, dark green
-        { 4, new string[] { "#fcc400", "#602400", "#fce94f" } }, // yellow, light brown
+        { 1, new string[] { "#0098fc", "#000060", "#7cfcfc" } }, // blue, dark blue, cyan
+        { 2, new string[] { "#e41800", "#480014", "#fc2800" } }, // red, dark red, red
+        { 3, new string[] { "#24d000", "#002400", "#c0f800" } }, // green, dark green, light green
+        { 4, new string[] { "#fcc400", "#602400", "#fce94f" } }, // yellow, light brown, light yellow
     };
     public static Color[] GetColorScheme(long playerNum, Dictionary<long, string[]> hexMap) {
         int len = hexMap[1].Length;
+        Debug.Log(len);
         string[] hexes;
         Color[] colours = new Color[len];
-        Debug.Log(playerNum);
         if (hexMap.TryGetValue(playerNum, out hexes)) {
             for (int i = 0; i < colours.Length; i++) {
                 if (hexes.Length == len && ColorUtility.TryParseHtmlString(hexes[i], out Color color)) {
