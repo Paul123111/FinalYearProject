@@ -178,7 +178,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &8498116267435138643
@@ -198,7 +198,7 @@ MonoBehaviour:
   syncInterval: 0
   rotateSpeed: 180
   moveSpeed: 4
-  worldWidth: 24
+  worldWidth: 21
   worldHeight: 12
 --- !u!50 &6704754597447056446
 Rigidbody2D:

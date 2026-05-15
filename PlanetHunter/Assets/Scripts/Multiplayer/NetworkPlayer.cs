@@ -8,7 +8,6 @@ public class NetworkPlayer : NetworkBehaviour
     Rigidbody2D body;
     NetworkTransformReliable networkTransform;
     Animator anim;
-    PlayerColour playerColour;
 
     float rotateDir;
     float moveforward;
@@ -18,13 +17,15 @@ public class NetworkPlayer : NetworkBehaviour
     [SerializeField] int worldWidth = 22;
     [SerializeField] int worldHeight = 12;
 
+    StartPlanet levelSelect;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
         networkTransform = GetComponent<NetworkTransformReliable>();
         anim = GetComponent<Animator>();
-        playerColour = GetComponent<PlayerColour>();
+        levelSelect = FindAnyObjectByType<StartPlanet>();
     }
 
     public override void OnStartAuthority() {
@@ -59,6 +60,11 @@ public class NetworkPlayer : NetworkBehaviour
             Vector3 pushDir = collision.contacts[0].point - transform.position;
             rb.AddForce(-pushDir.normalized, ForceMode.Impulse);
         }
+    }
+
+    [Command]
+    public void VoteForLevel(PlanetSelect vote, bool removeVote) {
+        levelSelect.VoteForPlanet(vote, removeVote);
     }
 
 }
