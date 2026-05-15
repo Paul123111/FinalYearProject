@@ -11,9 +11,9 @@ public class LookSpriteSheet : MonoBehaviour
     [SerializeField] Transform head;
     [SerializeField] Transform body;
     [SerializeField] Transform gun;
+    [SerializeField] Transform hand;
     [SerializeField] SpriteRenderer gunRenderer;
-    [SerializeField] Sprite gunHorizontal;
-    [SerializeField] Sprite gunVertical;
+    [SerializeField] SpriteRenderer handRenderer;
     float myScale = 1f;
     float bodyScale = 1.5f;
     float gunScale = 1f;
@@ -22,6 +22,14 @@ public class LookSpriteSheet : MonoBehaviour
     int bodyR = 60;
 
     [SerializeField] bool dynamicRotation = true;
+
+    public float handRot = 1f;
+    public float handScale = 1f;
+    public float handPos = 2f;
+    public float handX = -0.258f;
+    public float handY = 0.015f;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -62,7 +70,7 @@ public class LookSpriteSheet : MonoBehaviour
         Debug.Log("Angle: " + angle + ", Direction: " + direction + ", head: " + calc);
 
         if (direction % 2 == 0) {
-            head.rotation = Quaternion.Euler(0, 0, calc);
+            head.rotation = Quaternion.Euler(0, 0, calc / 2);
             float scale = myScale - Mathf.Abs(calc / 360f);
             head.localScale = new Vector3(scale, myScale, 1f);
             head.localPosition = new Vector3((calc / (360f * 4f)) - 0.073f, 0.45f, 0f);
@@ -71,6 +79,11 @@ public class LookSpriteSheet : MonoBehaviour
             scale = bodyScale - Mathf.Abs(calc / 360f);
             body.localScale = new Vector3(scale, bodyScale, 1f);
             body.localPosition = new Vector3((calc / (360f * 2f)), 0f, 0f);
+
+            hand.rotation = Quaternion.Euler(0, 0, (calc / handRot) - (90 * (direction-1)));
+            scale = bodyScale - Mathf.Abs(calc / 360f) * handScale;
+            hand.localScale = new Vector3(scale, bodyScale, 1f);
+            hand.localPosition = new Vector3(((calc / 360f) * handPos) + (handX * (direction - 1)), handY, 0f);
 
             gun.rotation = Quaternion.Euler(0, 0, calc);
             scale = gunScale - Mathf.Abs(calc / 360f);
@@ -87,27 +100,32 @@ public class LookSpriteSheet : MonoBehaviour
             body.localScale = new Vector3(scale, bodyScale, 1f);
             body.localPosition = new Vector3((calc / (360f * 2f)), 0f, 0f);
 
+            hand.rotation = Quaternion.Euler(0, 0, calc / 4);
+            scale = bodyScale - Mathf.Abs(calc / 360f) * 4f;
+            hand.localScale = new Vector3(scale, bodyScale, 1f);
+            hand.localPosition = new Vector3((calc / (360f * 2f)) - 0.32f, 0.1f, 0f);
+
             gun.rotation = Quaternion.Euler(0, 0, 90 + (calc));
-            scale = gunScale - Mathf.Abs(calc / 360f) * 4f;
+            scale = gunScale/1.2f - Mathf.Abs(calc / 180f);
             gun.localScale = new Vector3(gunScale, scale, 1f);
             gun.localPosition = new Vector3((calc / (360f * 4f)) - 0.32f, 0f, 0f);
         }
 
         switch (direction) {
             case 0: gunRenderer.sortingOrder = 6;
-                gunRenderer.sprite = gunHorizontal;
+                handRenderer.sortingOrder = 7;
                 gun.localScale = new Vector3(gun.localScale.x, gun.localScale.y, gun.localScale.z);
                 break;
-            case 1: gunRenderer.sortingOrder = -1;
-                gunRenderer.sprite = gunVertical;
+            case 1: gunRenderer.sortingOrder = -3;
+                handRenderer.sortingOrder = -1;
                 gun.localScale = new Vector3(gun.localScale.x, gun.localScale.y, gun.localScale.z);
                 break;
             case 2: gunRenderer.sortingOrder = -1;
-                gunRenderer.sprite = gunHorizontal;
+                handRenderer.sortingOrder = -2;
                 gun.localScale = new Vector3(gun.localScale.x * -1, gun.localScale.y, gun.localScale.z);
                 break;
             case 3: gunRenderer.sortingOrder = 1;
-                gunRenderer.sprite = gunVertical;
+                handRenderer.sortingOrder = -1;
                 gun.localScale = new Vector3(gun.localScale.x * -1, gun.localScale.y, gun.localScale.z);
                 break;
             default: break;

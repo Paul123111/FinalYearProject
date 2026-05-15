@@ -44,17 +44,18 @@ TagManager:
   - name: Background
     uniqueID: 1042767547
     locked: 0
-  - name: Enemy
-    uniqueID: 1036717633
+  - name: WallUnder
+    uniqueID: 4070355393
     locked: 0
   - name: Equipment
     uniqueID: 108128747
     locked: 0
-  - name: Player
+  - name: Entities
     uniqueID: 36217315
     locked: 0
-  - name: New Layer 5
+  - name: Wall
     uniqueID: 1412888945
     locked: 0
   m_RenderingLayers:
   - Default
+  m_MigratedRenderPipelines: []
