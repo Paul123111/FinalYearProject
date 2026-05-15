@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1779319670354325509}
   - component: {fileID: 5467735653245139865}
   - component: {fileID: 8498116267435138643}
-  - component: {fileID: 4537197428056501505}
   - component: {fileID: 6704754597447056446}
   - component: {fileID: 5464815064943987372}
   - component: {fileID: 6939482188815130554}
@@ -201,41 +200,6 @@ MonoBehaviour:
   moveSpeed: 4
   worldWidth: 24
   worldHeight: 12
-  playerNum: 0
---- !u!114 &4537197428056501505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 941372358305961626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ec4f7556ca1e4b55a3381fc6a02b1bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Mirror.Components::Mirror.NetworkRigidbodyReliable2D
-  syncDirection: 1
-  syncMode: 0
-  syncInterval: 0
-  target: {fileID: 4678149209687120036}
-  syncPosition: 1
-  syncRotation: 1
-  syncScale: 0
-  onlySyncOnChange: 1
-  compressRotation: 1
-  interpolatePosition: 0
-  interpolateRotation: 0
-  interpolateScale: 0
-  coordinateSpace: 0
-  timelineOffset: 1
-  showGizmos: 0
-  showOverlay: 0
-  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  onlySyncOnChangeCorrectionMultiplier: 2
-  useFixedUpdate: 0
-  rotationSensitivity: 0.01
-  positionPrecision: 0.01
-  scalePrecision: 0.01
 --- !u!50 &6704754597447056446
 Rigidbody2D:
   serializedVersion: 5
@@ -336,8 +300,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.06516893, y: 0.16156462}
-  m_Size: {x: 0.2722803, y: 0.6442862}
+  m_Offset: {x: -0.004321873, y: -0.017596155}
+  m_Size: {x: 0.30608422, y: 0.5834392}
   m_Direction: 0
 --- !u!114 &6455780736856776185
 MonoBehaviour:
@@ -354,3 +318,5 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  playerNum: -1
+  isRocket: 1

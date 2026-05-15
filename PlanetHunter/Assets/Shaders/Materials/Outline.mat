@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7912563616272001201
+--- !u!114 &-7912499156940224860
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: startergun
-  m_Shader: {fileID: -6465566751694194690, guid: 49f19e7a2a2503a4e9a832a8b547ee15, type: 3}
+  m_Name: Outline
+  m_Shader: {fileID: -6465566751694194690, guid: b1c74cdcc8a5be449a987e80fdb7f9bd, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -36,8 +36,20 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f0e8c4d4c87e11a419874e6cb7e595c1, type: 3}
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -53,12 +65,18 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _BorderThickness: 0.05
+    - _EnableExternalAlpha: 0
+    - _MaskHardness: 1
+    - _MaskRadius: 0.5
+    - _PlanetCurvature: 3
+    - _ScrollSpeed: 0
+    - _ZWrite: 0
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}
-    - _NewColour: {r: 0, g: 0, b: 0, a: 1}
-    - _NewOutline: {r: 0, g: 0, b: 0, a: 1}
-    - _OldColour: {r: 0, g: 0, b: 0, a: 1}
-    - _OldOutline: {r: 0, g: 0, b: 0, a: 1}
+    - _BorderColour: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

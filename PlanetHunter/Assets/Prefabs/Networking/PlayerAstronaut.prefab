@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7005145306606037729}
   - component: {fileID: 5268739549318146433}
+  - component: {fileID: 3701805607639470833}
   m_Layer: 0
   m_Name: hand
   m_TagString: Untagged
@@ -58,7 +59,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 8abbdac299089f54aa285169a183e86f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -78,10 +79,10 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 36217315
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -8804196567190842952, guid: 0564cb2ef614b45448c6f21de951e44d, type: 3}
+  m_Sprite: {fileID: -7259942673039993292, guid: 6ccf8969a84a3de45a2deac2c194b63a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -91,6 +92,23 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3701805607639470833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246946698433039960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b63c267912d2f848b3ff5a4448fbfac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerColour
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  playerNum: -1
+  isRocket: 0
 --- !u!1 &1618529832387270806
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,6 +123,7 @@ GameObject:
   - component: {fileID: 7055742290233100179}
   - component: {fileID: 8569899241673109685}
   - component: {fileID: 3595658300064097364}
+  - component: {fileID: 7833829307810853578}
   m_Layer: 0
   m_Name: PlayerAstronaut
   m_TagString: Untagged
@@ -262,6 +281,23 @@ CapsuleCollider2D:
   m_Offset: {x: -0.04836142, y: 0.044463515}
   m_Size: {x: 0.49999976, y: 0.49999976}
   m_Direction: 0
+--- !u!114 &7833829307810853578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618529832387270806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Mirror::Mirror.NetworkIdentity
+  sceneId: 0
+  _assetId: 973730383
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &4429929213981616003
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +309,7 @@ GameObject:
   - component: {fileID: 1536468495147669089}
   - component: {fileID: 4784834401708052921}
   - component: {fileID: 449759150283467560}
+  - component: {fileID: 3911666920044606584}
   m_Layer: 0
   m_Name: body
   m_TagString: Untagged
@@ -321,7 +358,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 8abbdac299089f54aa285169a183e86f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -341,10 +378,10 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 36217315
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 2
-  m_Sprite: {fileID: 3757699547551707996, guid: d685c943a0f88024e881c38301ec97d1, type: 3}
+  m_Sprite: {fileID: 780742564422657720, guid: 6ccf8969a84a3de45a2deac2c194b63a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -376,6 +413,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3911666920044606584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4429929213981616003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b63c267912d2f848b3ff5a4448fbfac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerColour
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  playerNum: -1
+  isRocket: 0
 --- !u!1 &4722422379285074419
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,6 +441,7 @@ GameObject:
   - component: {fileID: 8993071662933051284}
   - component: {fileID: 4472975293735683756}
   - component: {fileID: 2490932984607431867}
+  - component: {fileID: 3613483593045303005}
   m_Layer: 0
   m_Name: head
   m_TagString: Untagged
@@ -435,7 +490,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 8abbdac299089f54aa285169a183e86f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -455,10 +510,10 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 36217315
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 4
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 6459489654787867201, guid: ae8a240a1957d8a4d90094af279e8fd6, type: 3}
+  m_Sprite: {fileID: -4375733472778295853, guid: 6ccf8969a84a3de45a2deac2c194b63a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -490,6 +545,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3613483593045303005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4722422379285074419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b63c267912d2f848b3ff5a4448fbfac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerColour
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  playerNum: -1
+  isRocket: 0
 --- !u!1 &7724936971414094951
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +640,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 36217315
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: f0e8c4d4c87e11a419874e6cb7e595c1, type: 3}
