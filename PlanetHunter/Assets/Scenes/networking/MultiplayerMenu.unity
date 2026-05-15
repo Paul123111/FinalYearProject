@@ -776,9 +776,10 @@ MonoBehaviour:
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 668045257}
   playerPrefab: {fileID: 941372358305961626, guid: c0c8d31212c571c48b61be9925c56996, type: 3}
-  autoCreatePlayer: 1
+  autoCreatePlayer: 0
   playerSpawnMethod: 0
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 1618529832387270806, guid: 351fae8925f24394aa8d4e819ef4cccd, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -795,6 +796,7 @@ MonoBehaviour:
   evaluationInterval: 3
   timeInterpolationGui: 0
   agones: {fileID: 7670830791781848083}
+  astronautPrefab: {fileID: 1618529832387270806, guid: 351fae8925f24394aa8d4e819ef4cccd, type: 3}
 --- !u!1 &713177273
 GameObject:
   m_ObjectHideFlags: 0

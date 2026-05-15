@@ -1,7 +1,8 @@
+using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem; // Required for the new system
 
-public class PlayerMoveTest : MonoBehaviour {
+public class PlayerMoveTest : NetworkBehaviour {
     public float moveSpeed = 5f;
 
     private Rigidbody2D body;
@@ -10,7 +11,14 @@ public class PlayerMoveTest : MonoBehaviour {
     void Awake() {
         body = GetComponent<Rigidbody2D>();
     }
+    public override void OnStartAuthority() {
+        base.OnStartAuthority();
+        PlayerInput playerInput = GetComponent<PlayerInput>();
+        playerInput.enabled = true;
+    }
+
     void OnMove(InputValue value) {
+        if (!isLocalPlayer) return;
         moveInput = value.Get<Vector2>();
     }
 

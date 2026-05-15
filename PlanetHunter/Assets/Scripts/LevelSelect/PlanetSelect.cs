@@ -18,11 +18,12 @@ public class PlanetSelect : NetworkBehaviour
         NetworkClient.localPlayer.GetComponent<NetworkPlayer>().VoteForLevel(this, !newValue);
     }
 
-    [ServerCallback]
+    [Server]
     private void OnTriggerEnter2D(Collider2D other) {
+        if (!other.gameObject.CompareTag("Player")) return;
         NetworkIdentity identity = other.GetComponent<NetworkIdentity>();
-        if (identity?.gameObject?.tag == "Player") {
-            playersNearby.Add(identity.gameObject);
+        if (identity != null) {
+            if (!playersNearby.Add(identity.gameObject)) return;
             nearbyLocal = playersNearby.Count > 0;
             if (nearbyLocal != nearby) {
                 nearby = nearbyLocal;
@@ -30,11 +31,12 @@ public class PlanetSelect : NetworkBehaviour
         }
     }
 
-    [ServerCallback]
+    [Server]
     private void OnTriggerExit2D(Collider2D other) {
+        if (!other.gameObject.CompareTag("Player")) return;
         NetworkIdentity identity = other.GetComponent<NetworkIdentity>();
-        if (identity?.gameObject?.tag == "Player") {
-            playersNearby.Remove(identity.gameObject);
+        if (identity != null) {
+            if (!playersNearby.Remove(identity.gameObject)) return;
             nearbyLocal = playersNearby.Count > 0;
             if (nearbyLocal != nearby) {
                 nearby = nearbyLocal;
