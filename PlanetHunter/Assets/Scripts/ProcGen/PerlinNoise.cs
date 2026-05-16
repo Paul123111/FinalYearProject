@@ -57,6 +57,17 @@ public class PerlinNoise : MonoBehaviour
         PlaceTiles();
     }
 
+    // generate random number - not using random as it creates problems between editor and different types of builds
+    // min inclusive, max exclusive
+    public static int PseudoRandomRange(int min, int max, int seed) {
+        if (min >= max) return min;
+        uint uSeed = (uint)seed;
+        uSeed = (1103515245 * uSeed + 12345);
+        uint rand = (uSeed / 65536) % 32768;
+        int range = max - min;
+        return min + ((int)rand % (range));
+    }
+
     // pick tiles based on noise
     int[,] ChooseTiles(int worldWidth, int worldHeight, int seed) {
         float[,] noise = GenerateNoise(worldWidth, worldHeight, seed);
@@ -66,7 +77,7 @@ public class PerlinNoise : MonoBehaviour
                 if (noise[w,h] < 15f) {
                     tiles[w,h] = 0;
                 } else { 
-                    tiles[w,h] = Random.Range(10, 40)/10;
+                    tiles[w,h] = PseudoRandomRange(10, 40, seed)/10;
                 }
             }
         }
@@ -74,14 +85,13 @@ public class PerlinNoise : MonoBehaviour
     }
 
     static public float[,] GenerateNoise(int worldWidth, int worldHeight, int seed) {
-        Random.InitState(seed);
         // 2d array of 2d vectors in corners
         Vector2[,] grid = new Vector2[worldWidth+1, worldHeight+1];
 
         // setting up vectors at corners
         for (int w = 0; w < grid.GetLength(0); w++) {
             for (int h = 0; h < grid.GetLength(1); h++) {
-                grid[w,h] = new Vector2(w+Random.Range(-1f, 1f), h+Random.Range(-1f, 1f));
+                grid[w,h] = new Vector2(w+PseudoRandomRange(-1, 1, seed), h+PseudoRandomRange(-1, 1, seed));
             }
         }
 
@@ -92,17 +102,6 @@ public class PerlinNoise : MonoBehaviour
                 points[w,h] = new Vector2(w+0.5f, h+0.5f);
             }
         }
-        
-        // get distance vectors
-       // Vector2[] distance = new Vector2[worldWidth, worldHeight, 4];
-       // for (int w = 0; w < distance.Length; w++) {
-       //     for (int h = 0; h < distance[w].Length; h++) {
-       //         distance[w][h][0] = points[w][h]-grid[w][h];
-       //         distance[w][h][1] = points[w][h]-grid[w+1][h];
-       //         distance[w][h][2] = points[w][h]-grid[w][h+1];
-       //         distance[w][h][3] = points[w][h]-grid[w+1][h+1];
-       //     }
-       // }
 
         // get dot product of distance and gradient vectors
         float[,,] dotProd = new float[worldWidth, worldHeight, 4];
