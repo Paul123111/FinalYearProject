@@ -158,7 +158,7 @@ namespace ProcGen {
                     if (tiles[w, h] == 0) return false;
                 }
             }
-            Debug.Log("Generation Complete");
+            Debug.Log("Full Map!");
             return true;
         }
 
