@@ -39,7 +39,6 @@ public class NetworkPlayer : NetworkBehaviour
     void Update() {
         body.rotation += rotateSpeed * rotateDir * Time.deltaTime;
         body.linearVelocity = transform.up * moveforward * moveSpeed;
-        LoopHelper.LoopPosNetwork(transform, worldWidth, worldHeight, networkTransform);
     }
 
     void OnMove(InputValue value) {

@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 6939482188815130554}
   - component: {fileID: 2950421960627695144}
   - component: {fileID: 6455780736856776185}
+  - component: {fileID: 4738678921211582203}
   m_Layer: 0
   m_Name: networkPlayer
   m_TagString: Player
@@ -121,7 +122,7 @@ MonoBehaviour:
   syncScale: 0
   onlySyncOnChange: 1
   compressRotation: 1
-  interpolatePosition: 1
+  interpolatePosition: 0
   interpolateRotation: 1
   interpolateScale: 1
   coordinateSpace: 0
@@ -320,3 +321,20 @@ MonoBehaviour:
   syncInterval: 0
   playerNum: -1
   isRocket: 1
+--- !u!114 &4738678921211582203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941372358305961626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3504de00411c13f4e84020e8ca50cb43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoopHelper
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  width: 20
+  height: 12

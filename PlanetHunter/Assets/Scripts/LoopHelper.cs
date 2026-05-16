@@ -1,9 +1,9 @@
 using Mirror;
 using UnityEngine;
 
-public static class LoopHelper
+public class LoopHelper : NetworkBehaviour
 {
-    // loops position in 2D world, assuming 0, 0 is center
+    // loops position in 2D world, assuming 0, 0 is center - legacy
     public static Vector3 LoopPos(Vector3 pos, int width, int height) {
         if (pos.x > width/2) {
             pos.x -= width;
@@ -19,31 +19,73 @@ public static class LoopHelper
         return newPos;
     }
 
+    NetworkTransformReliable nt;
+    [SerializeField] float width = 100;
+    [SerializeField] float height = 100;
+    private float lastTeleportTime = 0;
+    private const float TeleportCooldown = 0.15f;
+
     // loops position in 2D world, assuming 0, 0 is center
-    public static void LoopPosNetwork(Transform t, int width, int height, NetworkTransformReliable nt) {
-        Vector3 pos = t.position;
+    public void LoopPosNetwork() {
+        if (!isOwned && !isServer) return;
+        if (Time.time - lastTeleportTime < TeleportCooldown) return;
+
+        Vector3 pos = transform.position;
         bool looped = false;
-        if (pos.x > width / 2) {
+
+        if (pos.x > width / 2f) {
             pos.x -= width;
             looped = true;
-        } else if (pos.x < -width / 2) {
+        } else if (pos.x < -width / 2f) {
             pos.x += width;
             looped = true;
         }
-        if (pos.y > height / 2) {
+        if (pos.y > height / 2f) {
             pos.y -= height;
             looped = true;
-        } else if (pos.y < -height / 2) {
+        } else if (pos.y < -height / 2f) {
             pos.y += height;
             looped = true;
         }
 
         if (looped) {
-            nt.interpolatePosition = false;
-            t.position = new Vector3(pos.x % (width / 2), pos.y % (height / 2), 0);
-            nt.interpolatePosition = true;
-        } else {
-            t.position = new Vector3(pos.x % (width / 2), pos.y % (height / 2), 0);
+            //pos = new Vector3(pos.x % (width / 2), pos.y % (height / 2), 0);
+            lastTeleportTime = Time.time;
+            ExecuteTeleport(pos);
         }
+    }
+
+    void Start() {
+        nt = GetComponent<NetworkTransformReliable>();
+    }
+
+    private void Update() {
+        LoopPosNetwork();
+    }
+
+    private void ExecuteTeleport(Vector3 targetPos) {
+        if (isOwned) {
+            transform.position = targetPos;
+            nt.Reset();
+            Loop(targetPos);
+        } else if (isServer) {
+            // if server-authoritative or unowned object running on server
+            transform.position = targetPos;
+            nt.Reset();
+            RpcTeleportClients(targetPos);
+        }
+    }
+
+    [Command]
+    public void Loop(Vector3 pos) {
+        transform.position = pos;
+        nt.Reset();
+        RpcTeleportClients(pos);
+    }
+
+    [ClientRpc(includeOwner = false)] // Owner already moved locally
+    private void RpcTeleportClients(Vector3 targetPos) {
+        transform.position = targetPos;
+        nt.Reset();
     }
 }
