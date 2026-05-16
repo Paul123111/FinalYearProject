@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProcGen {
@@ -65,50 +67,13 @@ namespace ProcGen {
 
         }
 
-        // cellular automata currently using Conway's game of life as a test
+        // legacy: cellular automata currently using Conway's game of life as a test
         // will change rules to change terrain generation
         public static int[,] ConwayGameStep(int[,] tiles) {
             for (int w = 0; w < tiles.GetLength(0); w++) {
                 for (int h = 0; h < tiles.GetLength(1); h++) {
                     int neighbours = GetNumNeighbours(tiles, w, h, 1);
                     if (neighbours < 2) { tiles[w, h] = 0; } else if (neighbours > 4) { tiles[w, h] = 0; } else if (neighbours == 3) { tiles[w, h] = 1; }
-                }
-            }
-            return tiles;
-        }
-
-        [SerializeField] static int minNeighbours = 3;
-        [SerializeField] static int minTypeNeighbours = 4;
-        [SerializeField] static int maxNeighbours = 8;
-        [SerializeField] static int createNeighbours = 1;
-
-        public static int[,] MyGameStep(int[,] tiles, int gen, int maxGens) {
-            // anti infinite
-            if (gen > maxGens) {
-                for (int w = 0; w < tiles.GetLength(0); w++) {
-                    for (int h = 0; h < tiles.GetLength(1); h++) {
-                        int type = tiles[w, h];
-                        if (type == 0) {
-                            tiles[w, h] = 1;
-                        }
-                    }
-                }
-                Debug.Log("Stopped infinite");
-                return tiles;
-            }
-
-            // step based on rules below
-            bool veryEmpty = PercentEmpty(tiles) > 0.9f;
-            for (int w = 0; w < tiles.GetLength(0); w++) {
-                for (int h = 0; h < tiles.GetLength(1); h++) {
-                    int type = tiles[w, h];
-                    int typeNeighbours = GetNumNeighbours(tiles, w, h, type);
-                    int empty = GetNumNeighbours(tiles, w, h, 0);
-                    int grass = GetNumNeighbours(tiles, w, h, 1);
-                    int water = GetNumNeighbours(tiles, w, h, 2);
-                    int red = GetNumNeighbours(tiles, w, h, 3);
-                    int neighbours = grass + water + red;
-                    if (neighbours < minNeighbours) { tiles[w, h] = 0; } else if (neighbours > maxNeighbours) { tiles[w, h] = 0; } else if ((neighbours > createNeighbours && type == 0) || (neighbours > 1 && veryEmpty && type == 0)) { tiles[w, h] = grass >= water ? (grass > red ? 1 : 3) : (water >= red ? 2 : 3); } else if (typeNeighbours < minTypeNeighbours) { tiles[w, h] = 0; }
                 }
             }
             return tiles;
@@ -208,5 +173,68 @@ namespace ProcGen {
             }
             return (float)empty / map;
         }
+
+        // checks for enclosed areas using Breadth First Search
+        public static bool EnclosedAreasPresent(int[,] walls) {
+            // 0 on walls is walkable ground - find first walkable tile and
+            // see if it can reach every non-wall tile on the map
+            Vector2Int root = new Vector2Int(-1, -1);
+            for (int x = 0; x < walls.GetLength(0); x++) {
+                for (int y = 0; x < walls.GetLength(0); x++) {
+                    if (walls[x, y] == 0) {
+                        root = new Vector2Int(x, y);
+                    }
+                }
+            }
+            Vector2Int[] remainingTiles = WallBFS(walls, root);
+            return remainingTiles.Length != 0;
+        }
+
+        public static Vector2Int[] WallBFS(int[,] walls, Vector2Int root) {
+            List<Vector2Int> queue = new List<Vector2Int>();
+            queue.Add(root);
+            int x = -1;
+            int y = -1;
+            Vector2Int i;
+
+            // search tiles around root until no more walkable tiles can be explored
+            while (queue.Count > 0) {
+                x = Mod(queue[0].x, walls.GetLength(0));
+                y = Mod(queue[0].y, walls.GetLength(1));
+
+                walls[x, y] = 2;
+                for (int a = -1; a <= 1; a+=2) {
+                    x = Mod(queue[0].x-a, walls.GetLength(0));
+                    y = Mod(queue[0].y, walls.GetLength(1));
+                    if (walls[x, y] == 0) {
+                        walls[x, y] = 2;
+                        i = new Vector2Int(x, y);
+                        queue.Add(i);
+                    }
+                }
+                for (int a = -1; a <= 1; a += 2) {
+                    x = Mod(queue[0].x, walls.GetLength(0));
+                    y = Mod(queue[0].y-a, walls.GetLength(1));
+                    if (walls[x, y] == 0) {
+                        walls[x, y] = 2;
+                        i = new Vector2Int(x, y);
+                        queue.Add(i);
+                    }
+                }
+                queue.RemoveAt(0);
+            }
+
+            List<Vector2Int> remainingTiles = new List<Vector2Int>();
+            for (int j = 0; j < walls.GetLength(0); j++) {
+                for (int k = 0; k < walls.GetLength(1); k++) {
+                    if (walls[j, k] == 0) {
+                        i = new Vector2Int(j, k);
+                        remainingTiles.Add(i);
+                    }
+                }
+            }
+            return remainingTiles.ToArray();
+        }
+
     }
 }
