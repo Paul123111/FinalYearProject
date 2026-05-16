@@ -1,4 +1,6 @@
 using Mirror;
+using System;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static ProcGen.ProcGenLib;
@@ -21,6 +23,8 @@ public class ProcGenNetworking : NetworkBehaviour
     [Header("Generations")]
     [SerializeField] int maxGens = 1000;
     int generations = 0;
+    [SerializeField] int maxRetries = 20; // max number of times to retry if enclosed
+    int retries = 0;
 
     [Header("World Size")]
     [SerializeField] int worldWidth = 100;
@@ -54,11 +58,13 @@ public class ProcGenNetworking : NetworkBehaviour
     public void InitialiseWorld() {
         tileTypes = new int[worldWidth + 1, worldHeight + 1];
         generations = 0;
+        retries = 0;
         fullMap = false;
         worldSeed = (int)NetworkTime.time;
     }
 
     void OnSeedSynchronized(int oldSeed, int newSeed) {
+        ClearTiles();
         tileTypes = ChooseTiles(worldWidth, worldHeight, groundTilesCode.Length, noiseThreshold, worldSeed);
         GetTiles();
     }
@@ -70,20 +76,35 @@ public class ProcGenNetworking : NetworkBehaviour
             }
         }
     }
+    void ClearTiles() {
+        for (int w = 0; w < tileTypes.GetLength(0); w++) {
+            for (int h = 0; h < tileTypes.GetLength(1); h++) {
+                ground.SetTile(new Vector3Int(w - (worldWidth / 2), h - (worldHeight / 2), 0), groundTilesCode[0]);
+            }
+        }
+    }
 
     void GetTiles() {
+        ClearTiles();
         for (int i = 0; i < maxGens + 1; i++) {
             tileTypes = PlanetStep(tileTypes, groundTilesCode.Length, generations++, maxGens,
                 minNeighbours, minTypeNeighbours, maxNeighbours, createNeighbours);
             fullMap = FullMap(tileTypes);
         }
-        PlaceTiles();
         if (isWall) {
             FixEnclosedAreas();
         }
+        PlaceTiles();
     }
 
     void FixEnclosedAreas() {
-        Debug.Log("Enclosed Areas Present: " + EnclosedAreasPresent(walls));
+        int[,] copy = new int[tileTypes.GetLength(0), tileTypes.GetLength(1)];
+        // 4 bytes in int, so num bytes is 4*length
+        Buffer.BlockCopy(tileTypes, 0, copy, 0, tileTypes.GetLength(0) * tileTypes.GetLength(1) * 4);
+        bool enclosed = EnclosedAreasPresent(copy);
+        while (enclosed && retries++ < maxRetries) {
+            worldSeed = (int)NetworkTime.time;
+        }
+        Debug.Log("Enclosed Areas Present: " + enclosed);
     }
 }

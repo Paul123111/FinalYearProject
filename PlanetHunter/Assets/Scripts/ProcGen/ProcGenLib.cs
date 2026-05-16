@@ -93,7 +93,7 @@ namespace ProcGen {
                         }
                     }
                 }
-                Debug.Log("Stopped infinite");
+                Debug.Log("Stopped infinite generation");
                 return tiles;
             }
 
