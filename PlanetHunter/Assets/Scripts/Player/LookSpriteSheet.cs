@@ -39,7 +39,12 @@ public class LookSpriteSheet : NetworkBehaviour
 
     void Update() {
         if (!isLocalPlayer) return;
-        angle = GetMouseAngle();
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector2 directionMouse = (Vector2)mouseWorldPos - (Vector2)transform.position;
+        if (directionMouse.x > 90 || directionMouse.y > 90) {
+            return;
+        }
+        angle = GetMouseAngle(directionMouse);
         if (angle >= 270 - (bodyR / 2) && angle < 270 + (bodyR / 2)) {
             direction = 3;
         } else if (angle >= 90 - (bodyR / 2) && angle < 90 + (bodyR / 2)) {
@@ -130,9 +135,7 @@ public class LookSpriteSheet : NetworkBehaviour
         }
     }
 
-    int GetMouseAngle() {
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        Vector2 direction = (Vector2)mouseWorldPos - (Vector2)transform.position;
+    int GetMouseAngle(Vector2 direction) {
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         if (angle < 0) { angle += 360f; }
         return ((int)angle);
