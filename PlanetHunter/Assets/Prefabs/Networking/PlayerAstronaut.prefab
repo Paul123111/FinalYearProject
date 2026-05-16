@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5268739549318146433}
   - component: {fileID: 3701805607639470833}
   - component: {fileID: 6084651742792724965}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 3338878227038699832}
   - component: {fileID: 5726393710671629227}
   - component: {fileID: 4318780896922632768}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerAstronaut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 5848141558563069265}
   - component: {fileID: 2095593446525026428}
   - component: {fileID: 3481628951250807118}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -514,7 +514,8 @@ GameObject:
   - component: {fileID: 3911666920044606584}
   - component: {fileID: 2849757839895918805}
   - component: {fileID: 3525359725669145880}
-  m_Layer: 0
+  - component: {fileID: 6304521244092928358}
+  m_Layer: 8
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -685,6 +686,21 @@ MonoBehaviour:
   syncInterval: 0
   clientAuthority: 1
   animator: {fileID: 449759150283467560}
+--- !u!114 &6304521244092928358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4429929213981616003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa35e23762fe7847ae9656765b5d2f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoopRenderer
+  worldWidth: 2
+  worldHeight: 2
+  viewThreshold: 15
 --- !u!1 &4722422379285074419
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,7 +715,7 @@ GameObject:
   - component: {fileID: 3613483593045303005}
   - component: {fileID: 8689677588307054237}
   - component: {fileID: 1906963186831805636}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -882,7 +898,7 @@ GameObject:
   - component: {fileID: 2355357566655060276}
   - component: {fileID: 2580171946663823125}
   - component: {fileID: 5012049298387963079}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
