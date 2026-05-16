@@ -11,6 +11,7 @@ public class ProcGenNetworking : NetworkBehaviour
     [Header("Tiles")]
     [SerializeField] Tilemap ground;
     [SerializeField] TileBase[] groundTiles;
+    [SerializeField] bool isWall = false;
 
     // extra array for automatically adding empty tile to index 0
     TileBase[] groundTilesCode;
@@ -77,5 +78,12 @@ public class ProcGenNetworking : NetworkBehaviour
             fullMap = FullMap(tileTypes);
         }
         PlaceTiles();
+        if (isWall) {
+            FixEnclosedAreas();
+        }
+    }
+
+    void FixEnclosedAreas() {
+        Debug.Log("Enclosed Areas Present: " + EnclosedAreasPresent(walls));
     }
 }
