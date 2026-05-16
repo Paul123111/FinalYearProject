@@ -33,7 +33,7 @@ public class PerlinNoise : MonoBehaviour
 
     public void InitTiles() {
         steps = 0;
-        colors = ChooseTiles(worldWidth, worldHeight);
+        colors = ChooseTiles(worldWidth, worldHeight, (int)System.DateTime.Now.Ticks);
         fullMap = false;
         PlaceTiles();
     }
@@ -58,8 +58,8 @@ public class PerlinNoise : MonoBehaviour
     }
 
     // pick tiles based on noise
-    int[,] ChooseTiles(int worldWidth, int worldHeight) {
-        float[,] noise = GenerateNoise(worldWidth, worldHeight, (int)System.DateTime.Now.Ticks);
+    int[,] ChooseTiles(int worldWidth, int worldHeight, int seed) {
+        float[,] noise = GenerateNoise(worldWidth, worldHeight, seed);
         int[,] tiles = new int[worldWidth, worldHeight];
         for (int w = 0; w < tiles.GetLength(0); w++) {
             for (int h = 0; h < tiles.GetLength(1); h++) {
