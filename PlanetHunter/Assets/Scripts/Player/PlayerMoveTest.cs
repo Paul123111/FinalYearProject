@@ -8,8 +8,11 @@ public class PlayerMoveTest : NetworkBehaviour {
     private Rigidbody2D body;
     private Vector2 moveInput;
 
+    NetworkTransformReliable nt;
+
     void Awake() {
         body = GetComponent<Rigidbody2D>();
+        nt = GetComponent<NetworkTransformReliable>();
     }
     public override void OnStartAuthority() {
         base.OnStartAuthority();
@@ -24,5 +27,6 @@ public class PlayerMoveTest : NetworkBehaviour {
 
     void FixedUpdate() {
         body.linearVelocity = moveInput * moveSpeed;
+        LoopHelper.LoopPosNetwork(transform, 100, 100, nt);
     }
 }
