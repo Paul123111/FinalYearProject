@@ -157,6 +157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afa35e23762fe7847ae9656765b5d2f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoopRenderer
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   worldWidth: 100
   worldHeight: 100
 --- !u!1 &1618529832387270806
@@ -176,6 +179,7 @@ GameObject:
   - component: {fileID: 3338878227038699832}
   - component: {fileID: 5726393710671629227}
   - component: {fileID: 4318780896922632768}
+  - component: {fileID: 4583798160354912808}
   m_Layer: 8
   m_Name: PlayerAstronaut
   m_TagString: Untagged
@@ -404,6 +408,23 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   positionPrecision: 0.01
   scalePrecision: 0.01
+--- !u!114 &4583798160354912808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618529832387270806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3504de00411c13f4e84020e8ca50cb43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoopHelper
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  width: 100
+  height: 100
 --- !u!1 &2951301152588521889
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,6 +734,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afa35e23762fe7847ae9656765b5d2f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoopRenderer
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   worldWidth: 100
   worldHeight: 100
 --- !u!1 &4722422379285074419
@@ -913,6 +937,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afa35e23762fe7847ae9656765b5d2f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoopRenderer
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   worldWidth: 100
   worldHeight: 100
 --- !u!1 &7724936971414094951
@@ -1072,5 +1099,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afa35e23762fe7847ae9656765b5d2f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoopRenderer
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   worldWidth: 100
   worldHeight: 100

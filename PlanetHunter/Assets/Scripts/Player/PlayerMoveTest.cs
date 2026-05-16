@@ -27,6 +27,5 @@ public class PlayerMoveTest : NetworkBehaviour {
 
     void FixedUpdate() {
         body.linearVelocity = moveInput * moveSpeed;
-        LoopHelper.LoopPosNetwork(transform, 100, 100, nt);
     }
 }

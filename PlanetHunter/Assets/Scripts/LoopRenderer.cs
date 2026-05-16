@@ -26,11 +26,6 @@ public class LoopRenderer : NetworkBehaviour {
             loopMaterials[i].SetFloat("_InstanceIndex", i+1);
         }
         myRenderer.materials = loopMaterials;
-
-        //if (NetworkClient.ready) {
-        //    Debug.Log("ghost culling");
-        //    PreventGhostCulling();
-        //}
         massiveBounds = new Bounds(Vector3.zero, new Vector3(10000f, 10000f, 10000f));
         isInitialised = true;
     }
