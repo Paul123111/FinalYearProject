@@ -26,6 +26,7 @@ public class PlayerMoveTest : NetworkBehaviour {
     }
 
     void FixedUpdate() {
+        if (!isLocalPlayer) return;
         body.linearVelocity = moveInput * moveSpeed;
     }
 }

@@ -59,8 +59,8 @@ namespace AgonesExample.Editor {
                 "Assets/Scenes/networking/AstronautTest.unity" };
 
             PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64, new[] {
-                UnityEngine.Rendering.GraphicsDeviceType.Direct3D12,
-                UnityEngine.Rendering.GraphicsDeviceType.Direct3D11
+                UnityEngine.Rendering.GraphicsDeviceType.Direct3D11,
+                UnityEngine.Rendering.GraphicsDeviceType.Direct3D12
             });
 
             string dir = "Builds/PlanetHunter";
