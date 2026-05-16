@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5268739549318146433}
   - component: {fileID: 3701805607639470833}
   - component: {fileID: 6084651742792724965}
+  - component: {fileID: 7080130355024795400}
   m_Layer: 8
   m_Name: hand
   m_TagString: Untagged
@@ -60,7 +61,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8abbdac299089f54aa285169a183e86f, type: 2}
+  - {fileID: 2100000, guid: e129ac8f2e1039442942c63774cc2cde, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -144,6 +145,20 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   positionPrecision: 0.01
   scalePrecision: 0.01
+--- !u!114 &7080130355024795400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246946698433039960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa35e23762fe7847ae9656765b5d2f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoopRenderer
+  worldWidth: 100
+  worldHeight: 100
 --- !u!1 &1618529832387270806
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,7 +529,7 @@ GameObject:
   - component: {fileID: 3911666920044606584}
   - component: {fileID: 2849757839895918805}
   - component: {fileID: 3525359725669145880}
-  - component: {fileID: 6304521244092928358}
+  - component: {fileID: 3166661385939299944}
   m_Layer: 8
   m_Name: body
   m_TagString: Untagged
@@ -563,7 +578,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8abbdac299089f54aa285169a183e86f, type: 2}
+  - {fileID: 2100000, guid: e129ac8f2e1039442942c63774cc2cde, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -686,7 +701,7 @@ MonoBehaviour:
   syncInterval: 0
   clientAuthority: 1
   animator: {fileID: 449759150283467560}
---- !u!114 &6304521244092928358
+--- !u!114 &3166661385939299944
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -698,9 +713,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afa35e23762fe7847ae9656765b5d2f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoopRenderer
-  worldWidth: 2
-  worldHeight: 2
-  viewThreshold: 15
+  worldWidth: 100
+  worldHeight: 100
 --- !u!1 &4722422379285074419
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,6 +729,7 @@ GameObject:
   - component: {fileID: 3613483593045303005}
   - component: {fileID: 8689677588307054237}
   - component: {fileID: 1906963186831805636}
+  - component: {fileID: 993550579945034002}
   m_Layer: 8
   m_Name: head
   m_TagString: Untagged
@@ -763,7 +778,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8abbdac299089f54aa285169a183e86f, type: 2}
+  - {fileID: 2100000, guid: e129ac8f2e1039442942c63774cc2cde, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -886,6 +901,20 @@ MonoBehaviour:
   syncInterval: 0
   clientAuthority: 1
   animator: {fileID: 2490932984607431867}
+--- !u!114 &993550579945034002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4722422379285074419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa35e23762fe7847ae9656765b5d2f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoopRenderer
+  worldWidth: 100
+  worldHeight: 100
 --- !u!1 &7724936971414094951
 GameObject:
   m_ObjectHideFlags: 0
@@ -898,6 +927,7 @@ GameObject:
   - component: {fileID: 2355357566655060276}
   - component: {fileID: 2580171946663823125}
   - component: {fileID: 5012049298387963079}
+  - component: {fileID: 4443184697045534437}
   m_Layer: 8
   m_Name: gun
   m_TagString: Untagged
@@ -946,7 +976,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8abbdac299089f54aa285169a183e86f, type: 2}
+  - {fileID: 2100000, guid: e129ac8f2e1039442942c63774cc2cde, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1030,3 +1060,17 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   positionPrecision: 0.01
   scalePrecision: 0.01
+--- !u!114 &4443184697045534437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7724936971414094951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa35e23762fe7847ae9656765b5d2f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoopRenderer
+  worldWidth: 100
+  worldHeight: 100
