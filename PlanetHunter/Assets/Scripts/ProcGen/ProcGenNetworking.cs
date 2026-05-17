@@ -28,7 +28,7 @@ public class ProcGenNetworking : NetworkBehaviour
     bool fullMap = false;
     
     [Header("Generations")]
-    [SerializeField] int maxGens = 1000;
+    [SerializeField] int maxGens = 10;
     int generations = 0;
     [SerializeField] int maxRetries = 20; // max number of times to retry if enclosed
     int retries = 0;
@@ -42,7 +42,8 @@ public class ProcGenNetworking : NetworkBehaviour
     [SerializeField] int minTypeNeighbours = 4;
     [SerializeField] int maxNeighbours = 8;
     [SerializeField] int createNeighbours = 1;
-    [SerializeField] float noiseThreshold = 15f;
+    [SerializeField] float noiseScale = 0.1f;
+    [SerializeField] float noiseThreshold = 0.2f;
 
     [Header("Batching for Online")]
     [SerializeField] int batchSize = 10;
@@ -66,9 +67,9 @@ public class ProcGenNetworking : NetworkBehaviour
     }
 
     public override void OnStartClient() {
-        base.OnStartClient();
-        Debug.Log(worldSeed);
-        GenerateWorld();
+        //base.OnStartClient();
+        //Debug.Log(worldSeed);
+        //GenerateWorld();
     }
 
     [Server]
@@ -81,9 +82,8 @@ public class ProcGenNetworking : NetworkBehaviour
         GenerateWorld();
     }
 
-    async Task GenerateWorld() {
-        await Task.Delay(2000);
-        tileTypes = ChooseTiles(worldWidth, worldHeight, groundTilesCode.Length, noiseThreshold, worldSeed);
+    void GenerateWorld() {
+        tileTypes = ChooseTiles(worldWidth, worldHeight, groundTilesCode.Length, noiseScale, noiseThreshold, worldSeed);
         //ClearTiles();
         GetTiles();
     }
@@ -101,7 +101,7 @@ public class ProcGenNetworking : NetworkBehaviour
             //    separate[i] = groundTilesCode[separateTypes[i]];
             //}
         }
-        BlockTilePlace(-worldWidth/2, -worldHeight/2, worldWidth/2, worldHeight/2, placeArray, separate);
+        BlockTilePlace(-worldWidth/2, -worldHeight/2, worldWidth/2 -1, worldHeight/2 -1, placeArray, separate);
         //LoopTiles();
     }
 
@@ -135,11 +135,11 @@ public class ProcGenNetworking : NetworkBehaviour
 
     void GetTiles() {
         //ClearTiles();
-        for (int i = 0; i < maxGens + 1; i++) {
-            tileTypes = PlanetStep(tileTypes, worldWidth, groundTilesCode.Length, generations++, maxGens,
-                minNeighbours, minTypeNeighbours, maxNeighbours, createNeighbours);
-            fullMap = FullMap(tileTypes);
-        }
+        //for (int i = 0; i < maxGens + 1; i++) {
+        //    tileTypes = PlanetStep(tileTypes, worldWidth, groundTilesCode.Length, i, maxGens,
+        //        minNeighbours, minTypeNeighbours, maxNeighbours, createNeighbours);
+        //    fullMap = FullMap(tileTypes);
+        //}
         //if (isWall) {
         //    FixEnclosedAreas();
         //}
