@@ -9,11 +9,9 @@ public class PlayerMoveTest : NetworkBehaviour {
     private Rigidbody2D body;
     private Vector2 moveInput;
 
-    NetworkTransformReliable nt;
 
     void Awake() {
         body = GetComponent<Rigidbody2D>();
-        nt = GetComponent<NetworkTransformReliable>();
     }
     public async override void OnStartAuthority() {
         base.OnStartAuthority();
@@ -25,6 +23,10 @@ public class PlayerMoveTest : NetworkBehaviour {
     void OnMove(InputValue value) {
         if (!isLocalPlayer) return;
         moveInput = value.Get<Vector2>();
+    }
+
+    void OnAttack() {
+        
     }
 
     void FixedUpdate() {
