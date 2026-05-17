@@ -2360,6 +2360,7 @@ GameObject:
   - component: {fileID: 668045256}
   - component: {fileID: 5436009510129184792}
   - component: {fileID: 5436009510129184793}
+  - component: {fileID: 5436009510129184794}
   m_Layer: 0
   m_Name: networkManager
   m_TagString: Untagged
@@ -2433,8 +2434,26 @@ MonoBehaviour:
   ReliableMaxMessageSize: 297433
   UnreliableMaxMessageSize: 1194
   debugLog: 1
-  statisticsGUI: 0
-  statisticsLog: 0
+  statisticsGUI: 1
+  statisticsLog: 1
+--- !u!114 &5436009510129184794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2594417446070166030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b149f511061407fb54895c057b7736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Mirror.Transports::Mirror.LatencySimulation
+  wrap: {fileID: 5436009510129184793}
+  latency: 876
+  jitter: 0.553
+  jitterSpeed: 1
+  unreliableLoss: 2
+  unreliableScramble: 2
 --- !u!4 &7670830791781848082
 Transform:
   m_ObjectHideFlags: 0
