@@ -1,6 +1,7 @@
 using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Items;
 
 public class LookSpriteSheet : NetworkBehaviour
 {
@@ -22,14 +23,20 @@ public class LookSpriteSheet : NetworkBehaviour
     int bodyR = 60;
 
     [SerializeField] bool dynamicRotation = true;
+    [SerializeField] bool isPlayer = true;
 
-    public float handRot = 1f;
-    public float handScale = 1f;
-    public float handPos = 2f;
-    public float handX = -0.258f;
-    public float handY = 0.015f;
+    EquipmentSlots eq;
+    
+    [SerializeField] Animator headAnim;
+    [SerializeField] Animator bodyAnim;
 
-
+    float handRot = 1f;
+    float handScale = 1f;
+    float handPos = 0.5f;
+    float handX = 0.1f;
+    float handY = 0.05f;
+    
+    Vector2 directionMouse = Vector2.zero;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,10 +44,34 @@ public class LookSpriteSheet : NetworkBehaviour
         anims = GetComponentsInChildren<Animator>();
     }
 
+    void OnEnable() {
+        eq = GetComponent<EquipmentSlots>();
+        eq.OnEquipmentChanged += RefreshSprites;
+    }
+
+    void OnDisable() {
+        if (eq != null) {
+            eq.OnEquipmentChanged -= RefreshSprites;
+        }
+    }
+
+    void RefreshSprites() {
+        headAnim.runtimeAnimatorController = eq.head.anim;
+        bodyAnim.runtimeAnimatorController = eq.body.anim;
+        handRenderer.sprite = eq.body.hand;
+        gunRenderer.sprite = eq.gun.sprite;
+    }
+
     void Update() {
-        if (!isLocalPlayer) return;
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        Vector2 directionMouse = (Vector2)mouseWorldPos - (Vector2)transform.position;
+        if (!isLocalPlayer && isPlayer) return;
+
+        if (isPlayer) {
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            directionMouse = (Vector2)mouseWorldPos - (Vector2)transform.position;
+        } else {
+            directionMouse += new Vector2(20 * Time.deltaTime, 20 * Time.deltaTime);
+        }
+
         if (directionMouse.x > 90 || directionMouse.y > 90) {
             return;
         }

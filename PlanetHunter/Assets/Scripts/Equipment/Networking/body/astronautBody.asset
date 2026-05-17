@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: astronautBody
+  m_EditorClassIdentifier: Assembly-CSharp::Body
+  type: 1
+  anim: {fileID: 22100000, guid: fd3a51551f8b28b489786c152a8cda40, type: 2}
+  hand: {fileID: -7259942673039993292, guid: 6ccf8969a84a3de45a2deac2c194b63a, type: 3}

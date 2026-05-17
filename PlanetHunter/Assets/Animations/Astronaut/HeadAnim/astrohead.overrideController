@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: astrohead
+  m_Controller: {fileID: 9100000, guid: 363e59ff4bc63ab43ba136f4cee00fda, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 0ed8fc3a532c2c64a94360cdba1a6540, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0ed8fc3a532c2c64a94360cdba1a6540, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2904570e805a4364092acfb6785edc07, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2904570e805a4364092acfb6785edc07, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0ded258fa40b9f641bc50d780e48bf5c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0ded258fa40b9f641bc50d780e48bf5c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 90a03eadd5567f24397a2aea233c03e1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 90a03eadd5567f24397a2aea233c03e1, type: 2}

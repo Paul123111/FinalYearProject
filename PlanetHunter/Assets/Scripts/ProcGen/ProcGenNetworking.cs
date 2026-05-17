@@ -7,7 +7,7 @@ using static ProcGen.ProcGenLib;
 
 public class ProcGenNetworking : NetworkBehaviour {
     // seed on server is the same as all others
-    [SyncVar] int worldSeed = 0;
+    [SyncVar(hook = nameof(GenerateSeed))] int worldSeed = 0;
 
     [Header("Tiles")]
     [SerializeField] Tilemap ground;
@@ -62,9 +62,11 @@ public class ProcGenNetworking : NetworkBehaviour {
 
     public override void OnStartClient() {
         base.OnStartClient();
-        Debug.Log(worldSeed);
-        GenerateWorld();
+        //Debug.Log(worldSeed);
+        //GenerateWorld();
     }
+
+
 
     [Server]
     public void InitialiseWorld() {
@@ -72,9 +74,16 @@ public class ProcGenNetworking : NetworkBehaviour {
         retries = 0;
         fullMap = false;
         worldSeed = (int)Environment.TickCount;
-        GenerateWorld();
+        //GenerateWorld();
         Debug.Log($"Seed: {worldSeed}, initialising world...");
     }
+
+    void GenerateSeed(int old, int newV) {
+        tileTypes = ChooseTiles(worldWidth, worldHeight, groundTilesCode.Length, noiseThreshold, newV);
+        ClearTiles();
+        GetTiles();
+    }
+
 
     void GenerateWorld() {
         Debug.Log("Synchronising seed...");
