@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 5726393710671629227}
   - component: {fileID: 4318780896922632768}
   - component: {fileID: 4583798160354912808}
+  - component: {fileID: 4611228408944285122}
   m_Layer: 8
   m_Name: PlayerAstronaut
   m_TagString: Untagged
@@ -229,11 +230,9 @@ MonoBehaviour:
   gunRenderer: {fileID: 2355357566655060276}
   handRenderer: {fileID: 5268739549318146433}
   dynamicRotation: 1
-  handRot: 1
-  handScale: 1
-  handPos: 0.5
-  handX: 0.1
-  handY: -0.05
+  isPlayer: 1
+  headAnim: {fileID: 2490932984607431867}
+  bodyAnim: {fileID: 449759150283467560}
 --- !u!114 &5870567389104138211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +249,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   moveSpeed: 25
+  projectile: {fileID: 7266650134510497467, guid: 3061e3ea07b387244bc1bce30f2e03be, type: 3}
+  gun: {fileID: 8821104517720507217}
+  cooldown: 0
 --- !u!50 &7055742290233100179
 Rigidbody2D:
   serializedVersion: 5
@@ -425,6 +427,22 @@ MonoBehaviour:
   syncInterval: 0
   width: 100
   height: 100
+--- !u!114 &4611228408944285122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618529832387270806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a3e3f62ec444f6438c1aa8f696f345e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Items.EquipmentSlots
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  database: {fileID: 11400000, guid: 0062aad4059da724b909fa83135bab55, type: 2}
 --- !u!1 &2951301152588521889
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,7 +502,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 40
-    OrthographicSize: 10
+    OrthographicSize: 20
     NearClipPlane: 0.01
     FarClipPlane: 5000
     Dutch: 0
@@ -642,7 +660,7 @@ Animator:
   m_GameObject: {fileID: 4429929213981616003}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d058da9f3e65dee47b73c0093db2e256, type: 2}
+  m_Controller: {fileID: 9100000, guid: 00fef12d9ea9d0e4092baa1177bc90cf, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -845,7 +863,7 @@ Animator:
   m_GameObject: {fileID: 4722422379285074419}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 31dfa5097e6bc60428b18dbb906c166f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 363e59ff4bc63ab43ba136f4cee00fda, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -942,6 +960,37 @@ MonoBehaviour:
   syncInterval: 0
   worldWidth: 100
   worldHeight: 100
+--- !u!1 &7603482453611350470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8821104517720507217}
+  m_Layer: 8
+  m_Name: muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8821104517720507217
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7603482453611350470}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.88, y: 0.119, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4525938262987680919}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7724936971414094951
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,7 +1023,8 @@ Transform:
   m_LocalPosition: {x: -0.32, y: -0.08, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8821104517720507217}
   m_Father: {fileID: 1813488877208136595}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &2355357566655060276

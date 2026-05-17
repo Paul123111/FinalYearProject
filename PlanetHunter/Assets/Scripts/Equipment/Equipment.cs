@@ -1,6 +1,5 @@
 using UnityEngine;
 
-public enum Type {Weapon, Armour, Helmet};
 
 public class Equipment : ScriptableObject
 {

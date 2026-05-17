@@ -4,12 +4,13 @@ using UnityEngine.Pool;
 using static LoopHelper;
 
 public class NetworkProjectile : NetworkBehaviour {
-    float speed = 5f;
-    float maxLifetime = 3f;
+    public float speed = 15f;
+    [SerializeField] float maxLifetime = 3f;
     float lifetime;
     ObjectPool<ProjectileScript> _pool;
     DamageHitbox hitbox;
     SpriteRenderer _renderer;
+    [SerializeField] LayerMask targetLayerMask;
 
     void Start() {
         hitbox = GetComponent<DamageHitbox>();
@@ -24,6 +25,15 @@ public class NetworkProjectile : NetworkBehaviour {
             Destroy(gameObject);
         }
     }
+
+    [ServerCallback]
+    private void OnCollisionEnter2D(Collision2D collision) {
+        // Check if the collided object's layer matches our LayerMask
+        if (((1 << collision.gameObject.layer) & targetLayerMask) != 0) {
+            Destroy(gameObject);
+        }
+    }
+
 
     //public void Setup(ObjectPool<ProjectileScript> pool, Transform t, bool isEnemy, ProjectileProperties props) {
     //    hitbox.SetEnemy(isEnemy);
