@@ -1,4 +1,5 @@
 using Mirror;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem; // Required for the new system
 
@@ -14,8 +15,9 @@ public class PlayerMoveTest : NetworkBehaviour {
         body = GetComponent<Rigidbody2D>();
         nt = GetComponent<NetworkTransformReliable>();
     }
-    public override void OnStartAuthority() {
+    public async override void OnStartAuthority() {
         base.OnStartAuthority();
+        await Task.Delay(500);
         PlayerInput playerInput = GetComponent<PlayerInput>();
         playerInput.enabled = true;
     }

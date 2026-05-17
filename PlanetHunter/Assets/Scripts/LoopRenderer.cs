@@ -1,9 +1,6 @@
 using Mirror;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Splines;
 
-[ExecuteAlways] // play in scene view
 public class LoopRenderer : NetworkBehaviour {
     [Header("Map Setup")]
     public float worldWidth = 100f;
@@ -13,6 +10,13 @@ public class LoopRenderer : NetworkBehaviour {
     private Material[] loopMaterials;
     Bounds massiveBounds;
     bool isInitialised = false;
+
+    void Awake() {
+#if UNITY_SERVER
+        Destroy(this);
+        return;
+#endif
+    }
 
     public override void OnStartClient() {
         base.OnStartClient();
