@@ -40,7 +40,7 @@ public class StartPlanet : NetworkBehaviour
                 startedCountdown = false;
                 if (!changingScene) {
                     changingScene = true;
-                    PlanetHunterNetworkManager.singleton.TravelToPlanet("Assets/Scenes/networking/AstronautTest.unity");
+                    PlanetHunterNetworkManager.singleton.TravelToPlanet("AstronautTest");
                 }
             }
         }
