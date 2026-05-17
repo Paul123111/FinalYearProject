@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Mirror.Components::Mirror.NetworkTransformReliable
   syncDirection: 1
   syncMode: 0
-  syncInterval: 0.02
+  syncInterval: 0.1
   target: {fileID: 7005145306606037729}
   syncPosition: 1
   syncRotation: 1
@@ -685,7 +685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Mirror.Components::Mirror.NetworkTransformReliable
   syncDirection: 1
   syncMode: 0
-  syncInterval: 0.02
+  syncInterval: 0.1
   target: {fileID: 1536468495147669089}
   syncPosition: 1
   syncRotation: 1
@@ -888,7 +888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Mirror.Components::Mirror.NetworkTransformReliable
   syncDirection: 1
   syncMode: 0
-  syncInterval: 0.02
+  syncInterval: 0.1
   target: {fileID: 8993071662933051284}
   syncPosition: 1
   syncRotation: 1
@@ -1067,7 +1067,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Mirror.Components::Mirror.NetworkTransformReliable
   syncDirection: 1
   syncMode: 0
-  syncInterval: 0.02
+  syncInterval: 0.1
   target: {fileID: 4525938262987680919}
   syncPosition: 1
   syncRotation: 1

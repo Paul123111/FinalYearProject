@@ -1,14 +1,16 @@
 using Mirror;
 using System;
-using System.Diagnostics;
 using UnityEngine;
 
 public class ForceMirrorQuit : MonoBehaviour {
 
+    private void Awake() {
+
+    }
+
     private void Start() {
         // stops Unity from putting the game thread to sleep when tabbed out
         QualitySettings.vSyncCount = 0;
-        Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
     }
 
     private void OnApplicationFocus(bool hasFocus) {
@@ -26,7 +28,10 @@ public class ForceMirrorQuit : MonoBehaviour {
     }
 
     private void OnApplicationQuit() {
-        UnityEngine.Debug.Log("Application quitting: Shutting down network lines...");
+#if UNITY_SERVER
+        return;
+#endif
+        Debug.Log("Application quitting: Shutting down network lines...");
 
         // cleanly disconnect the Mirror client from the server
         if (NetworkClient.active) {
