@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,14 +7,16 @@ namespace ProcGen {
     public static class ProcGenLib {
 
         // pick tiles based on noise
-        public static int[] ChooseTiles(int worldWidth, int worldHeight, int numTypes, float noiseThreshold, int seed) {
-            float[] noise = GenerateNoise(worldWidth, worldHeight, seed);
+        public static int[] ChooseTiles(int worldWidth, int worldHeight, int numTypes, float noiseScale, float noiseThreshold, int seed) {
+            float[] noise = GenerateNoise(worldWidth, worldHeight, noiseScale, seed);
             int[] tiles = new int[worldWidth * worldHeight];
+            int rand = PseudoRandomRange(1, 10000000, seed);
             for (int i = 0; i < tiles.GetLength(0); i++) {
                 if (noise[i] < noiseThreshold) {
                     tiles[i] = 0;
                 } else {
-                    tiles[i] = PseudoRandomRange(10, 10*numTypes, seed) / 10;
+                    rand = PseudoRandomRange(1, 10000000, rand);
+                    tiles[i] = (rand % (numTypes-1))+1;
                 }
             }
             return tiles;
@@ -30,59 +33,66 @@ namespace ProcGen {
             return min + ((int)rand % (range));
         }
 
-        public static float[] GenerateNoise(int worldWidth, int worldHeight, int seed) {
-            Random.InitState(seed);
-            int gw = worldWidth + 1;
-            int gh = worldHeight + 1;
-            int w = worldWidth;
-            int h = worldHeight;
-            // 2d array of 2d vectors in corners
-            Vector2[] grid = new Vector2[gw * gh];
+        public static float[] GenerateNoise(int worldWidth, int worldHeight, float noiseScale, int seed) {
+            int totalPoints = worldWidth * worldHeight;
+            float[] noiseMap = new float[totalPoints];
 
-            // setting up vectors at corners
-            for (int i = 0; i < grid.Length; i++) {
-                grid[i] = new Vector2(X(i, gw) + PseudoRandomRange(-1, 1, seed), Y(i, gh) + PseudoRandomRange(-1, 1, seed));
+            float offsetX = PseudoRandomRange(1000, 50000, seed) + 0.137f;
+            float offsetY = PseudoRandomRange(1000, 50000, (int)offsetX) + 0.137f;
+
+            for (int y = 0; y < worldHeight; y++) {
+                for (int x = 0; x < worldWidth; x++) {
+                    int index = x + (y * worldWidth);
+                    float sampleX = ((float)x * noiseScale) + offsetX;
+                    float sampleY = ((float)y * noiseScale) + offsetY;
+                    noiseMap[index] = Mathf.PerlinNoise(sampleX, sampleY);
+                }
             }
-
-            // get coordinates of candidate points in grid 
-            Vector2[] points = new Vector2[w * h];
-            for (int i = 0; i < points.Length; i++) {
-                points[i] = new Vector2(X(i, w) + 0.5f, Y(i, h) + 0.5f);
-            }
-
-            // get dot product of distance and gradient vectors
-            float[] dotProd = new float[w * h * 4];
-            for (int i = 0; i < points.Length; i++) {
-                dotProd[i] = Vector2.Dot(points[i] - grid[i], grid[i]);
-                dotProd[i+1] = Vector2.Dot(points[i] - grid[i+1], grid[i+1]);
-                dotProd[i+2] = Vector2.Dot(points[i] - grid[i+w], grid[i+w]);
-                dotProd[i+3] = Vector2.Dot(points[i] - grid[i+w+1], grid[i+w+1]);
-            }
-
-            // linearly interpolate dot products
-            float[] lerp1 = new float[w * h];
-            float[] lerp2 = new float[w * h];
-            float[] lerp3 = new float[w * h];
-            for (int i = 0; i < points.Length; i++) {
-                lerp1[i] = Mathf.Lerp(dotProd[i], dotProd[i], 0.5f);
-                lerp2[i] = Mathf.Lerp(dotProd[i+2], dotProd[i+3], 0.5f);
-                lerp3[i] = Mathf.Lerp(lerp1[i], lerp2[i], 0.5f);
-            }
-            return lerp3;
-
+            return noiseMap;
         }
 
-        // legacy: cellular automata currently using Conway's game of life as a test
-        // will change rules to change terrain generation
-        //public static int[,] ConwayGameStep(int[,] tiles) {
-        //    for (int w = 0; w < tiles.GetLength(0); w++) {
-        //        for (int h = 0; h < tiles.GetLength(1); h++) {
-        //            int neighbours = GetNumNeighbours(tiles, w, h, 1);
-        //            if (neighbours < 2) { tiles[w, h] = 0; } else if (neighbours > 4) { tiles[w, h] = 0; } else if (neighbours == 3) { tiles[w, h] = 1; }
-        //        }
+        //public static float[] GenerateNoise(int worldWidth, int worldHeight, int seed) {
+        //    int gw = worldWidth + 1;
+        //    int gh = worldHeight + 1;
+        //    int w = worldWidth;
+        //    int h = worldHeight;
+        //    // 2d array of 2d vectors in corners
+        //    Vector2[] grid = new Vector2[gw * gh];
+
+        //    // setting up vectors at corners
+        //    for (int i = 0; i < grid.Length; i++) {
+        //        grid[i] = new Vector2(X(i, gw) + PseudoRandomRange(-1, 1, seed), Y(i, gh) + PseudoRandomRange(-1, 1, seed));
         //    }
-        //    return tiles;
+
+        //    // get coordinates of candidate points in grid 
+        //    Vector2[] points = new Vector2[w * h];
+        //    for (int i = 0; i < points.Length; i++) {
+        //        points[i] = new Vector2(X(i, w) + 0.5f, Y(i, h) + 0.5f);
+        //    }
+
+        //    // get dot product of distance and gradient vectors
+        //    float[] dotProd = new float[w * h * 4];
+        //    for (int i = 0; i < points.Length; i+=4) {
+        //        dotProd[i] = Vector2.Dot(points[i] - grid[i], grid[i]);
+        //        dotProd[i+1] = Vector2.Dot(points[i] - grid[i+1], grid[i+1]);
+        //        dotProd[i+2] = Vector2.Dot(points[i] - grid[i+w], grid[i+w]);
+        //        dotProd[i+3] = Vector2.Dot(points[i] - grid[i+w+1], grid[i+w+1]);
+        //    }
+
+        //    // linearly interpolate dot products
+        //    float[] lerp1 = new float[w * h];
+        //    float[] lerp2 = new float[w * h];
+        //    float[] lerp3 = new float[w * h];
+        //    for (int i = 0; i < points.Length; i++) {
+        //        int stride = i * 4;
+        //        lerp1[i] = Mathf.Lerp(dotProd[stride], dotProd[stride+1], 0.5f);
+        //        lerp2[i] = Mathf.Lerp(dotProd[stride+2], dotProd[stride+3], 0.5f);
+        //        lerp3[i] = Mathf.Lerp(lerp1[i], lerp2[i], 0.5f);
+        //    }
+        //    return lerp3;
+
         //}
+
 
         public static int[] PlanetStep(int[] tiles, int width, int numTypes, int gen, int maxGens,
             int minNeighbours, int minTypeNeighbours, int maxNeighbours, int createNeighbours) {
@@ -102,6 +112,7 @@ namespace ProcGen {
 
             // step based on rules below
             bool veryEmpty = PercentEmpty(tiles) > 0.95f;
+            int[] individualNeighbours = new int[numTypes - 1];
             for (int i = 0; i < tiles.Length; i++) {
                 // get type of current tile
                 int type = tiles[i];
@@ -111,7 +122,7 @@ namespace ProcGen {
                 int popularType = -1;
 
                 // important: first tile in array is the empty tile
-                int[] individualNeighbours = new int[numTypes-1];
+                Array.Clear(individualNeighbours, 0, individualNeighbours.Length);
                 for (int j = 0; j < numTypes-1; j++) {
                     individualNeighbours[j] = GetNumNeighbours(tiles, X(i, width), Y(i, width), width, j +1);
                     neighbours += individualNeighbours[j];
@@ -143,8 +154,8 @@ namespace ProcGen {
                 int targetX = x + dx[i];
                 int targetY = y + dy[i];
 
-                int index = Mod(targetX, width) + (targetY * width);
-                if (index < 0 || index >= tiles.Length) continue;
+                int index = Mod(targetX, width) + Mod(targetY, width);
+                //if (index < 0 || index >= tiles.Length) continue;
                 if (tiles[index] == type) neighbours++;
             }
             return neighbours;
