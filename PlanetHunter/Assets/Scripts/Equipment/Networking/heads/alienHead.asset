@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: e582be1d012f21f44ba017838ecc90ac, type: 3}
   m_Name: alienHead
   m_EditorClassIdentifier: Assembly-CSharp::Head
   type: 2
+  pickupSprite: {fileID: 5616865980521103154, guid: ed3407b00a61a0b4f8fc2eada03ee0f9, type: 3}
   anim: {fileID: 22100000, guid: c38868f5a0e3b5c458206f77665e09d0, type: 2}

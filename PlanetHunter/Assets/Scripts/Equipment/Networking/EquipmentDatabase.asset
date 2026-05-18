@@ -18,5 +18,6 @@ MonoBehaviour:
   bodies:
   - {fileID: 11400000, guid: ba7d5bdc124addc40bf6bc2a43c3ffdb, type: 2}
   - {fileID: 11400000, guid: 7d570e19de512644aafe2a5899e865bd, type: 2}
+  - {fileID: 11400000, guid: 9b046332eb315bf4f86dc01eaba28eab, type: 2}
   guns:
   - {fileID: 11400000, guid: 5a7a3a4d7ef146c42a3340df1d53cfc2, type: 2}

@@ -39,9 +39,13 @@ public class LookSpriteSheet : NetworkBehaviour
     Vector2 directionMouse = Vector2.zero;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void OnStartClient()
     {
         anims = GetComponentsInChildren<Animator>();
+        if (eq != null) {
+            eq.RefreshAll();
+            RefreshSprites();
+        }
     }
 
     void OnEnable() {
@@ -56,10 +60,23 @@ public class LookSpriteSheet : NetworkBehaviour
     }
 
     void RefreshSprites() {
-        headAnim.runtimeAnimatorController = eq.head.anim;
-        bodyAnim.runtimeAnimatorController = eq.body.anim;
-        handRenderer.sprite = eq.body.hand;
-        gunRenderer.sprite = eq.gun.sprite;
+        if (eq == null) return;
+        if (headAnim != null) {
+            if (eq.head != null) {
+                headAnim.runtimeAnimatorController = eq.head.anim;
+            }
+        }
+        if (bodyAnim != null) {
+            if (eq.body != null) {
+                bodyAnim.runtimeAnimatorController = eq.body.anim;
+                handRenderer.sprite = eq.body.hand;
+            }
+        }
+        if (gunRenderer != null) {
+            if (eq.gun != null) {
+                gunRenderer.sprite = eq.gun.sprite;
+            }
+        }
     }
 
     void Update() {
