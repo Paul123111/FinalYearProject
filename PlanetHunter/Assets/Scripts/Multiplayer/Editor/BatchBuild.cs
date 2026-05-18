@@ -25,7 +25,10 @@ namespace AgonesExample.Editor {
         public static void BuildServer() {
             string[] scenes = new[] { "Assets/Scenes/networking/MultiplayerMenu.unity",
                 "Assets/Scenes/networking/GameNetworking.unity",
-                "Assets/Scenes/networking/AstronautTest.unity" };
+                "Assets/Scenes/networking/AstronautTest.unity",
+                "Assets/Scenes/networking/ice.unity",
+                "Assets/Scenes/networking/red.unity",
+            };
             string dir = "Builds/Server";
 
             bool ok = SafeCleanDirectory(dir);
@@ -56,7 +59,10 @@ namespace AgonesExample.Editor {
             PlayerSettings.visibleInBackground = true;
             string[] scenes = new[] { "Assets/Scenes/networking/MultiplayerMenu.unity",
                 "Assets/Scenes/networking/GameNetworking.unity",
-                "Assets/Scenes/networking/AstronautTest.unity" };
+                "Assets/Scenes/networking/AstronautTest.unity",
+                "Assets/Scenes/networking/ice.unity",
+                "Assets/Scenes/networking/red.unity",
+            };
 
             PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64, new[] {
                 UnityEngine.Rendering.GraphicsDeviceType.Direct3D11,
