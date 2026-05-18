@@ -443,6 +443,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   database: {fileID: 11400000, guid: 0062aad4059da724b909fa83135bab55, type: 2}
+  initHead: {fileID: 11400000, guid: dd201dde6c81c16469b680c9cefcd837, type: 2}
+  initBody: {fileID: 11400000, guid: ba7d5bdc124addc40bf6bc2a43c3ffdb, type: 2}
+  initGun: {fileID: 11400000, guid: 5a7a3a4d7ef146c42a3340df1d53cfc2, type: 2}
 --- !u!1 &2951301152588521889
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,7 +505,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 40
-    OrthographicSize: 20
+    OrthographicSize: 10
     NearClipPlane: 0.01
     FarClipPlane: 5000
     Dutch: 0
