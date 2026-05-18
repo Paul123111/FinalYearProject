@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 6714059009106255496}
   - component: {fileID: 8409426197149210054}
   - component: {fileID: 8179253238614338969}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: plasmaBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ MonoBehaviour:
   maxLifetime: 0.5
   targetLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!114 &9218750049949696269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,7 +314,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

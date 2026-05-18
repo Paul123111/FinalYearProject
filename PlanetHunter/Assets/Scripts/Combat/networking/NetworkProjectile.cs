@@ -11,6 +11,7 @@ public class NetworkProjectile : NetworkBehaviour {
     DamageHitbox hitbox;
     SpriteRenderer _renderer;
     [SerializeField] LayerMask targetLayerMask;
+    [SerializeField] bool isEnemy = false;
 
     void Start() {
         hitbox = GetComponent<DamageHitbox>();
@@ -27,10 +28,9 @@ public class NetworkProjectile : NetworkBehaviour {
     }
 
     [ServerCallback]
-    private void OnCollisionEnter2D(Collision2D collision) {
-        // Check if the collided object's layer matches our LayerMask
+    private void OnTriggerEnter2D(Collider2D collision) {
         if (((1 << collision.gameObject.layer) & targetLayerMask) != 0) {
-            Destroy(gameObject);
+            NetworkServer.Destroy(gameObject);
         }
     }
 

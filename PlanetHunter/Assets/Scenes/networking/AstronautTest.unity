@@ -1958,6 +1958,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: plasmaBullet
       objectReference: {fileID: 0}
+    - target: {fileID: 7266650134510497467, guid: 3061e3ea07b387244bc1bce30f2e03be, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179253238614338969, guid: 3061e3ea07b387244bc1bce30f2e03be, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8870874081540841176, guid: 3061e3ea07b387244bc1bce30f2e03be, type: 3}
       propertyPath: targetLayerMask.m_Bits
       value: 1024
