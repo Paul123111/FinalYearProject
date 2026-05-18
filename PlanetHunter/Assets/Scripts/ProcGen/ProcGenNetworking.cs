@@ -1,6 +1,8 @@
+using Items;
 using Mirror;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static ProcGen.ProcGenLib;
@@ -42,6 +44,12 @@ public class ProcGenNetworking : NetworkBehaviour {
     [SerializeField] int createNeighbours = 1;
     [SerializeField] float noiseThreshold = 15f;
 
+    [Header("Enemy Rules")]
+    [SerializeField] GameObject enemy;
+    [SerializeField] GameObject pickup;
+    [SerializeField] EquipmentDatabase equipmentDatabase;
+    Vector2Int[] spawns;
+
     void Awake() {
         if (groundTiles.Length > 0 && groundTiles[0] != null) {
             groundTilesCode = new TileBase[groundTiles.Length + 1];
@@ -53,6 +61,7 @@ public class ProcGenNetworking : NetworkBehaviour {
             groundTilesCode = groundTiles;
         }
         tilesToMoveHash = new HashSet<int>(tilesToMove);
+        spawns = new Vector2Int[10];
     }
 
     public override void OnStartServer() {
@@ -163,6 +172,9 @@ public class ProcGenNetworking : NetworkBehaviour {
             FixEnclosedAreas();
         }
         PlaceTiles();
+        if (isWall) {
+            SpawnEnemies(worldSeed);
+        }
     }
 
     void FixEnclosedAreas() {
@@ -231,6 +243,21 @@ public class ProcGenNetworking : NetworkBehaviour {
         ground.SetTilesBlock(area, tilemap);
         if (separateLayer != null && separate != null) {
             separateLayer.SetTilesBlock(area, separate);
+        }
+    }
+
+    void SpawnEnemies(int seed) {
+        if (!NetworkServer.active) return;
+        int rand = seed;
+        for (int i = 0; i < spawns.Length; i++) {
+            int loopSafety = 0;
+            spawns[i] = new Vector2Int(PseudoRandomRange(0, 99, rand, out rand), PseudoRandomRange(0, 99, rand, out rand));
+            while (tileTypes[spawns[i].x, spawns[i].y] != 0 && loopSafety < 10) {
+                loopSafety++;
+                spawns[i] = new Vector2Int(PseudoRandomRange(0, 99, rand, out rand), PseudoRandomRange(0, 99, rand, out rand));
+            }
+            GameObject e = Instantiate(enemy, new Vector3(spawns[i].x-50, spawns[i].y-50, 0), Quaternion.identity);
+            NetworkServer.Spawn(e);
         }
     }
 }

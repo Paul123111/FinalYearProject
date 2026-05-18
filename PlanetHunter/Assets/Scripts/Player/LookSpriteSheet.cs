@@ -6,7 +6,7 @@ using Items;
 public class LookSpriteSheet : NetworkBehaviour
 {
 
-    int angle;
+    public int angle = 0;
     int direction; // 0-3 based on diagonal quadrants: -45 to 45 is first, etc.
     Animator[] anims;
     [SerializeField] Transform head;
@@ -45,6 +45,9 @@ public class LookSpriteSheet : NetworkBehaviour
         if (eq != null) {
             eq.RefreshAll();
             RefreshSprites();
+        }
+        if (!isPlayer) {
+            angle = Random.Range(0, 360);
         }
     }
 
@@ -89,14 +92,16 @@ public class LookSpriteSheet : NetworkBehaviour
         if (isPlayer) {
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             directionMouse = (Vector2)mouseWorldPos - (Vector2)transform.position;
-        } else {
-            directionMouse += new Vector2(20 * Time.deltaTime, 20 * Time.deltaTime);
         }
 
-        if (directionMouse.x > 90 || directionMouse.y > 90) {
+        if (directionMouse.x > 90 || directionMouse.y > 90 && isPlayer) {
             return;
         }
-        angle = GetMouseAngle(directionMouse);
+        if (isPlayer) {
+            angle = GetMouseAngle(directionMouse);
+        } else {
+            angle = (int) (angle + (180 * Time.deltaTime)) % 360; // auto rotate
+        }
         if (angle >= 270 - (bodyR / 2) && angle < 270 + (bodyR / 2)) {
             direction = 3;
         } else if (angle >= 90 - (bodyR / 2) && angle < 90 + (bodyR / 2)) {
