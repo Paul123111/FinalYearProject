@@ -3,10 +3,29 @@ using Mirror;
 using UnityEngine;
 
 public class NetworkPickup : NetworkBehaviour {
+    [SerializeField] EquipmentDatabase database;
     public EquipmentN equipment;
     SpriteRenderer spriteRenderer;
+    [SyncVar(hook = nameof(random))] int rand;
 
-    private void Start() {
+    //public override void OnStartClient() {
+    //    equipment = database.GetRandom(rand);
+    //    spriteRenderer = GetComponent<SpriteRenderer>();
+    //    if (equipment != null) {
+    //        spriteRenderer.sprite = equipment.pickupSprite;
+    //    }
+    //}
+    public override void OnStartServer() {
+        rand = Random.Range(0, 1000);
+        equipment = database.GetRandom(rand);
+        //spriteRenderer = GetComponent<SpriteRenderer>();
+        //if (equipment != null) {
+        //    spriteRenderer.sprite = equipment.pickupSprite;
+        //}
+    }
+
+    public void random(int o, int n) {
+        equipment = database.GetRandom(rand);
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (equipment != null) {
             spriteRenderer.sprite = equipment.pickupSprite;
