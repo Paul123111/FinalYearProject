@@ -20,7 +20,6 @@ public class PlayerMoveTest : NetworkBehaviour {
 
     public async override void OnStartAuthority() {
         base.OnStartAuthority();
-        await Task.Delay(500);
         PlayerInput playerInput = GetComponent<PlayerInput>();
         playerInput.enabled = true;
     }
@@ -30,12 +29,27 @@ public class PlayerMoveTest : NetworkBehaviour {
         moveInput = value.Get<Vector2>();
     }
 
-    [Command]
     void OnAttack() {
         if (!isLocalPlayer) return;
-        GameObject bullet = Instantiate(projectile, gun.position, Quaternion.Euler(0, 0, GetMouseAngle()));
-        bullet.GetComponent<NetworkProjectile>().speed = bullet.GetComponent<NetworkProjectile>().speed + body.linearVelocity.x + body.linearVelocity.y;
-        ;
+        int angle = GetMouseAngle();
+        Vector2 v = body.linearVelocity;
+        CmdSpawnBullet(angle, v);
+    }
+
+    [Command]
+    void CmdSpawnBullet(int angle, Vector2 playerVelocity) {
+        if (projectile == null || gun == null) return;
+
+        GameObject bullet = Instantiate(projectile, gun.position, Quaternion.Euler(0, 0, angle));
+        NetworkProjectile projScript = bullet.GetComponent<NetworkProjectile>();
+
+        if (projScript != null) {
+            Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+            if (bulletRb != null) {
+                Vector2 fireDirection = bullet.transform.right;
+                bulletRb.linearVelocity = (fireDirection * projScript.speed) + playerVelocity;
+            }
+        }
         NetworkServer.Spawn(bullet);
     }
 
