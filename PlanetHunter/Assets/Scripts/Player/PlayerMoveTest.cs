@@ -12,7 +12,11 @@ public class PlayerMoveTest : NetworkBehaviour {
     [SerializeField] GameObject projectile;
     [SerializeField] Transform gun;
 
+    float attacking = 0;
     [SerializeField] float cooldown;
+    float clientFireTime = 0;
+    float serverFireTime = 0;
+
 
     void Awake() {
         body = GetComponent<Rigidbody2D>();
@@ -29,8 +33,12 @@ public class PlayerMoveTest : NetworkBehaviour {
         moveInput = value.Get<Vector2>();
     }
 
-    void OnAttack() {
+    void OnAttack(InputValue v) {
         if (!isLocalPlayer) return;
+        attacking = v.Get<float>();
+    }
+
+    void Fire() {
         int angle = GetMouseAngle();
         CmdSpawnBullet(angle);
     }
@@ -38,6 +46,9 @@ public class PlayerMoveTest : NetworkBehaviour {
     [Command]
     void CmdSpawnBullet(int angle) {
         if (projectile == null || gun == null) return;
+        if (serverFireTime > Time.time - 0.05f) return; // buffer + authoritity
+
+        serverFireTime = Time.time + cooldown;
 
         GameObject bullet = Instantiate(projectile, gun.position, Quaternion.Euler(0, 0, angle));
         NetworkProjectile projScript = bullet.GetComponent<NetworkProjectile>();
@@ -51,6 +62,11 @@ public class PlayerMoveTest : NetworkBehaviour {
     void FixedUpdate() {
         if (!isLocalPlayer) return;
         body.linearVelocity = moveInput * moveSpeed;
+        if (attacking != 0 && clientFireTime < Time.time) {
+            clientFireTime = Time.time + cooldown;
+            Fire();
+        }
+        
     }
 
     int GetMouseAngle() {
