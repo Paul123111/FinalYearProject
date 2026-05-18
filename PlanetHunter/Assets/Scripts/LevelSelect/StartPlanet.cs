@@ -1,4 +1,5 @@
 using Mirror;
+using ProcGen;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,12 +36,18 @@ public class StartPlanet : NetworkBehaviour
         if (startedCountdown) {
             countdownText.text = $"Start in {Mathf.CeilToInt((float)(startTime + countdownLength-NetworkTime.time))}...";
             if (NetworkTime.time > startTime+countdownLength) {
-                int index = Random.Range(0, voteList.Count);
-                countdownText.text = $"Landing on {voteList[index]}!";
+                int index = ProcGenLib.PseudoRandomRange(0, voteList.Count, 123, out int rand);
+                countdownText.text = $"Landing on {voteList[index].name}!";
                 startedCountdown = false;
                 if (!changingScene) {
                     changingScene = true;
-                    PlanetHunterNetworkManager.singleton.TravelToPlanet("AstronautTest");
+                    if (voteList[index].name == "BluePlanet") {
+                        PlanetHunterNetworkManager.singleton.TravelToPlanet("AstronautTest");
+                    } else if (voteList[index].name == "IcePlanet") {
+                        PlanetHunterNetworkManager.singleton.TravelToPlanet("ice");
+                    } else if (voteList[index].name == "RedPlanet") {
+                        PlanetHunterNetworkManager.singleton.TravelToPlanet("red");
+                    }
                 }
             }
         }
