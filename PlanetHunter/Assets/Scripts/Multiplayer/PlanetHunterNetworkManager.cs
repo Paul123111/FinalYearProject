@@ -25,6 +25,8 @@ public class PlanetHunterNetworkManager : NetworkManager
 
     [Header("Custom Spawning Options")]
     [SerializeField] private GameObject astronautPrefab;
+    [SerializeField] private GameObject rocketPrefab;
+    bool firstScene = true;
 
     /// <summary>
     /// Runs on both Server and Client
@@ -223,6 +225,12 @@ public class PlanetHunterNetworkManager : NetworkManager
         ServerChangeScene(sceneName);
     }
 
+    [Server]
+    public void TravelToSpace(string sceneName) {
+        shouldSpawnAstronaut = false;
+        ServerChangeScene(sceneName);
+    }
+
     /// <summary>
     /// Called on the server when a client is ready.
     /// <para>The default implementation of this function calls NetworkServer.SetClientReady() to continue the network setup process.</para>
@@ -232,6 +240,7 @@ public class PlanetHunterNetworkManager : NetworkManager
     {
         if (shouldSpawnAstronaut) {
             GameObject oldRocket = conn.identity != null ? conn.identity.gameObject : null;
+            firstScene = true;
 
             Transform startPos = GetStartPosition();
             Vector3 spawnPos = startPos != null ? startPos.position : Vector3.zero;
@@ -254,7 +263,32 @@ public class PlanetHunterNetworkManager : NetworkManager
                 Destroy(oldRocket, 0.2f);
             }
             base.OnServerReady(conn);
+        } else if (firstScene) {
+            base.OnServerReady(conn);
         } else {
+            firstScene = true;
+            GameObject oldRocket = conn.identity != null ? conn.identity.gameObject : null;
+
+            Transform startPos = GetStartPosition();
+            Vector3 spawnPos = startPos != null ? startPos.position : Vector3.zero;
+            Quaternion spawnRot = startPos != null ? startPos.rotation : Quaternion.identity;
+
+            if (conn.authenticationData is AuthResponseMessage session) {
+                // keep auth data
+                AuthResponseMessage msg = session;
+                // replace rocket with astronaut
+                GameObject newAstronaut = Instantiate(rocketPrefab, spawnPos, spawnRot);
+                NetworkServer.ReplacePlayerForConnection(conn, newAstronaut, ReplacePlayerOptions.KeepActive);
+                conn.authenticationData = msg;
+                PlayerColour[] playerColours = conn.identity.gameObject.GetComponentsInChildren<PlayerColour>();
+                foreach (PlayerColour playerColour in playerColours) {
+                    playerColour.playerNum = msg.localPlayerNumber;
+                }
+            }
+
+            if (oldRocket != null) {
+                Destroy(oldRocket, 0.2f);
+            }
             base.OnServerReady(conn);
         }
         NetworkServer.SpawnObjects();

@@ -156,7 +156,6 @@ MonoBehaviour:
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  isEnemy: 0
 --- !u!114 &9218750049949696269
 MonoBehaviour:
   m_ObjectHideFlags: 0

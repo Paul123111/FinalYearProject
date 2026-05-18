@@ -50,6 +50,17 @@ public class ProcGenNetworking : NetworkBehaviour {
     [SerializeField] EquipmentDatabase equipmentDatabase;
     Vector2Int[] spawns;
 
+    static int count = 0;
+
+    [ServerCallback]
+    public static void incCount() {
+        count++;
+        if (count >= 8) {
+            PlanetHunterNetworkManager.singleton.TravelToSpace("GameNetworking");
+            count = 0;
+        }
+    }
+
     void Awake() {
         if (groundTiles.Length > 0 && groundTiles[0] != null) {
             groundTilesCode = new TileBase[groundTiles.Length + 1];
@@ -83,7 +94,7 @@ public class ProcGenNetworking : NetworkBehaviour {
         retries = 0;
         fullMap = false;
         worldSeed = (int)Environment.TickCount;
-        //GenerateWorld();
+        GenerateWorld();
         Debug.Log($"Seed: {worldSeed}, initialising world...");
     }
 

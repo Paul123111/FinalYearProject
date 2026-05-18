@@ -767,6 +767,9 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 1618529832387270806, guid: 351fae8925f24394aa8d4e819ef4cccd, type: 3}
+  - {fileID: 6311251453688561108, guid: adc9f6c1c32e29646b70e044501c2706, type: 3}
+  - {fileID: 7266650134510497467, guid: 3061e3ea07b387244bc1bce30f2e03be, type: 3}
+  - {fileID: 8066712911052286475, guid: ed969d7a2b7bc7b45a3e489df6ce4888, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -784,6 +787,7 @@ MonoBehaviour:
   timeInterpolationGui: 0
   agones: {fileID: 7670830791781848083}
   astronautPrefab: {fileID: 1618529832387270806, guid: 351fae8925f24394aa8d4e819ef4cccd, type: 3}
+  rocketPrefab: {fileID: 941372358305961626, guid: c0c8d31212c571c48b61be9925c56996, type: 3}
 --- !u!1 &713177273
 GameObject:
   m_ObjectHideFlags: 0
