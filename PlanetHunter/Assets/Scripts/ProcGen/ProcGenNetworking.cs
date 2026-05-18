@@ -173,7 +173,8 @@ public class ProcGenNetworking : NetworkBehaviour {
         }
         PlaceTiles();
         if (isWall) {
-            SpawnEnemies(worldSeed);
+            SpawnEnemies(enemy, worldSeed);
+            SpawnEnemies(pickup, worldSeed);
         }
     }
 
@@ -246,7 +247,7 @@ public class ProcGenNetworking : NetworkBehaviour {
         }
     }
 
-    void SpawnEnemies(int seed) {
+    void SpawnEnemies(GameObject prefab, int seed) {
         if (!NetworkServer.active) return;
         int rand = seed;
         for (int i = 0; i < spawns.Length; i++) {
@@ -256,7 +257,7 @@ public class ProcGenNetworking : NetworkBehaviour {
                 loopSafety++;
                 spawns[i] = new Vector2Int(PseudoRandomRange(0, 99, rand, out rand), PseudoRandomRange(0, 99, rand, out rand));
             }
-            GameObject e = Instantiate(enemy, new Vector3(spawns[i].x-50, spawns[i].y-50, 0), Quaternion.identity);
+            GameObject e = Instantiate(prefab, new Vector3(spawns[i].x-50, spawns[i].y-50, 0), Quaternion.identity);
             NetworkServer.Spawn(e);
         }
     }

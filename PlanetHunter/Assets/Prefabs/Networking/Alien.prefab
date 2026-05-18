@@ -566,6 +566,7 @@ GameObject:
   - component: {fileID: 9072173870298252531}
   - component: {fileID: 6613957766921472653}
   - component: {fileID: 6100494257731896711}
+  - component: {fileID: 588894079414126882}
   m_Layer: 9
   m_Name: Alien
   m_TagString: Untagged
@@ -608,6 +609,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  angle: 0
   head: {fileID: 4855622445169555887}
   body: {fileID: 7140508318345165879}
   gun: {fileID: 6031657305708228786}
@@ -779,6 +781,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   database: {fileID: 11400000, guid: 0062aad4059da724b909fa83135bab55, type: 2}
+  randomise: 1
   initHead: {fileID: 11400000, guid: 82df3f14a9433924f93c5a7b0380da4c, type: 2}
   initBody: {fileID: 11400000, guid: 9b046332eb315bf4f86dc01eaba28eab, type: 2}
   initGun: {fileID: 11400000, guid: 5a7a3a4d7ef146c42a3340df1d53cfc2, type: 2}
@@ -801,6 +804,25 @@ MonoBehaviour:
   maxHealth: 100
   pivot: {fileID: 9174950356327288133}
   uiPivot: {fileID: 0}
+--- !u!114 &588894079414126882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8066712911052286475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69b0a894e220dce4db0ea6985ded8140, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::aiShoot
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  moveSpeed: 5
+  projectile: {fileID: 7266650134510497467, guid: 3061e3ea07b387244bc1bce30f2e03be, type: 3}
+  gun: {fileID: 7828617181900351978}
+  cooldown: 1
 --- !u!1 &8094235269763991618
 GameObject:
   m_ObjectHideFlags: 0

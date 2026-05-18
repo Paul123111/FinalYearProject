@@ -1,9 +1,11 @@
 using Mirror;
+using ProcGen;
 using UnityEngine;
 
 namespace Items {
     public class EquipmentSlots : NetworkBehaviour {
         [SerializeField] private EquipmentDatabase database;
+        [SerializeField] bool randomise;
         Head _head;
         Body _body;
         Gun _gun;
@@ -69,9 +71,19 @@ namespace Items {
 
         public override void OnStartServer() {
             if (database != null) database.Initialize();
-            syncHeadId = initHead != null ? initHead.id : 0;
-            syncBodyId = initBody != null ? initBody.id : 0;
-            syncGunId = initGun != null ? initGun.id : 0;
+
+
+            if (randomise) {
+                int rand = Mathf.Abs(gameObject.GetInstanceID()) + System.DateTime.Now.Millisecond;
+                if (rand == 0) rand = 100;
+                syncHeadId = ProcGenLib.PseudoRandomRange(0, database.heads.Length, rand, out rand);
+                syncBodyId = ProcGenLib.PseudoRandomRange(0, database.bodies.Length, rand, out rand);
+                syncGunId = ProcGenLib.PseudoRandomRange(0, database.guns.Length, rand, out rand);
+            } else {
+                syncHeadId = initHead != null ? initHead.id : 0;
+                syncBodyId = initBody != null ? initBody.id : 0;
+                syncGunId = initGun != null ? initGun.id : 0;
+            }
             //RefreshAll();
         }
 

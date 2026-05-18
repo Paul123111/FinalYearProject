@@ -39,7 +39,7 @@ public class aiShoot : NetworkBehaviour
         NetworkProjectile projScript = bullet.GetComponent<NetworkProjectile>();
 
         if (projScript != null) {
-            projScript.Setup(false);
+            projScript.Setup(true);
         }
         NetworkServer.Spawn(bullet);
     }
