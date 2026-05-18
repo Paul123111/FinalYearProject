@@ -18,7 +18,6 @@ public class NetworkPickup : NetworkBehaviour {
 
         EquipmentSlots slots = other.GetComponent<EquipmentSlots>();
         if (slots != null) {
-            Debug.Log(equipment.type);
             if (equipment.type == EType.Helmet) {
                 slots.head = equipment as Head;
             } else if (equipment.type == EType.Body) {
@@ -26,7 +25,7 @@ public class NetworkPickup : NetworkBehaviour {
             } else if (equipment.type == EType.Gun) {
                 slots.gun = equipment as Gun;
             }
-            //NetworkServer.Destroy(gameObject);
+            NetworkServer.Destroy(gameObject);
         }
     }
 }

@@ -94,26 +94,32 @@ public class ProcGenNetworking : NetworkBehaviour {
 
     void PlaceTiles() {
         TileBase[] tiles = new TileBase[tileTypes.GetLength(0) * tileTypes.GetLength(1)];
+        TileBase[] separate = new TileBase[tileTypes.GetLength(0) * tileTypes.GetLength(1)];
         for (int x = 0; x < tileTypes.GetLength(0); x++) {
             for (int y = 0; y < tileTypes.GetLength(1); y++) {
-                tiles[(x % worldWidth) + (y * worldHeight)] = groundTilesCode[tileTypes[x, y]];
+                var t = tileTypes[x, y];
+                if (tilesToMoveHash.Contains(t)) {
+                    separate[(x % worldWidth) + (y * worldHeight)] = groundTilesCode[t];
+                } else {
+                    tiles[(x % worldWidth) + (y * worldHeight)] = groundTilesCode[t];
+                }
             }
         }
         int w = worldWidth / 2;
         int h = worldHeight / 2;
-        BlockTilePlace(-w*3, -h, -w, h, tiles, null); // left
-        BlockTilePlace(-w, -h, w, h, tiles, null); // center
-        BlockTilePlace(w, -h, w*3, h, tiles, null); // right
+        BlockTilePlace(-w*3, -h, -w, h, tiles, separate); // left
+        BlockTilePlace(-w, -h, w, h, tiles, separate); // center
+        BlockTilePlace(w, -h, w*3, h, tiles, separate); // right
 
         // top
-        BlockTilePlace(-w*3, h, -w, h*3, tiles, null); // left
-        BlockTilePlace(-w, h, w, h*3, tiles, null); // center
-        BlockTilePlace(w, h, w*3, h*3, tiles, null); // right
+        BlockTilePlace(-w*3, h, -w, h*3, tiles, separate); // left
+        BlockTilePlace(-w, h, w, h*3, tiles, separate); // center
+        BlockTilePlace(w, h, w*3, h*3, tiles, separate); // right
 
         // bottom
-        BlockTilePlace(-w * 3, -h*3, -w, -h, tiles, null); // left
-        BlockTilePlace(-w, -h*3, w, -h, tiles, null); // center
-        BlockTilePlace(w, -h*3, w * 3, -h, tiles, null); // right
+        BlockTilePlace(-w * 3, -h*3, -w, -h, tiles, separate); // left
+        BlockTilePlace(-w, -h*3, w, -h, tiles, separate); // center
+        BlockTilePlace(w, -h*3, w * 3, -h, tiles, separate); // right
         //LoopTiles();
         //for (int w = 0; w < tileTypes.GetLength(0); w++) {
         //    for (int h = 0; h < tileTypes.GetLength(1); h++) {
@@ -153,9 +159,9 @@ public class ProcGenNetworking : NetworkBehaviour {
                 minNeighbours, minTypeNeighbours, maxNeighbours, createNeighbours);
             fullMap = FullMap(tileTypes);
         }
-        //if (isWall) {
-        //    FixEnclosedAreas();
-        //}
+        if (isWall) {
+            FixEnclosedAreas();
+        }
         PlaceTiles();
     }
 
@@ -221,7 +227,7 @@ public class ProcGenNetworking : NetworkBehaviour {
 
     void BlockTilePlace(int startX, int startY, int endX, int endY, TileBase[] tilemap, TileBase[] separate) {
         BoundsInt area = new BoundsInt(startX, startY, 0, endX - startX, endY - startY, 1);
-        Debug.Log(area.size + ", " + tilemap.Length);
+        //Debug.Log(area.size + ", " + tilemap.Length);
         ground.SetTilesBlock(area, tilemap);
         if (separateLayer != null && separate != null) {
             separateLayer.SetTilesBlock(area, separate);
