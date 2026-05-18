@@ -32,23 +32,18 @@ public class PlayerMoveTest : NetworkBehaviour {
     void OnAttack() {
         if (!isLocalPlayer) return;
         int angle = GetMouseAngle();
-        Vector2 v = body.linearVelocity;
-        CmdSpawnBullet(angle, v);
+        CmdSpawnBullet(angle);
     }
 
     [Command]
-    void CmdSpawnBullet(int angle, Vector2 playerVelocity) {
+    void CmdSpawnBullet(int angle) {
         if (projectile == null || gun == null) return;
 
         GameObject bullet = Instantiate(projectile, gun.position, Quaternion.Euler(0, 0, angle));
         NetworkProjectile projScript = bullet.GetComponent<NetworkProjectile>();
 
         if (projScript != null) {
-            Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
-            if (bulletRb != null) {
-                Vector2 fireDirection = bullet.transform.right;
-                bulletRb.linearVelocity = (fireDirection * projScript.speed) + playerVelocity;
-            }
+            projScript.Setup(false);
         }
         NetworkServer.Spawn(bullet);
     }

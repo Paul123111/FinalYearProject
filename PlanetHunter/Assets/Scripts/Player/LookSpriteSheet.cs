@@ -48,6 +48,10 @@ public class LookSpriteSheet : NetworkBehaviour
         }
     }
 
+    public override void OnStartServer() {
+        anims = GetComponentsInChildren<Animator>();
+    }
+
     void OnEnable() {
         eq = GetComponent<EquipmentSlots>();
         eq.OnEquipmentChanged += RefreshSprites;

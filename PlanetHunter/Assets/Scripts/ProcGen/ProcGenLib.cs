@@ -9,12 +9,13 @@ namespace ProcGen {
         public static int[,] ChooseTiles(int worldWidth, int worldHeight, int numTypes, float noiseThreshold, int seed) {
             float[,] noise = GenerateNoise(worldWidth, worldHeight, seed);
             int[,] tiles = new int[worldWidth, worldHeight];
+            int rand = seed;
             for (int w = 0; w < tiles.GetLength(0); w++) {
                 for (int h = 0; h < tiles.GetLength(1); h++) {
                     if (noise[w, h] < noiseThreshold) {
                         tiles[w, h] = 0;
                     } else {
-                        tiles[w, h] = Random.Range(10, 10*numTypes) / 10;
+                        tiles[w, h] = PseudoRandomRange(10, 10*numTypes, rand, out rand) / 10;
                     }
                 }
             }
@@ -23,24 +24,36 @@ namespace ProcGen {
 
         // generate random number - not using random as it creates problems between editor and different types of builds
         // min inclusive, max exclusive
-        public static int PseudoRandomRange(int min, int max, int seed) {
+        public static int PseudoRandomRange(int min, int max, int seed, out int randState) {
+            randState = 0;
             if (min >= max) return min;
             uint uSeed = (uint)seed;
             uSeed = (1103515245 * uSeed + 12345);
             uint rand = (uSeed / 65536) % 32768;
+
+            randState = (int)rand;
             int range = max - min;
             return min + ((int)rand % (range));
         }
+        public static float PseudoRandomRangeF(float min, float max, int seed, out int randState) {
+            randState = 0;
+            if (min >= max) return min;
+            uint uSeed = (uint)seed;
+            uSeed = (1103515245 * uSeed + 12345);
+            uint rand = (uSeed / 65536) % 32768;
+            randState = (int)rand;
+            float percent = (float)rand / 32768f;
+            return min + (percent * (max - min));
+        }
 
         public static float[,] GenerateNoise(int worldWidth, int worldHeight, int seed) {
-            Random.InitState(seed);
             // 2d array of 2d vectors in corners
             Vector2[,] grid = new Vector2[worldWidth + 1, worldHeight + 1];
-
+            int rand = seed;
             // setting up vectors at corners
             for (int w = 0; w < grid.GetLength(0); w++) {
                 for (int h = 0; h < grid.GetLength(1); h++) {
-                    grid[w, h] = new Vector2(w + Random.Range(-1f, 1f), h + Random.Range(-1f, 1f));
+                    grid[w, h] = new Vector2(w + PseudoRandomRangeF(-1f, 1f, rand, out rand), h + PseudoRandomRangeF(-1f, 1f, rand, out rand));
                 }
             }
 
