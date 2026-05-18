@@ -240,7 +240,7 @@ public class PlanetHunterNetworkManager : NetworkManager
     {
         if (shouldSpawnAstronaut) {
             GameObject oldRocket = conn.identity != null ? conn.identity.gameObject : null;
-            firstScene = true;
+            firstScene = false;
 
             Transform startPos = GetStartPosition();
             Vector3 spawnPos = startPos != null ? startPos.position : Vector3.zero;
@@ -265,8 +265,9 @@ public class PlanetHunterNetworkManager : NetworkManager
             base.OnServerReady(conn);
         } else if (firstScene) {
             base.OnServerReady(conn);
+            firstScene = false;
         } else {
-            firstScene = true;
+            firstScene = false;
             GameObject oldRocket = conn.identity != null ? conn.identity.gameObject : null;
 
             Transform startPos = GetStartPosition();
