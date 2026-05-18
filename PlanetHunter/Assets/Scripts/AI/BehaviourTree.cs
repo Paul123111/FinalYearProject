@@ -1,27 +1,14 @@
-using System.Linq;
 using UnityEngine;
 
 public class BehaviourTree : MonoBehaviour
 {
-    INode initialNode;
+    [SerializeField] Node currentNode;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+    void Tick() {
+        status result = currentNode.Run();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Run();
-    }
-
-    void Run() {
-        status result = initialNode.Run();
-    }
-
-    public void SetInitialNode<T>(T node) where T : INode {
-        initialNode = node;
+    public void SetInitialNode<T>(T node) where T : Node {
+        currentNode = node;
     }
 }

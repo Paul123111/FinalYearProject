@@ -4,8 +4,8 @@ using UnityEngine;
 public class HealthSystemN : NetworkBehaviour
 {
     //Collider2D hitbox;
-    [SyncVar(hook = nameof(OnHealthChanged))] int _health = 1;
-    [SerializeField] int maxHealth = 100;
+    [SyncVar(hook = nameof(OnHealthChanged))] public int _health = 1;
+    public int maxHealth = 100;
     //Hitbox _lastHitBy;
     bool _alive = true;
 

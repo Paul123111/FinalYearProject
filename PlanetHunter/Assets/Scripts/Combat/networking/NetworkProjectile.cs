@@ -7,7 +7,6 @@ public class NetworkProjectile : NetworkBehaviour {
     public float speed = 10f;
     [SerializeField] float maxLifetime = 3f;
     float lifetime;
-    ObjectPool<ProjectileScript> _pool;
     DamageHitbox hitbox;
     SpriteRenderer _renderer;
     [SerializeField] LayerMask targetLayerMask;
