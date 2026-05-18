@@ -37,7 +37,7 @@ public class NetworkProjectile : NetworkBehaviour {
         if (((1 << collision.gameObject.layer) & targetLayerMask) != 0) {
             NetworkServer.Destroy(gameObject);
         } else if (!isEnemy && ((1 << collision.gameObject.layer) & enemyLayerMask) != 0) {
-            collision.GetComponent<HealthSystemN>()?.Damage(10);
+            collision.GetComponent<HealthSystemN>()?.Damage(25);
             NetworkServer.Destroy(gameObject);
         }
     }
