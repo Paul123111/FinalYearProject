@@ -2,6 +2,7 @@ using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Items;
+using ProcGen;
 
 public class LookSpriteSheet : NetworkBehaviour
 {
@@ -47,7 +48,7 @@ public class LookSpriteSheet : NetworkBehaviour
             RefreshSprites();
         }
         if (!isPlayer) {
-            angle = Random.Range(0, 360);
+            angle = ProcGenLib.PseudoRandomRange(0, 360, 123, out int rand);
         }
     }
 

@@ -3,7 +3,7 @@ using Mirror;
 using UnityEngine;
 
 public class NetworkPickup : NetworkBehaviour {
-    [SerializeField] EquipmentN equipment;
+    public EquipmentN equipment;
     SpriteRenderer spriteRenderer;
 
     private void Start() {

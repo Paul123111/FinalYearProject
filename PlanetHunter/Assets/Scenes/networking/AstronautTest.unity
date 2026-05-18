@@ -187,8 +187,8 @@ MonoBehaviour:
   createNeighbours: 2
   noiseThreshold: -5
   enemy: {fileID: 8066712911052286475, guid: ed969d7a2b7bc7b45a3e489df6ce4888, type: 3}
-  pickup: {fileID: 0}
-  equipmentDatabase: {fileID: 0}
+  pickup: {fileID: 6311251453688561108, guid: adc9f6c1c32e29646b70e044501c2706, type: 3}
+  equipmentDatabase: {fileID: 11400000, guid: 0062aad4059da724b909fa83135bab55, type: 2}
 --- !u!4 &205120009
 Transform:
   m_ObjectHideFlags: 0
@@ -204,35 +204,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &248631171 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7828617181900351978, guid: ed969d7a2b7bc7b45a3e489df6ce4888, type: 3}
-  m_PrefabInstance: {fileID: 2174302145918227680}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &334639592 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8066712911052286475, guid: ed969d7a2b7bc7b45a3e489df6ce4888, type: 3}
-  m_PrefabInstance: {fileID: 2174302145918227680}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &334639603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 334639592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69b0a894e220dce4db0ea6985ded8140, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::aiShoot
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  moveSpeed: 5
-  projectile: {fileID: 7266650134510497467, guid: 3061e3ea07b387244bc1bce30f2e03be, type: 3}
-  gun: {fileID: 248631171}
-  cooldown: 0.3
 --- !u!1 &427833814
 GameObject:
   m_ObjectHideFlags: 0
@@ -2081,10 +2052,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8066712911052286475, guid: ed969d7a2b7bc7b45a3e489df6ce4888, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 334639603}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed969d7a2b7bc7b45a3e489df6ce4888, type: 3}
 --- !u!1001 &5242800319346072350
 PrefabInstance:
