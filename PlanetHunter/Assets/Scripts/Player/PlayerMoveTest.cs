@@ -17,9 +17,11 @@ public class PlayerMoveTest : NetworkBehaviour {
     float clientFireTime = 0;
     float serverFireTime = 0;
 
+    PlayerColour playerColour;
 
     void Awake() {
         body = GetComponent<Rigidbody2D>();
+        playerColour = GetComponentInChildren<PlayerColour>();
     }
 
     public async override void OnStartAuthority() {
@@ -54,7 +56,7 @@ public class PlayerMoveTest : NetworkBehaviour {
         NetworkProjectile projScript = bullet.GetComponent<NetworkProjectile>();
 
         if (projScript != null) {
-            projScript.Setup(false);
+            projScript.Setup(false, playerColour.playerNum, body.linearVelocity);
         }
         NetworkServer.Spawn(bullet);
     }
