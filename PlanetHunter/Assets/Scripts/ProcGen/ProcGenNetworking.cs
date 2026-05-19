@@ -80,27 +80,18 @@ public class ProcGenNetworking : NetworkBehaviour {
         InitialiseWorld();
     }
 
-    public override void OnStartClient() {
-        base.OnStartClient();
-        //Debug.Log(worldSeed);
-        //GenerateWorld();
-    }
-
-
-
     [Server]
     public void InitialiseWorld() {
         generations = 0;
         retries = 0;
         fullMap = false;
         worldSeed = (int)Environment.TickCount;
-        GenerateWorld();
+        GenerateSeed(0, worldSeed);
         Debug.Log($"Seed: {worldSeed}, initialising world...");
     }
 
     void GenerateSeed(int old, int newV) {
         tileTypes = ChooseTiles(worldWidth, worldHeight, groundTilesCode.Length, noiseThreshold, newV);
-        ClearTiles();
         GetTiles();
     }
 
@@ -108,7 +99,6 @@ public class ProcGenNetworking : NetworkBehaviour {
     void GenerateWorld() {
         Debug.Log("Synchronising seed...");
         tileTypes = ChooseTiles(worldWidth, worldHeight, groundTilesCode.Length, noiseThreshold, worldSeed);
-        ClearTiles();
         GetTiles();
     }
 
@@ -148,32 +138,7 @@ public class ProcGenNetworking : NetworkBehaviour {
         //}
     }
 
-    void PlaceTile(int w, int h) {
-        if (tileTypes[w, h] != 0) {
-            // put relevant tiles on separateLayer
-            if (separateLayer != null && tilesToMoveHash.Contains(tileTypes[w, h])) {
-                separateLayer.SetTile(new Vector3Int(w - (worldWidth / 2), h - (worldHeight / 2), 0), groundTilesCode[tileTypes[w, h]]);
-            } else {
-                ground.SetTile(new Vector3Int(w - (worldWidth / 2), h - (worldHeight / 2), 0), groundTilesCode[tileTypes[w, h]]);
-            }
-        } else {
-            ground.SetTile(new Vector3Int(w - (worldWidth / 2), h - (worldHeight / 2), 0), defaultTile);
-        }
-    }
-
-    void ClearTiles() {
-        for (int w = 0; w < tileTypes.GetLength(0); w++) {
-            for (int h = 0; h < tileTypes.GetLength(1); h++) {
-                ground.SetTile(new Vector3Int(w - (worldWidth / 2), h - (worldHeight / 2), 0), groundTilesCode[0]);
-                if (separateLayer != null) {
-                    separateLayer.SetTile(new Vector3Int(w - (worldWidth / 2), h - (worldHeight / 2), 0), groundTilesCode[0]);
-                }
-            }
-        }
-    }
-
     void GetTiles() {
-        ClearTiles();
         for (int i = 0; i < maxGens + 1; i++) {
             tileTypes = PlanetStep(tileTypes, groundTilesCode.Length, generations++, maxGens,
                 minNeighbours, minTypeNeighbours, maxNeighbours, createNeighbours);
@@ -200,53 +165,6 @@ public class ProcGenNetworking : NetworkBehaviour {
         if (retries >= maxRetries) {
             Debug.Log("Enclosed Areas Present: " + enclosed);
         }
-    }
-
-    // for the illusion of looping (copyX starts at top left corner, e.g. if copyX == startX, the duplicate would overlap)
-    void DuplicateTiles(int startX, int startY, int endX, int endY, int copyX, int copyY) {
-        if (startX > endX || startY > endY) {
-            Debug.LogError("StartXY should be lower than endXY");
-            return;
-        }
-        // get tile clipboard
-        int[,] copy = new int[endX - startX, endY - startY];
-        for (int x = startX; x < endX; x++) {
-            for (int y = startY; y < endY; y++) {
-                copy[x - startX, y - startY] = tileTypes[x, y];
-            }
-        }
-
-        // paste tiles into tilemap
-        for (int x = copyX; x < copyX + copy.GetLength(0); x++) {
-            for (int y = copyY; y < copyY + copy.GetLength(1); y++) {
-                PlaceTileCustom(x, y, copyX, copyY, copy);
-            }
-        }
-    }
-
-    void PlaceTileCustom(int w, int h, int offsetX, int offsetY, int[,] tiles) {
-        int currentTile = tiles[w - offsetX, h - offsetY];
-        if (currentTile != 0) {
-            // put relevant tiles on separateLayer
-            if (separateLayer != null && tilesToMoveHash.Contains(currentTile)) {
-                separateLayer.SetTile(new Vector3Int(w - (worldWidth / 2), h - (worldHeight / 2), 0), groundTilesCode[currentTile]);
-            } else {
-                ground.SetTile(new Vector3Int(w - (worldWidth / 2), h - (worldHeight / 2), 0), groundTilesCode[currentTile]);
-            }
-        } else {
-            ground.SetTile(new Vector3Int(w - (worldWidth / 2), h - (worldHeight / 2), 0), defaultTile);
-        }
-    }
-
-    void LoopTiles() {
-        DuplicateTiles(0, 0, worldWidth, worldHeight, -worldWidth, worldHeight); // top-left
-        DuplicateTiles(0, 0, worldWidth, worldHeight, 0, worldHeight); // top-centre
-        DuplicateTiles(0, 0, worldWidth, worldHeight, worldWidth, worldHeight); // top-right
-        DuplicateTiles(0, 0, worldWidth, worldHeight, -worldWidth, 0); // centre-left
-        DuplicateTiles(0, 0, worldWidth, worldHeight, worldWidth, 0); // centre-right
-        DuplicateTiles(0, 0, worldWidth, worldHeight, -worldWidth, -worldHeight); // top-left
-        DuplicateTiles(0, 0, worldWidth, worldHeight, 0, -worldHeight); // top-centre
-        DuplicateTiles(0, 0, worldWidth, worldHeight, worldWidth, -worldHeight); // top-right
     }
 
     void BlockTilePlace(int startX, int startY, int endX, int endY, TileBase[] tilemap, TileBase[] separate) {

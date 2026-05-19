@@ -260,5 +260,15 @@ namespace ProcGen {
             return remainingTiles.ToArray();
         }
 
+        public static Vector2Int GetRandomSpawn(int seed, int[,] walls, int[,] separateLayer) {
+            int rand = seed;
+            int loopSafety = 0; // ensure infinite loop does not happen
+            var spawnPoint = new Vector2Int(PseudoRandomRange(0, 99, rand, out rand), PseudoRandomRange(0, 99, rand, out rand));
+            while (walls[spawnPoint.x, spawnPoint.y] != 0 && loopSafety < 50) {
+                loopSafety++;
+                spawnPoint = new Vector2Int(PseudoRandomRange(0, 99, rand, out rand), PseudoRandomRange(0, 99, rand, out rand));
+            }
+            return spawnPoint;
+        }
     }
 }
