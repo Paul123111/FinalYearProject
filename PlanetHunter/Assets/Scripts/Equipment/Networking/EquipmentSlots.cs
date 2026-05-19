@@ -76,7 +76,7 @@ namespace Items {
             if (randomise) {
                 int rand = Mathf.Abs(gameObject.GetInstanceID()) + System.DateTime.Now.Millisecond;
                 if (rand == 0) rand = 100;
-                syncHeadId = ProcGenLib.PseudoRandomRange(0, database.heads.Length, rand, out rand);
+                syncHeadId = ProcGenLib.PseudoRandomRange(1, database.heads.Length, rand, out rand);
                 syncBodyId = ProcGenLib.PseudoRandomRange(0, database.bodies.Length, rand, out rand);
                 syncGunId = ProcGenLib.PseudoRandomRange(0, database.guns.Length, rand, out rand);
             } else {

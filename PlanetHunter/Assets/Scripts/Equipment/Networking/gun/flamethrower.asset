@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5be077015571e8e4186746fc6efeb685, type: 3}
-  m_Name: startergun
-  m_EditorClassIdentifier: Assembly-CSharp::Gun
+  m_Name: flamethrower
+  m_EditorClassIdentifier: Assembly-CSharp::Items.Gun
   type: 0
-  pickupSprite: {fileID: 21300000, guid: 22ebdcdbac1aa7a4991dbc11af9c0e55, type: 3}
-  sprite: {fileID: 21300000, guid: 22ebdcdbac1aa7a4991dbc11af9c0e55, type: 3}
+  pickupSprite: {fileID: -3476979527478288156, guid: 7016756e0def7a24e8456c62f872bbb8, type: 3}
+  sprite: {fileID: -3476979527478288156, guid: 7016756e0def7a24e8456c62f872bbb8, type: 3}

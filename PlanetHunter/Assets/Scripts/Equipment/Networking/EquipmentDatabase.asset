@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: EquipmentDatabase
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentDatabase
   heads:
-  - {fileID: 11400000, guid: dd201dde6c81c16469b680c9cefcd837, type: 2}
   - {fileID: 11400000, guid: 82df3f14a9433924f93c5a7b0380da4c, type: 2}
+  - {fileID: 11400000, guid: dd201dde6c81c16469b680c9cefcd837, type: 2}
   bodies:
   - {fileID: 11400000, guid: ba7d5bdc124addc40bf6bc2a43c3ffdb, type: 2}
   - {fileID: 11400000, guid: 7d570e19de512644aafe2a5899e865bd, type: 2}
   - {fileID: 11400000, guid: 9b046332eb315bf4f86dc01eaba28eab, type: 2}
   guns:
   - {fileID: 11400000, guid: 5a7a3a4d7ef146c42a3340df1d53cfc2, type: 2}
+  - {fileID: 11400000, guid: d0cf1010307926d498be148d6583c2c5, type: 2}
+  - {fileID: 11400000, guid: bd662f226dee10942a617bd6a166b0ee, type: 2}
+  - {fileID: 11400000, guid: c9965b87ef61c4f48a0d48aef3291d7f, type: 2}
