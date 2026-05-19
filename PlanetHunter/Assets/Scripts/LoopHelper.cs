@@ -55,7 +55,7 @@ public class LoopHelper : NetworkBehaviour
         }
     }
 
-    void Start() {
+    void Awake() {
         nt = GetComponent<NetworkTransformReliable>();
     }
 
