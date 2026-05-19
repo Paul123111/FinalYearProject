@@ -28,12 +28,14 @@ public class HealthSystemN : NetworkBehaviour
         //if (newHealth > maxHealth) {
         //    newHealth = maxHealth;
         //} else 
-        if (isServer && newHealth <= 0) {
+        if (newHealth <= 0) {
             pivot.localScale = new Vector3((float) newHealth / (float) maxHealth, 1, 1);
             if (uiPivot != null) {
                 uiPivot.localScale = new Vector3(newHealth / (float) maxHealth, 1, 1);
             }
-            Die();
+            if (isServer) {
+                Die();
+            }
             return;
         }
         pivot.localScale = new Vector3((float)newHealth / (float) maxHealth, 1, 1);
@@ -45,7 +47,9 @@ public class HealthSystemN : NetworkBehaviour
     [Server]
     public void Damage(int diff) {
         if (isServer) {
+            int oldHealth = _health;
             _health -= diff;
+            OnHealthChanged(oldHealth, _health);
         }
     }
 
