@@ -58,12 +58,11 @@ public class NetworkProjectile : NetworkBehaviour {
         }
     }
 
-    public void Setup(bool enemyProjectile, long playerNum, Vector2 parentVelocity) {
+    public void Setup(bool enemyProjectile, long playerNum, Vector3 parentVelocity) {
         isEnemy = enemyProjectile;
         playerColour = GetComponent<PlayerColour>();
         playerColour.playerNum = playerNum;
-        rb.linearVelocity = transform.right * speed;
-        rb.linearVelocity += parentVelocity;
+        rb.linearVelocity = (transform.right * speed) + parentVelocity;
     }
 
     //public void Setup(ObjectPool<ProjectileScript> pool, Transform t, bool isEnemy, ProjectileProperties props) {
