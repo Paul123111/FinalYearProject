@@ -178,12 +178,12 @@ public class ProcGenNetworking : NetworkBehaviour {
     void FixEnclosedAreas() {
         int[,] copy = new int[tileTypes.GetLength(0), tileTypes.GetLength(1)];
         // 4 bytes in int, so num bytes is 4*length
-        Buffer.BlockCopy(tileTypes, 0, copy, 0, tileTypes.GetLength(0) * tileTypes.GetLength(1) * 4);
+        Array.Copy(tileTypes, copy, tileTypes.Length);
         bool enclosed = EnclosedAreasPresent(copy);
         while ((enclosed || fullMap) && retries < maxRetries) {
             PseudoRandomRange(0, 999999, worldSeed, out worldSeed);
             tileTypes = ChooseTiles(worldWidth, worldHeight, groundTilesCode.Length, noiseThreshold, worldSeed);
-            Buffer.BlockCopy(tileTypes, 0, copy, 0, tileTypes.GetLength(0) * tileTypes.GetLength(1) * 4);
+            Array.Copy(tileTypes, copy, tileTypes.Length);
             enclosed = EnclosedAreasPresent(copy);
             retries++;
         }

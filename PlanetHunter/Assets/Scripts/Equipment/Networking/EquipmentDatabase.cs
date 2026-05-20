@@ -33,12 +33,12 @@ namespace Items {
         public EquipmentN GetRandom(int seed) {
             int rand = Mathf.Abs(seed);
             if (rand == 0) rand = 100;
-            int type = ProcGenLib.PseudoRandomRange(0, 3, rand, out rand);
+            int type = ProcGenLib.PseudoRandomRange(0, 6, rand, out rand);
             if (type == 0) {
-                return GetHeadByIndex(ProcGenLib.PseudoRandomRange(0, heads.Length, rand, out rand));
+                return GetHeadByIndex(ProcGenLib.PseudoRandomRange(1, heads.Length, rand, out rand));
             } else if (type == 1) {
-                return GetBodyByIndex(ProcGenLib.PseudoRandomRange(0, bodies.Length, rand, out rand));
-            } else if (type == 2) {
+                return GetBodyByIndex(ProcGenLib.PseudoRandomRange(1, bodies.Length, rand, out rand));
+            } else {
                 return GetGunByIndex(ProcGenLib.PseudoRandomRange(0, guns.Length, rand, out rand));
             }
             return null;
