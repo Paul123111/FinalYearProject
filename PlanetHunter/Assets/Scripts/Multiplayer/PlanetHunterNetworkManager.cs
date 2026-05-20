@@ -188,63 +188,45 @@ public class PlanetHunterNetworkManager : NetworkManager
     /// <para>The default implementation of this function calls NetworkServer.SetClientReady() to continue the network setup process.</para>
     /// </summary>
     /// <param name="conn">Connection from client.</param>
-    public override void OnServerReady(NetworkConnectionToClient conn)
-    {
-        if (shouldSpawnAstronaut) {
-            GameObject oldRocket = conn.identity != null ? conn.identity.gameObject : null;
-            firstScene = false;
+    public override void OnServerReady(NetworkConnectionToClient conn) {
+        GameObject oldRocket = conn.identity != null ? conn.identity.gameObject : null;
+        Transform startPos = GetStartPosition();
+        Vector3 spawnPos = startPos != null ? startPos.position : Vector3.zero;
+        Quaternion spawnRot = startPos != null ? startPos.rotation : Quaternion.identity;
+        GameObject prefab = shouldSpawnAstronaut ? astronautPrefab : rocketPrefab;
 
-            Transform startPos = GetStartPosition();
-            Vector3 spawnPos = startPos != null ? startPos.position : Vector3.zero;
-            Quaternion spawnRot = startPos != null ? startPos.rotation : Quaternion.identity;
+        if (conn.authenticationData is AuthResponseMessage session) {
+            GameObject newPlayer = Instantiate(prefab, spawnPos, spawnRot);
 
-            if (conn.authenticationData is AuthResponseMessage session) {
-                // keep auth data
-                AuthResponseMessage msg = session;
+            if (oldRocket != null) {
                 // replace rocket with astronaut
-                GameObject newAstronaut = Instantiate(astronautPrefab, spawnPos, spawnRot);
-                NetworkServer.ReplacePlayerForConnection(conn, newAstronaut, ReplacePlayerOptions.KeepActive);
-                conn.authenticationData = msg;
-                PlayerColour[] playerColours = conn.identity.gameObject.GetComponentsInChildren<PlayerColour>();
-                foreach (PlayerColour playerColour in playerColours) {
-                    playerColour.playerNum = msg.localPlayerNumber;
+                NetworkServer.ReplacePlayerForConnection(conn, newPlayer, ReplacePlayerOptions.KeepActive);
+                Destroy(oldRocket, 0.2f);
+            } else {
+                NetworkServer.AddPlayerForConnection(conn, newPlayer);
+            }
+
+            // get player number
+            if (session.localPlayerNumber < 1) {
+                session.localPlayerNumber = CalculatePlayerNumber();
+                if (session.localPlayerNumber == -1) {
+                    conn.Disconnect();
                 }
             }
 
-            if (oldRocket != null) {
-                Destroy(oldRocket, 0.2f);
+            // keep auth data
+            AuthResponseMessage msg = session;
+            conn.authenticationData = msg;
+
+            PlayerColour[] playerColours = conn.identity.gameObject.GetComponentsInChildren<PlayerColour>();
+            foreach (PlayerColour playerColour in playerColours) {
+                Debug.Log(msg.localPlayerNumber);
+                playerColour.playerNum = msg.localPlayerNumber;
             }
-            base.OnServerReady(conn);
-        } else if (firstScene) {
-            base.OnServerReady(conn);
-            firstScene = false;
         } else {
-            firstScene = false;
-            GameObject oldRocket = conn.identity != null ? conn.identity.gameObject : null;
-
-            Transform startPos = GetStartPosition();
-            Vector3 spawnPos = startPos != null ? startPos.position : Vector3.zero;
-            Quaternion spawnRot = startPos != null ? startPos.rotation : Quaternion.identity;
-
-            if (conn.authenticationData is AuthResponseMessage session) {
-                // keep auth data
-                AuthResponseMessage msg = session;
-                // replace rocket with astronaut
-                GameObject newAstronaut = Instantiate(rocketPrefab, spawnPos, spawnRot);
-                NetworkServer.ReplacePlayerForConnection(conn, newAstronaut, ReplacePlayerOptions.KeepActive);
-                conn.authenticationData = msg;
-                PlayerColour[] playerColours = conn.identity.gameObject.GetComponentsInChildren<PlayerColour>();
-                foreach (PlayerColour playerColour in playerColours) {
-                    playerColour.playerNum = msg.localPlayerNumber;
-                }
-            }
-
-            if (oldRocket != null) {
-                Destroy(oldRocket, 0.2f);
-            }
-            base.OnServerReady(conn);
+            Debug.LogWarning($"[OnServerReady] Failed to spawn. AuthData matching failed or prefab is missing.");
         }
-        base.OnServerReady(conn);
+        NetworkServer.SetClientReady(conn);
         NetworkServer.SpawnObjects();
     }
 
@@ -253,34 +235,34 @@ public class PlanetHunterNetworkManager : NetworkManager
     /// <para>The default implementation for this function creates a new player object from the playerPrefab.</para>
     /// </summary>
     /// <param name="conn">Connection from client.</param>
-    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
-    {
-        //base.OnServerAddPlayer(conn);
+    //public override void OnServerAddPlayer(NetworkConnectionToClient conn)
+    //{
+    //    //base.OnServerAddPlayer(conn);
 
-        // spawn player in random radius near centre
-        Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * 5f;
-        Vector3 spawnPos = new Vector3(randomCircle.x, randomCircle.y, 0);
+    //    // spawn player in random radius near centre
+    //    Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * 5f;
+    //    Vector3 spawnPos = new Vector3(randomCircle.x, randomCircle.y, 0);
 
-        // immediately assigning count on server to prevent confusion when multiple players join at once
-        if (conn.authenticationData is AuthResponseMessage session) {
-            session.localPlayerNumber = CalculatePlayerNumber();
-            if (session.localPlayerNumber == -1) {
-                conn.Disconnect();
-            }
+    //    // immediately assigning count on server to prevent confusion when multiple players join at once
+    //    if (conn.authenticationData is AuthResponseMessage session) {
+    //        session.localPlayerNumber = CalculatePlayerNumber();
+    //        if (session.localPlayerNumber == -1) {
+    //            conn.Disconnect();
+    //        }
 
-            GameObject player = Instantiate(playerPrefab, spawnPos, Quaternion.identity);
-            NetworkServer.AddPlayerForConnection(conn, player);
+    //        GameObject player = Instantiate(playerPrefab, spawnPos, Quaternion.identity);
+    //        NetworkServer.AddPlayerForConnection(conn, player);
 
-            PlayerColour playerColour = conn.identity.gameObject.GetComponent<PlayerColour>();
-            playerColour.playerNum = session.localPlayerNumber;
+    //        PlayerColour playerColour = conn.identity.gameObject.GetComponent<PlayerColour>();
+    //        playerColour.playerNum = session.localPlayerNumber;
 
-            // session is only local, need to assign it here
-            conn.authenticationData = session;
+    //        // session is only local, need to assign it here
+    //        conn.authenticationData = session;
 
-        } else {
-            conn.Disconnect();
-        }
-    }
+    //    } else {
+    //        conn.Disconnect();
+    //    }
+    //}
 
     /// <summary>
     /// Called on the server when a client disconnects.

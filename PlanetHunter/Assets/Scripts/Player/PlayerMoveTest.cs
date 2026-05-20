@@ -21,7 +21,7 @@ public class PlayerMoveTest : NetworkBehaviour {
         gunCombat = GetComponent<GunCombat>();
     }
 
-    public async override void OnStartAuthority() {
+    public override void OnStartAuthority() {
         base.OnStartAuthority();
         PlayerInput playerInput = GetComponent<PlayerInput>();
         playerInput.enabled = true;
@@ -30,6 +30,7 @@ public class PlayerMoveTest : NetworkBehaviour {
             RandomSpawn();
         }
         gunCombat.playerNum = (int)playerColour.playerNum;
+
     }
 
     private void OnDisable() {
@@ -49,6 +50,9 @@ public class PlayerMoveTest : NetworkBehaviour {
 
     void FixedUpdate() {
         if (!isLocalPlayer) return;
+        if (gunCombat.playerNum < 1) {
+            gunCombat.playerNum = (int)playerColour.playerNum;
+        }
         body.linearVelocity = moveInput * moveSpeed;
         gunCombat.angle = GetMouseAngle();
     }

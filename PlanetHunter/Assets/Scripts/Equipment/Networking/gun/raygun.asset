@@ -16,4 +16,4 @@ MonoBehaviour:
   pickupSprite: {fileID: 7362661061344524757, guid: 7016756e0def7a24e8456c62f872bbb8, type: 3}
   sprite: {fileID: 7362661061344524757, guid: 7016756e0def7a24e8456c62f872bbb8, type: 3}
   props: {fileID: 11400000, guid: 259e75bcbf279ec489286249161d8bd9, type: 2}
-  cooldown: 0.5
+  cooldown: 0.25

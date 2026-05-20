@@ -23,6 +23,10 @@ public class ServerApiUI : MonoBehaviour
         Debug.Log("Calling API...");
         string jsonResponse = await serverApi.ListRooms();
         GameServerResponse[] serversJson = JsonHelper.ParseArray<GameServerResponse>(jsonResponse);
+        if (roomsPanel == null) {
+            EnableAllButtons();
+            return;
+        }
         foreach (Transform child in roomsPanel) {
             Destroy(child.gameObject);
         }
