@@ -11,7 +11,7 @@ public class NetworkProjectile : NetworkBehaviour {
     Rigidbody2D rb;
     PlayerColour playerColour;
     [SerializeField] ProjectilePropertiesN props;
-    public float currScale; // bullet grows in size
+    public float currScale = 0.1f; // bullet grows in size
     SpriteRenderer spriteRenderer;
     [SyncVar(hook = nameof(ChangeProjectile))] private int syncProjId = 0;
     [SerializeField] EquipmentDatabase equipmentDatabase;
@@ -26,6 +26,7 @@ public class NetworkProjectile : NetworkBehaviour {
         if (props == null) return;
         lifetime = props.maxLifetime;
         spriteRenderer.sprite = props.sprite;
+        currScale = props.initScale;
     }
 
     void FixedUpdate() {
