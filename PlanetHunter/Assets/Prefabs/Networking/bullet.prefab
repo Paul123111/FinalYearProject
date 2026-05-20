@@ -143,6 +143,7 @@ MonoBehaviour:
   props: {fileID: 11400000, guid: 259e75bcbf279ec489286249161d8bd9, type: 2}
   currScale: 0
   equipmentDatabase: {fileID: 11400000, guid: 0062aad4059da724b909fa83135bab55, type: 2}
+  explosion: {fileID: 8420624107626637497, guid: 1cefda5d3ea821e40b1f2a8126e757f5, type: 3}
 --- !u!114 &9218750049949696269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,8 +273,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.02722025, y: -0.019281328}
-  m_Radius: 0.24934345
+  m_Offset: {x: 0.05039838, y: -0.040528193}
+  m_Radius: 0.1778772
 --- !u!114 &-4422746266956051393
 MonoBehaviour:
   m_ObjectHideFlags: 0

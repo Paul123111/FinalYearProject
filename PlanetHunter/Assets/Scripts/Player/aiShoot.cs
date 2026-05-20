@@ -13,6 +13,7 @@ public class aiShoot : NetworkBehaviour
     Rigidbody2D rb;
     [SyncVar] bool chase = false;
     LookSpriteSheet lookSpriteSheet;
+    Coroutine detectCoroutine;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -24,7 +25,14 @@ public class aiShoot : NetworkBehaviour
 
     public override void OnStartServer() {
         base.OnStartServer();
-        StartCoroutine(Detect());
+        detectCoroutine = StartCoroutine(Detect());
+    }
+
+    private void OnDisable() {
+        if (detectCoroutine != null) {
+            StopCoroutine(detectCoroutine);
+            detectCoroutine = null;
+        }
     }
 
     [ServerCallback]
@@ -42,11 +50,13 @@ public class aiShoot : NetworkBehaviour
 
     public void Update() {
         if (isServer && chase && players.Count > 0) {
-            Vector3 direction = (players[0].transform.position-transform.position).normalized;
-            rb.linearVelocity = direction * moveSpeed;
-            gunCombat.attacking = 1;
-            gunCombat.angle = GetAngle(direction);
-            lookSpriteSheet.angle = GetAngle(direction);
+            if (players[0] != null) {
+                Vector3 direction = (players[0].transform.position - transform.position).normalized;
+                rb.linearVelocity = direction * moveSpeed;
+                gunCombat.attacking = 1;
+                gunCombat.angle = GetAngle(direction);
+                lookSpriteSheet.angle = GetAngle(direction);
+            }
         } else if (isServer) {
             rb.linearVelocity = Vector3.zero;
             gunCombat.attacking = 0;

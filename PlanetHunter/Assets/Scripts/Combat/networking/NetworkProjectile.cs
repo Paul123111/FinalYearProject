@@ -15,6 +15,7 @@ public class NetworkProjectile : NetworkBehaviour {
     SpriteRenderer spriteRenderer;
     [SyncVar(hook = nameof(ChangeProjectile))] private int syncProjId = 0;
     [SerializeField] EquipmentDatabase equipmentDatabase;
+    [SerializeField] GameObject explosion;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -60,6 +61,7 @@ public class NetworkProjectile : NetworkBehaviour {
 
     private void DestroyBullet() {
         if (isServer) {
+            ExplosionEffect();
             NetworkServer.Destroy(gameObject);
         }
     }
@@ -74,5 +76,12 @@ public class NetworkProjectile : NetworkBehaviour {
 
     public void ChangeProjectile(int old, int id) {
         props = equipmentDatabase.GetProjectileByIndex(id);
+    }
+
+    [ClientRpc]
+    void ExplosionEffect() {
+        if (explosion == null) return;
+        GameObject obj = Instantiate(explosion, transform.position, Quaternion.identity);
+        Destroy(obj, 0.5f);
     }
 }

@@ -50,17 +50,6 @@ public class ProcGenNetworking : NetworkBehaviour {
     [SerializeField] EquipmentDatabase equipmentDatabase;
     Vector2Int[] spawns;
 
-    static int count = 0;
-
-    [ServerCallback]
-    public static void incCount() {
-        count++;
-        if (count >= 8) {
-            PlanetHunterNetworkManager.singleton.TravelToSpace("GameNetworking");
-            count = 0;
-        }
-    }
-
     void InitialiseTileArrays() {
         if (groundTiles.Length > 0 && groundTiles[0] != null) {
             groundTilesCode = new TileBase[groundTiles.Length + 1];
@@ -172,6 +161,7 @@ public class ProcGenNetworking : NetworkBehaviour {
         if (isWall) {
             SpawnEnemies(enemy, worldSeed);
             SpawnEnemies(pickup, worldSeed*2);
+            SpawnEnemies(pickup, worldSeed*3);
         }
     }
 

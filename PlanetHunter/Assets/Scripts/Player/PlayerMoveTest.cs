@@ -32,6 +32,11 @@ public class PlayerMoveTest : NetworkBehaviour {
         gunCombat.playerNum = (int)playerColour.playerNum;
     }
 
+    private void OnDisable() {
+        PlayerInput playerInput = GetComponent<PlayerInput>();
+        playerInput.enabled = false;
+    }
+
     void OnMove(InputValue value) {
         if (!isLocalPlayer) return;
         moveInput = value.Get<Vector2>();
