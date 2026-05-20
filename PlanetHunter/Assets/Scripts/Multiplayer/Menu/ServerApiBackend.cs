@@ -13,7 +13,7 @@ using UnityEngine.UI;
 // TOOD move ui logic out of ServerApi
 
 public class ServerApiBackend : MonoBehaviour {
-    [SerializeField] string baseUrl = "http://192.168.1.19:30001";
+    [SerializeField] string baseUrl = "https://api.planethunter-game.uk";
     bool auth = false;
 
     // anonymously signs in a player using Unity Player Services

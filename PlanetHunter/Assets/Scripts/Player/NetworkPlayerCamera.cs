@@ -19,5 +19,7 @@ public class NetworkPlayerCamera : NetworkBehaviour
             virtualCamera.enabled = true;
             virtualCamera.Target.TrackingTarget = transform.parent;
         }
+        MouseAnchor mouseAnchor = FindAnyObjectByType<MouseAnchor>();
+        mouseAnchor.Initialise(transform.parent);
     }
 }
