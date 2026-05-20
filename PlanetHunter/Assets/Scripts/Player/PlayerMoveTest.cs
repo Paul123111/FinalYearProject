@@ -11,20 +11,14 @@ public class PlayerMoveTest : NetworkBehaviour {
     private Rigidbody2D body;
     private Vector2 moveInput;
 
-    [SerializeField] GameObject projectile;
-    [SerializeField] Transform gun;
-
-    float attacking = 0;
-    [SerializeField] float cooldown;
-    float clientFireTime = 0;
-    float serverFireTime = 0;
-
+    GunCombat gunCombat;
     PlayerColour playerColour;
     ProcGenNetworking procGen;
 
     void Awake() {
         body = GetComponent<Rigidbody2D>();
         playerColour = GetComponentInChildren<PlayerColour>();
+        gunCombat = GetComponent<GunCombat>();
     }
 
     public async override void OnStartAuthority() {
@@ -35,6 +29,7 @@ public class PlayerMoveTest : NetworkBehaviour {
         if (procGen != null) {
             RandomSpawn();
         }
+        gunCombat.playerNum = (int)playerColour.playerNum;
     }
 
     void OnMove(InputValue value) {
@@ -44,38 +39,13 @@ public class PlayerMoveTest : NetworkBehaviour {
 
     void OnAttack(InputValue v) {
         if (!isLocalPlayer) return;
-        attacking = v.Get<float>();
-    }
-
-    void Fire() {
-        int angle = GetMouseAngle();
-        CmdSpawnBullet(angle);
-    }
-
-    [Command]
-    void CmdSpawnBullet(int angle) {
-        if (projectile == null || gun == null) return;
-        if (serverFireTime > Time.time - 0.05f) return; // buffer + authoritity
-
-        serverFireTime = Time.time + cooldown;
-
-        GameObject bullet = Instantiate(projectile, gun.position, Quaternion.Euler(0, 0, angle));
-        NetworkProjectile projScript = bullet.GetComponent<NetworkProjectile>();
-
-        if (projScript != null) {
-            projScript.Setup(false, playerColour.playerNum, body.linearVelocity);
-        }
-        NetworkServer.Spawn(bullet);
+        gunCombat.attacking = v.Get<float>();
     }
 
     void FixedUpdate() {
         if (!isLocalPlayer) return;
         body.linearVelocity = moveInput * moveSpeed;
-        if (attacking != 0 && clientFireTime < Time.time) {
-            clientFireTime = Time.time + cooldown;
-            Fire();
-        }
-        
+        gunCombat.angle = GetMouseAngle();
     }
 
     int GetMouseAngle() {
