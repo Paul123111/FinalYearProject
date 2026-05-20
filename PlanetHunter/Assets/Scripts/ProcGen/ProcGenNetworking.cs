@@ -1,5 +1,6 @@
 using Items;
 using Mirror;
+using ProcGen;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -95,9 +96,12 @@ public class ProcGenNetworking : NetworkBehaviour {
 
     void GenerateSeed(int old, int newV) {
         generations = 0;
-        retries = 0;
         fullMap = false;
-        tileTypes = ChooseTiles(worldWidth, worldHeight, groundTilesCode.Length, noiseThreshold, newV);
+        CreateWorld(newV);
+    }
+
+    void CreateWorld(int seed) {
+        tileTypes = ChooseTiles(worldWidth, worldHeight, groundTilesCode.Length, noiseThreshold, seed);
         GetTiles();
     }
 
@@ -155,6 +159,7 @@ public class ProcGenNetworking : NetworkBehaviour {
     }
 
     void GetTiles() {
+        ClearTiles();
         for (int i = 0; i < maxGens + 1; i++) {
             tileTypes = PlanetStep(tileTypes, groundTilesCode.Length, generations++, maxGens,
                 minNeighbours, minTypeNeighbours, maxNeighbours, createNeighbours);
@@ -163,7 +168,6 @@ public class ProcGenNetworking : NetworkBehaviour {
         if (isWall) {
             FixEnclosedAreas();
         }
-        ClearTiles();
         PlaceTiles();
         if (isWall) {
             SpawnEnemies(enemy, worldSeed);
@@ -176,9 +180,12 @@ public class ProcGenNetworking : NetworkBehaviour {
         // 4 bytes in int, so num bytes is 4*length
         Buffer.BlockCopy(tileTypes, 0, copy, 0, tileTypes.GetLength(0) * tileTypes.GetLength(1) * 4);
         bool enclosed = EnclosedAreasPresent(copy);
-        while ((enclosed || fullMap) && retries++ < maxRetries) {
-            worldSeed = (int)Environment.TickCount;
-            GenerateSeed(0, worldSeed);
+        while ((enclosed || fullMap) && retries < maxRetries) {
+            PseudoRandomRange(0, 999999, worldSeed, out worldSeed);
+            tileTypes = ChooseTiles(worldWidth, worldHeight, groundTilesCode.Length, noiseThreshold, worldSeed);
+            Buffer.BlockCopy(tileTypes, 0, copy, 0, tileTypes.GetLength(0) * tileTypes.GetLength(1) * 4);
+            enclosed = EnclosedAreasPresent(copy);
+            retries++;
         }
         if (retries >= maxRetries) {
             Debug.Log("Enclosed Areas Present: " + enclosed);
@@ -209,8 +216,8 @@ public class ProcGenNetworking : NetworkBehaviour {
         }
     }
 
-    public Vector3 SpawnPoint() {
-        var point = GetRandomSpawn(worldSeed, tileTypes);
-        return new Vector3(point.x, point.y, 0);
+    public Vector3Int SpawnPoint() {
+        var point = GetRandomSpawn(worldSeed, ground, separateLayer);
+        return new Vector3Int(point.x, point.y, 0);
     }
 }

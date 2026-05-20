@@ -1,6 +1,6 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace ProcGen {
     public static class ProcGenLib {
@@ -53,7 +53,8 @@ namespace ProcGen {
             // setting up vectors at corners
             for (int w = 0; w < grid.GetLength(0); w++) {
                 for (int h = 0; h < grid.GetLength(1); h++) {
-                    grid[w, h] = new Vector2(w + PseudoRandomRangeF(-1f, 1f, rand, out rand), h + PseudoRandomRangeF(-1f, 1f, rand, out rand));
+                    float angle = PseudoRandomRangeF(0f, Mathf.PI * 2f, rand, out rand);
+                    grid[w, h] = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
                 }
             }
 
@@ -61,7 +62,7 @@ namespace ProcGen {
             Vector2[,] points = new Vector2[worldWidth, worldHeight];
             for (int w = 0; w < points.GetLength(0); w++) {
                 for (int h = 0; h < points.GetLength(1); h++) {
-                    points[w, h] = new Vector2(w + 0.5f, h + 0.5f);
+                    points[w, h] = new Vector2(w * 0.1f, h * 0.1f);
                 }
             }
 
@@ -69,10 +70,28 @@ namespace ProcGen {
             float[,,] dotProd = new float[worldWidth, worldHeight, 4];
             for (int w = 0; w < points.GetLength(0); w++) {
                 for (int h = 0; h < points.GetLength(1); h++) {
-                    dotProd[w, h, 0] = Vector2.Dot(points[w, h] - grid[w, h], grid[w, h]);
-                    dotProd[w, h, 1] = Vector2.Dot(points[w, h] - grid[w + 1, h], grid[w + 1, h]);
-                    dotProd[w, h, 2] = Vector2.Dot(points[w, h] - grid[w, h + 1], grid[w, h + 1]);
-                    dotProd[w, h, 3] = Vector2.Dot(points[w, h] - grid[w + 1, h + 1], grid[w + 1, h + 1]);
+                    Vector2 p = points[w, h];
+
+                    int x0 = Mathf.FloorToInt(p.x);
+                    int x1 = x0 + 1;
+                    int y0 = Mathf.FloorToInt(p.y);
+                    int y1 = y0 + 1;
+
+                    // calculate point distance from corners
+                    Vector2 dist1 = new Vector2(p.x-x0, p.y-y0);
+                    Vector2 dist2 = new Vector2(p.x-x1, p.y-y0);
+                    Vector2 dist3 = new Vector2(p.x-x0, p.y-y1);
+                    Vector2 dist4 = new Vector2(p.x-x1, p.y-y1);
+
+                    int gX0 = x0 % worldWidth;
+                    int gX1 = x1 % worldWidth;
+                    int gY0 = y0 % worldHeight;
+                    int gY1 = y1 % worldHeight;
+
+                    dotProd[w, h, 0] = Vector2.Dot(dist1, grid[gX0, gY0]);
+                    dotProd[w, h, 1] = Vector2.Dot(dist2, grid[gX1, gY0]);
+                    dotProd[w, h, 2] = Vector2.Dot(dist3, grid[gX0, gY1]);
+                    dotProd[w, h, 3] = Vector2.Dot(dist4, grid[gX1, gY1]);
                 }
             }
 
@@ -82,9 +101,18 @@ namespace ProcGen {
             float[,] lerp3 = new float[worldWidth, worldHeight];
             for (int w = 0; w < points.GetLength(0); w++) {
                 for (int h = 0; h < points.GetLength(1); h++) {
-                    lerp1[w, h] = Mathf.Lerp(dotProd[w, h, 0], dotProd[w, h, 1], 0.5f);
-                    lerp2[w, h] = Mathf.Lerp(dotProd[w, h, 2], dotProd[w, h, 3], 0.5f);
-                    lerp3[w, h] = Mathf.Lerp(lerp1[w, h], lerp2[w, h], 0.5f);
+                    Vector2 p = points[w, h];
+
+                    float weightX = p.x - Mathf.Floor(p.x);
+                    float weightY = p.y - Mathf.Floor(p.y);
+
+                    float u = weightX * weightX * weightX * (weightX * (weightX * 6f - 15f) + 10f);
+                    float v = weightY * weightY * weightY * (weightY * (weightY * 6f - 15f) + 10f);
+
+                    lerp1[w, h] = Mathf.Lerp(dotProd[w, h, 0], dotProd[w, h, 1], u);
+                    lerp2[w, h] = Mathf.Lerp(dotProd[w, h, 2], dotProd[w, h, 3], u);
+                    lerp3[w, h] = Mathf.Lerp(lerp1[w, h], lerp2[w, h], v);
+                    lerp3[w, h] = Mathf.InverseLerp(-0.5f, 0.5f, lerp3[w,h]);
                 }
             }
             return lerp3;
@@ -124,22 +152,26 @@ namespace ProcGen {
             // step based on rules below
             bool veryEmpty = PercentEmpty(tiles) > 0.95f;
             int[] individualNeighbours = new int[numTypes - 1];
+            int[,] readTarget = (int[,])tiles.Clone();
+
             for (int w = 0; w < tiles.GetLength(0); w++) {
                 for (int h = 0; h < tiles.GetLength(1); h++) {
                     // get type of current tile
                     int type = tiles[w, h];
                     // neighbour values
-                    int typeNeighbours = GetNumNeighbours(tiles, w, h, type);
+                    int typeNeighbours = GetNumNeighbours(readTarget, w, h, type);
                     int neighbours = 0;
+                    int maxCountNeighbours = -1;
                     int popularType = -1;
 
                     // important: first tile in array is the empty tile
                     for (int i = 0; i < numTypes - 1; i++) {
-                        individualNeighbours[i] = GetNumNeighbours(tiles, w, h, i + 1);
+                        individualNeighbours[i] = GetNumNeighbours(readTarget, w, h, i + 1);
                         neighbours += individualNeighbours[i];
                         // get most popular non-empty neighbour type
-                        if (individualNeighbours[i] > popularType) {
+                        if (individualNeighbours[i] > maxCountNeighbours) {
                             popularType = i + 1;
+                            maxCountNeighbours = individualNeighbours[i];
                         }
                     }
 
@@ -204,48 +236,58 @@ namespace ProcGen {
             // see if it can reach every non-wall tile on the map
             Vector2Int root = new Vector2Int(-1, -1);
             for (int x = 0; x < walls.GetLength(0); x++) {
-                for (int y = 0; x < walls.GetLength(0); x++) {
+                for (int y = 0; y < walls.GetLength(1); y++) {
                     if (walls[x, y] == 0) {
                         root = new Vector2Int(x, y);
+                        break;
                     }
                 }
+                if (root.x != -1) break;
             }
+            if (root.x == -1 || root.y == -1) return true;
             Vector2Int[] remainingTiles = WallBFS(walls, root);
             return remainingTiles.Length != 0;
         }
 
         public static Vector2Int[] WallBFS(int[,] walls, Vector2Int root) {
-            List<Vector2Int> queue = new List<Vector2Int>();
-            queue.Add(root);
+            Queue<Vector2Int> queue = new Queue<Vector2Int>();
+            queue.Enqueue(root);
+            HashSet<Vector2Int> visited = new HashSet<Vector2Int>();
+            visited.Add(root);
             int x = -1;
             int y = -1;
             Vector2Int i;
 
             // search tiles around root until no more walkable tiles can be explored
             while (queue.Count > 0) {
-                x = Mod(queue[0].x, walls.GetLength(0));
-                y = Mod(queue[0].y, walls.GetLength(1));
+                Vector2Int currentTile = queue.Dequeue();
+
+                x = Mod(currentTile.x, walls.GetLength(0));
+                y = Mod(currentTile.y, walls.GetLength(1));
 
                 walls[x, y] = 2;
+                // check left and right tiles
                 for (int a = -1; a <= 1; a += 2) {
-                    x = Mod(queue[0].x - a, walls.GetLength(0));
-                    y = Mod(queue[0].y, walls.GetLength(1));
-                    if (walls[x, y] == 0) {
-                        walls[x, y] = 2;
-                        i = new Vector2Int(x, y);
-                        queue.Add(i);
+                    int tx = Mod(x - a, walls.GetLength(0));
+                    int ty = Mod(y, walls.GetLength(1));
+                    i = new Vector2Int(tx, ty);
+                    if (!visited.Contains(i) && walls[tx, ty] == 0) {
+                        walls[tx, ty] = 2;
+                        queue.Enqueue(i);
+                        visited.Add(i);
                     }
                 }
+                // check top and bottom tiles
                 for (int a = -1; a <= 1; a += 2) {
-                    x = Mod(queue[0].x, walls.GetLength(0));
-                    y = Mod(queue[0].y - a, walls.GetLength(1));
-                    if (walls[x, y] == 0) {
-                        walls[x, y] = 2;
-                        i = new Vector2Int(x, y);
-                        queue.Add(i);
+                    int tx = Mod(x, walls.GetLength(0));
+                    int ty = Mod(y - a, walls.GetLength(1));
+                    i = new Vector2Int(tx, ty);
+                    if (!visited.Contains(i) && walls[tx, ty] == 0) {
+                        walls[tx, ty] = 2;
+                        queue.Enqueue(i);
+                        visited.Add(i);
                     }
                 }
-                queue.RemoveAt(0);
             }
 
             List<Vector2Int> remainingTiles = new List<Vector2Int>();
@@ -260,13 +302,14 @@ namespace ProcGen {
             return remainingTiles.ToArray();
         }
 
-        public static Vector2Int GetRandomSpawn(int seed, int[,] ground) {
+        public static Vector3Int GetRandomSpawn(int seed, Tilemap wall, Tilemap separate) {
             int rand = seed;
             int loopSafety = 0; // ensure infinite loop does not happen
-            var spawnPoint = new Vector2Int(PseudoRandomRange(0, 99, rand, out rand), PseudoRandomRange(0, 99, rand, out rand));
-            while (ground[spawnPoint.x, spawnPoint.y] == 0 && loopSafety < 50) { // check ground exists
+            Vector3Int spawnPoint = new Vector3Int(PseudoRandomRange(0, 99, rand, out rand), PseudoRandomRange(0, 99, rand, out rand));
+            while (wall.GetTile(spawnPoint) != null
+                && loopSafety < 50) { // check ground exists
                 loopSafety++;
-                spawnPoint = new Vector2Int(PseudoRandomRange(0, 99, rand, out rand), PseudoRandomRange(0, 99, rand, out rand));
+                spawnPoint = new Vector3Int(PseudoRandomRange(0, 99, rand, out rand), PseudoRandomRange(0, 99, rand, out rand));
             }
             return spawnPoint;
         }

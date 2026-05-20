@@ -119,6 +119,67 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &168473437
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2623581550832417298, guid: 5244b9d9226dc0744b407f2446a5ac11, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.18309
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623581550832417298, guid: 5244b9d9226dc0744b407f2446a5ac11, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10.91378
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623581550832417298, guid: 5244b9d9226dc0744b407f2446a5ac11, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623581550832417298, guid: 5244b9d9226dc0744b407f2446a5ac11, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623581550832417298, guid: 5244b9d9226dc0744b407f2446a5ac11, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623581550832417298, guid: 5244b9d9226dc0744b407f2446a5ac11, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623581550832417298, guid: 5244b9d9226dc0744b407f2446a5ac11, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623581550832417298, guid: 5244b9d9226dc0744b407f2446a5ac11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623581550832417298, guid: 5244b9d9226dc0744b407f2446a5ac11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623581550832417298, guid: 5244b9d9226dc0744b407f2446a5ac11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3854529187022097202, guid: 5244b9d9226dc0744b407f2446a5ac11, type: 3}
+      propertyPath: m_Name
+      value: MouseAnchor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7915003950936056571, guid: 5244b9d9226dc0744b407f2446a5ac11, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 818446926}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5244b9d9226dc0744b407f2446a5ac11, type: 3}
 --- !u!1 &205120006
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,15 +237,15 @@ MonoBehaviour:
   isWall: 1
   separateLayer: {fileID: 0}
   tilesToMove: 02000000
-  maxGens: 10
+  maxGens: -1
   maxRetries: 10
   worldWidth: 100
   worldHeight: 100
-  minNeighbours: 4
+  minNeighbours: 3
   minTypeNeighbours: 1
   maxNeighbours: 9
   createNeighbours: 4
-  noiseThreshold: 2
+  noiseThreshold: 0.5
   enemy: {fileID: 8066712911052286475, guid: ed969d7a2b7bc7b45a3e489df6ce4888, type: 3}
   pickup: {fileID: 6311251453688561108, guid: adc9f6c1c32e29646b70e044501c2706, type: 3}
   equipmentDatabase: {fileID: 11400000, guid: 0062aad4059da724b909fa83135bab55, type: 2}
@@ -420,6 +481,63 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+--- !u!1001 &980159112
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1509302645914032625, guid: 01b50e41707f0814e9d864f7a92fe501, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.18309
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509302645914032625, guid: 01b50e41707f0814e9d864f7a92fe501, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10.91378
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509302645914032625, guid: 01b50e41707f0814e9d864f7a92fe501, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509302645914032625, guid: 01b50e41707f0814e9d864f7a92fe501, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509302645914032625, guid: 01b50e41707f0814e9d864f7a92fe501, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509302645914032625, guid: 01b50e41707f0814e9d864f7a92fe501, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509302645914032625, guid: 01b50e41707f0814e9d864f7a92fe501, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509302645914032625, guid: 01b50e41707f0814e9d864f7a92fe501, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509302645914032625, guid: 01b50e41707f0814e9d864f7a92fe501, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509302645914032625, guid: 01b50e41707f0814e9d864f7a92fe501, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6759968127175288822, guid: 01b50e41707f0814e9d864f7a92fe501, type: 3}
+      propertyPath: m_Name
+      value: networkTest
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 01b50e41707f0814e9d864f7a92fe501, type: 3}
 --- !u!1 &1008555603
 GameObject:
   m_ObjectHideFlags: 0
@@ -1777,7 +1895,7 @@ MonoBehaviour:
   minTypeNeighbours: 4
   maxNeighbours: 8
   createNeighbours: 1
-  noiseThreshold: 10
+  noiseThreshold: 0.2
   enemy: {fileID: 0}
   pickup: {fileID: 0}
   equipmentDatabase: {fileID: 0}
@@ -1804,3 +1922,5 @@ SceneRoots:
   - {fileID: 427833816}
   - {fileID: 2110525897}
   - {fileID: 205120009}
+  - {fileID: 980159112}
+  - {fileID: 168473437}
