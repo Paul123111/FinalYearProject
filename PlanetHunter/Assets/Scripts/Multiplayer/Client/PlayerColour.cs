@@ -49,6 +49,8 @@ public static class PlayerColourSchemes {
         { 4, new string[] { "#fcc400", "#884c00" } }, // yellow, light brown
     };
     public static readonly Dictionary<long, string[]> entityHexMap = new Dictionary<long, string[]> {
+        { -1, new string[] { "#595959", "#000000", "#D4D4D4" } }, // default
+        { 0, new string[] { "#595959", "#000000", "#D4D4D4" } }, // default
         { 1, new string[] { "#0098fc", "#000060", "#7cfcfc" } }, // blue, dark blue, cyan
         { 2, new string[] { "#e41800", "#480014", "#fc2800" } }, // red, dark red, red
         { 3, new string[] { "#24d000", "#002400", "#c0f800" } }, // green, dark green, light green

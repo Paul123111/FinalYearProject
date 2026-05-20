@@ -100,9 +100,10 @@ public class LookSpriteSheet : NetworkBehaviour
         }
         if (isPlayer) {
             angle = GetMouseAngle(directionMouse);
-        } else {
-            angle = (int) (angle + (180 * Time.deltaTime)) % 360; // auto rotate
         }
+        //else {
+        //    angle = (int) (angle + (180 * Time.deltaTime)) % 360; // auto rotate
+        //}
         if (angle >= 270 - (bodyR / 2) && angle < 270 + (bodyR / 2)) {
             direction = 3;
         } else if (angle >= 90 - (bodyR / 2) && angle < 90 + (bodyR / 2)) {

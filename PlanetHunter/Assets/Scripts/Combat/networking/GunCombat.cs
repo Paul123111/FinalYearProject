@@ -10,6 +10,7 @@ public class GunCombat : NetworkBehaviour
     [SerializeField] ProjectilePropertiesN projectileProps;
     float cooldown;
     EquipmentSlots eq;
+    [SerializeField] bool isPlayer = true;
 
     float clientFireTime = 0;
     float serverFireTime = 0;
@@ -47,12 +48,32 @@ public class GunCombat : NetworkBehaviour
     public void Update() {
         if (attacking != 0 && clientFireTime < Time.time) {
             clientFireTime = Time.time + cooldown;
-            CmdSpawnBullet(angle, playerNum);
+            if (isServer) {
+                ServerSpawnBullet(angle, playerNum);
+            } else {
+                CmdSpawnBullet(angle, playerNum);
+            }
         }
     }
 
     [Command]
     void CmdSpawnBullet(int angle, int colourNum) {
+        if (projectile == null || gunMuzzle == null) return;
+        if (serverFireTime > Time.time - 0.05f) return; // buffer + authority
+
+        serverFireTime = Time.time + cooldown;
+
+        GameObject bullet = Instantiate(projectile, gunMuzzle.position, Quaternion.Euler(0, 0, angle));
+        NetworkProjectile projScript = bullet.GetComponent<NetworkProjectile>();
+
+        if (projScript != null) {
+            projScript.Setup(!isPlayer, colourNum, projectileProps);
+        }
+        NetworkServer.Spawn(bullet);
+    }
+
+    [Server]
+    void ServerSpawnBullet(int angle, int colourNum) {
         if (projectile == null || gunMuzzle == null) return;
         if (serverFireTime > Time.time - 0.05f) return; // buffer + authority
 

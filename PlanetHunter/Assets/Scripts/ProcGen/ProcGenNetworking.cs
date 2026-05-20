@@ -179,10 +179,11 @@ public class ProcGenNetworking : NetworkBehaviour {
         int[,] copy = new int[tileTypes.GetLength(0), tileTypes.GetLength(1)];
         // 4 bytes in int, so num bytes is 4*length
         Array.Copy(tileTypes, copy, tileTypes.Length);
+        int localSeed = worldSeed;
         bool enclosed = EnclosedAreasPresent(copy);
         while ((enclosed || fullMap) && retries < maxRetries) {
-            PseudoRandomRange(0, 999999, worldSeed, out worldSeed);
-            tileTypes = ChooseTiles(worldWidth, worldHeight, groundTilesCode.Length, noiseThreshold, worldSeed);
+            PseudoRandomRange(0, 999999, localSeed, out localSeed);
+            tileTypes = ChooseTiles(worldWidth, worldHeight, groundTilesCode.Length, noiseThreshold, localSeed);
             Array.Copy(tileTypes, copy, tileTypes.Length);
             enclosed = EnclosedAreasPresent(copy);
             retries++;
