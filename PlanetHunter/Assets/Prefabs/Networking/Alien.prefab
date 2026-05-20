@@ -970,6 +970,7 @@ MonoBehaviour:
   attacking: 0
   angle: 0
   playerNum: 0
+  audio: {fileID: 0}
 --- !u!114 &1925255662787477448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,7 +987,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   moveSpeed: 7
-  aggroRange: 20
+  aggroRange: 40
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
