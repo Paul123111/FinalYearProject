@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/components/network-manager
@@ -145,7 +146,42 @@ public class PlanetHunterNetworkManager : NetworkManager
     [Server]
     public void TravelToSpace(string sceneName) {
         shouldSpawnAstronaut = false;
-        ServerChangeScene(sceneName);
+        // tearing down scene...
+        StartCoroutine(SafeSceneTransitionRoutine(sceneName));
+    }
+
+    private IEnumerator SafeSceneTransitionRoutine(string targetScene) {
+        Debug.Log("[NetworkManager] Initiating clean procedural scene purge...");
+
+        // 1. Manually find and wipe the tile networks to initiate early cleanup
+        ProcGenNetworking[] procGens = FindObjectsByType<ProcGenNetworking>();
+        foreach (var procGen in procGens) {
+            if (procGen != null) {
+                // Force the object to clear its data layers ahead of schedule
+                procGen.gameObject.SetActive(false);
+                Destroy(procGen.gameObject);
+            }
+        }
+
+        Tilemap[] maps = FindObjectsByType<Tilemap>();
+        foreach (var tilemap in maps) {
+            TilemapCollider2D tileCollider = tilemap.GetComponent<TilemapCollider2D>();
+            CompositeCollider2D compCollider = tilemap.GetComponent<CompositeCollider2D>();
+            Rigidbody2D rb2D = tilemap.GetComponent<Rigidbody2D>();
+
+            if (tileCollider != null) tileCollider.enabled = false;
+            if (compCollider != null) compCollider.enabled = false;
+            if (rb2D != null) rb2D.simulated = false;
+            Destroy(tilemap);
+
+            Debug.Log("[NetworkManager] Tilemap physics disabled safely ahead of scene teardown.");
+        }
+
+        yield return new WaitForSeconds(10f);
+
+        Debug.Log("[NetworkManager] Unmanaged tiles cleared. Safely migrating scenes.");
+
+        ServerChangeScene(targetScene);
     }
 
     /// <summary>
