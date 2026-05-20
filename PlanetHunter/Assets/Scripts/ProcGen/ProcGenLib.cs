@@ -306,10 +306,18 @@ namespace ProcGen {
             int rand = seed;
             int loopSafety = 0; // ensure infinite loop does not happen
             Vector3Int spawnPoint = new Vector3Int(PseudoRandomRange(0, 99, rand, out rand), PseudoRandomRange(0, 99, rand, out rand));
-            while (wall.GetTile(spawnPoint) != null
-                && loopSafety < 50) { // check ground exists
-                loopSafety++;
-                spawnPoint = new Vector3Int(PseudoRandomRange(0, 99, rand, out rand), PseudoRandomRange(0, 99, rand, out rand));
+            if (separate != null) {
+                while (wall.GetTile(spawnPoint) != null && separate.GetTile(spawnPoint) != null
+                 && loopSafety < 50) { // check ground exists
+                    loopSafety++;
+                    spawnPoint = new Vector3Int(PseudoRandomRange(0, 99, rand, out rand), PseudoRandomRange(0, 99, rand, out rand));
+                }
+            } else {
+                while (wall.GetTile(spawnPoint) != null
+                    && loopSafety < 50) { // check ground exists
+                    loopSafety++;
+                    spawnPoint = new Vector3Int(PseudoRandomRange(0, 99, rand, out rand), PseudoRandomRange(0, 99, rand, out rand));
+                }
             }
             return spawnPoint;
         }

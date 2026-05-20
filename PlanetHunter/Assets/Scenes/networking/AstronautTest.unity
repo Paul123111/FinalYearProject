@@ -172,20 +172,19 @@ MonoBehaviour:
   ground: {fileID: 1643961629}
   groundTiles:
   - {fileID: 11400000, guid: 52af57982d9f6e04081eef7c6f460a3a, type: 2}
-  - {fileID: 11400000, guid: 1746e5c6f1514dd4dbec588afa58d876, type: 2}
   defaultTile: {fileID: 0}
   isWall: 1
-  separateLayer: {fileID: 2002238924}
+  separateLayer: {fileID: 0}
   tilesToMove: 02000000
   maxGens: 5
   maxRetries: 20
   worldWidth: 100
   worldHeight: 100
-  minNeighbours: 4
+  minNeighbours: 2
   minTypeNeighbours: 4
   maxNeighbours: 9
-  createNeighbours: 2
-  noiseThreshold: -5
+  createNeighbours: 3
+  noiseThreshold: 0.8
   enemy: {fileID: 8066712911052286475, guid: ed969d7a2b7bc7b45a3e489df6ce4888, type: 3}
   pickup: {fileID: 6311251453688561108, guid: adc9f6c1c32e29646b70e044501c2706, type: 3}
   equipmentDatabase: {fileID: 11400000, guid: 0062aad4059da724b909fa83135bab55, type: 2}
@@ -346,7 +345,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.033296306, g: 0.4716981, b: 0, a: 0}
+  m_BackGroundColor: {r: 0, g: 0.6886792, b: 0.0015316008, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1821,7 +1820,6 @@ MonoBehaviour:
   syncInterval: 0
   ground: {fileID: 1008555606}
   groundTiles:
-  - {fileID: 11400000, guid: d69a90eef864c9d48a86dd6b648af846, type: 2}
   - {fileID: 11400000, guid: 62cc56b55d7a3314da35fc7789790c64, type: 2}
   - {fileID: 11400000, guid: 611c62563f26cc4499a2afc4022403c1, type: 2}
   defaultTile: {fileID: 11400000, guid: d69a90eef864c9d48a86dd6b648af846, type: 2}
@@ -1832,11 +1830,11 @@ MonoBehaviour:
   maxRetries: 20
   worldWidth: 100
   worldHeight: 100
-  minNeighbours: 2
+  minNeighbours: 3
   minTypeNeighbours: 4
-  maxNeighbours: 8
-  createNeighbours: 1
-  noiseThreshold: 10
+  maxNeighbours: 9
+  createNeighbours: 3
+  noiseThreshold: 0.3
   enemy: {fileID: 0}
   pickup: {fileID: 0}
   equipmentDatabase: {fileID: 0}
