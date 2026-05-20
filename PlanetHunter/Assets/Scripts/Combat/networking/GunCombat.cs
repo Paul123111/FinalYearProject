@@ -10,7 +10,7 @@ public class GunCombat : NetworkBehaviour
     [SerializeField] ProjectilePropertiesN projectileProps;
     float cooldown;
     EquipmentSlots eq;
-    [SerializeField] bool isPlayer = true;
+    [SerializeField] bool isPlayer;
 
     float clientFireTime = 0;
     float serverFireTime = 0;

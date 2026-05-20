@@ -39,7 +39,6 @@ public class aiShoot : NetworkBehaviour
     private void GetNearestPlayerInRange() {
         int playersNearby = Physics2D.OverlapCircle(transform.position, aggroRange, contactFilter, players);
         if (playersNearby <= 0) { chase = false; return; }
-        Debug.Log(playersNearby + " detected");
         chase = true;
         players.Sort(0, playersNearby, Comparer<Collider2D>.Create((a, b) => {
             float distA = (a.transform.position - transform.position).sqrMagnitude;
