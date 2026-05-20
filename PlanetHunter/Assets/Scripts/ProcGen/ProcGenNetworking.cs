@@ -171,7 +171,7 @@ public class ProcGenNetworking : NetworkBehaviour {
         PlaceTiles();
         if (isWall) {
             SpawnEnemies(enemy, worldSeed);
-            SpawnEnemies(pickup, worldSeed+2);
+            SpawnEnemies(pickup, worldSeed*2);
         }
     }
 

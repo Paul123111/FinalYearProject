@@ -15,13 +15,11 @@ GameObject:
   - component: {fileID: 9218750049949696269}
   - component: {fileID: 8541036565086505814}
   - component: {fileID: 5708911426167715877}
-  - component: {fileID: 1743336780734443120}
-  - component: {fileID: 6714059009106255496}
   - component: {fileID: 8409426197149210054}
   - component: {fileID: 8179253238614338969}
   - component: {fileID: -4422746266956051393}
   m_Layer: 11
-  m_Name: plasmaBullet
+  m_Name: bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,8 +131,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  speed: 8
-  maxLifetime: 3
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -144,6 +140,9 @@ MonoBehaviour:
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  props: {fileID: 11400000, guid: 259e75bcbf279ec489286249161d8bd9, type: 2}
+  currScale: 0
+  equipmentDatabase: {fileID: 11400000, guid: 0062aad4059da724b909fa83135bab55, type: 2}
 --- !u!114 &9218750049949696269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,45 +211,6 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   positionPrecision: 0.01
   scalePrecision: 0.01
---- !u!95 &1743336780734443120
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7266650134510497467}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0421976631c2a1f40a00220dad600db7, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6714059009106255496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7266650134510497467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Mirror.Components::Mirror.NetworkAnimator
-  syncDirection: 1
-  syncMode: 0
-  syncInterval: 0
-  clientAuthority: 1
-  animator: {fileID: 1743336780734443120}
 --- !u!50 &8409426197149210054
 Rigidbody2D:
   serializedVersion: 5

@@ -7,6 +7,7 @@ namespace Items {
         public Head[] heads;
         public Body[] bodies;
         public Gun[] guns;
+        public ProjectilePropertiesN[] proj;
 
         public void Initialize() {
             for (int i = 0; i < heads.Length; i++) {
@@ -18,12 +19,16 @@ namespace Items {
             for (int i = 0; i < guns.Length; i++) {
                 if (guns[i] != null) guns[i].id = i;
             }
+            for (int i = 0; i < proj.Length; i++) {
+                if (proj[i] != null) proj[i].id = i;
+            }
             Debug.Log("Equipment Database Indices Initialized!");
         }
 
         public Head GetHeadByIndex(int index) => (index >= 0 && index < heads.Length) ? heads[index] : null;
         public Body GetBodyByIndex(int index) => (index >= 0 && index < bodies.Length) ? bodies[index] : null;
         public Gun GetGunByIndex(int index) => (index >= 0 && index < guns.Length) ? guns[index] : null;
+        public ProjectilePropertiesN GetProjectileByIndex(int index) => (index >= 0 && index < proj.Length) ? proj[index] : null;
 
         public EquipmentN GetRandom(int seed) {
             int rand = Mathf.Abs(seed);

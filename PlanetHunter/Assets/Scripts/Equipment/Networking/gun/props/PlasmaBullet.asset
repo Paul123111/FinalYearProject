@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 780bca99522b4a34d8792a7eff53cdb9, type: 3}
+  m_Name: PlasmaBullet
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectilePropertiesN
+  damage: 10
+  destroyOnHit: 0
+  speed: 12
+  maxLifetime: 1
+  sprite: {fileID: 3575312839219608122, guid: d670e0db930a7e041b69523d4558e1a8, type: 3}
+  initScale: 0.5
+  maxScale: 2
+  scaleRateOfChange: 4
