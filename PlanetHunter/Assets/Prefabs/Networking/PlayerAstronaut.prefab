@@ -525,8 +525,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.04836142, y: 0.044463515}
-  m_Size: {x: 0.49999976, y: 0.49999976}
+  m_Offset: {x: -0.062196806, y: 0.04446353}
+  m_Size: {x: 0.3201399, y: 0.34781072}
   m_Direction: 0
 --- !u!210 &3338878227038699832
 SortingGroup:
