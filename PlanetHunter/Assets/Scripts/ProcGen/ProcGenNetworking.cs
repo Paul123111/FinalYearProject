@@ -2,7 +2,6 @@ using Items;
 using Mirror;
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static ProcGen.ProcGenLib;
@@ -61,7 +60,7 @@ public class ProcGenNetworking : NetworkBehaviour {
         }
     }
 
-    void Awake() {
+    void InitialiseTileArrays() {
         if (groundTiles.Length > 0 && groundTiles[0] != null) {
             groundTilesCode = new TileBase[groundTiles.Length + 1];
             groundTilesCode[0] = null;
@@ -75,32 +74,39 @@ public class ProcGenNetworking : NetworkBehaviour {
         spawns = new Vector2Int[10];
     }
 
+    void Awake() {
+        InitialiseTileArrays();
+    }
+
     public override void OnStartServer() {
         base.OnStartServer();
+        if (groundTilesCode == null) {
+            InitialiseTileArrays();
+        }
         InitialiseWorld();
     }
 
     [Server]
     public void InitialiseWorld() {
-        generations = 0;
-        retries = 0;
-        fullMap = false;
         worldSeed = (int)Environment.TickCount;
         GenerateSeed(0, worldSeed);
         Debug.Log($"Seed: {worldSeed}, initialising world...");
     }
 
     void GenerateSeed(int old, int newV) {
+        generations = 0;
+        retries = 0;
+        fullMap = false;
         tileTypes = ChooseTiles(worldWidth, worldHeight, groundTilesCode.Length, noiseThreshold, newV);
         GetTiles();
     }
 
 
-    void GenerateWorld() {
-        Debug.Log("Synchronising seed...");
-        tileTypes = ChooseTiles(worldWidth, worldHeight, groundTilesCode.Length, noiseThreshold, worldSeed);
-        GetTiles();
-    }
+    //void GenerateWorld() {
+    //    Debug.Log("Synchronising seed...");
+    //    tileTypes = ChooseTiles(worldWidth, worldHeight, groundTilesCode.Length, noiseThreshold, worldSeed);
+    //    GetTiles();
+    //}
 
     void PlaceTiles() {
         TileBase[] tiles = new TileBase[tileTypes.GetLength(0) * tileTypes.GetLength(1)];
@@ -109,9 +115,9 @@ public class ProcGenNetworking : NetworkBehaviour {
             for (int y = 0; y < tileTypes.GetLength(1); y++) {
                 var t = tileTypes[x, y];
                 if (tilesToMoveHash.Contains(t)) {
-                    separate[(x % worldWidth) + (y * worldHeight)] = groundTilesCode[t];
+                    separate[x + (y * worldHeight)] = groundTilesCode[t];
                 } else {
-                    tiles[(x % worldWidth) + (y * worldHeight)] = groundTilesCode[t];
+                    tiles[x + (y * worldHeight)] = groundTilesCode[t];
                 }
             }
         }
@@ -138,6 +144,16 @@ public class ProcGenNetworking : NetworkBehaviour {
         //}
     }
 
+    void ClearTiles() {
+        TileBase[] tiles = new TileBase[tileTypes.GetLength(0) * tileTypes.GetLength(1) * 9];
+        for (int i = 0; i < tiles.Length; i++) {
+            tiles[i] = null;
+        }
+        int w = worldWidth / 2;
+        int h = worldHeight / 2;
+        BlockTilePlace(-w*3, -h*3, w*3, h*3, tiles, null);
+    }
+
     void GetTiles() {
         for (int i = 0; i < maxGens + 1; i++) {
             tileTypes = PlanetStep(tileTypes, groundTilesCode.Length, generations++, maxGens,
@@ -147,6 +163,7 @@ public class ProcGenNetworking : NetworkBehaviour {
         if (isWall) {
             FixEnclosedAreas();
         }
+        ClearTiles();
         PlaceTiles();
         if (isWall) {
             SpawnEnemies(enemy, worldSeed);
@@ -160,7 +177,8 @@ public class ProcGenNetworking : NetworkBehaviour {
         Buffer.BlockCopy(tileTypes, 0, copy, 0, tileTypes.GetLength(0) * tileTypes.GetLength(1) * 4);
         bool enclosed = EnclosedAreasPresent(copy);
         while ((enclosed || fullMap) && retries++ < maxRetries) {
-            worldSeed = (int)NetworkTime.time;
+            worldSeed = (int)Environment.TickCount;
+            GenerateSeed(0, worldSeed);
         }
         if (retries >= maxRetries) {
             Debug.Log("Enclosed Areas Present: " + enclosed);
@@ -189,5 +207,10 @@ public class ProcGenNetworking : NetworkBehaviour {
             GameObject e = Instantiate(prefab, new Vector3(spawns[i].x-50, spawns[i].y-50, 0), Quaternion.identity);
             NetworkServer.Spawn(e);
         }
+    }
+
+    public Vector3 SpawnPoint() {
+        var point = GetRandomSpawn(worldSeed, tileTypes);
+        return new Vector3(point.x, point.y, 0);
     }
 }

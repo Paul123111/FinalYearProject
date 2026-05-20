@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 4611228408944285122}
   m_Layer: 8
   m_Name: PlayerAstronaut
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -639,7 +639,7 @@ GameObject:
   m_Component:
   - component: {fileID: 808772894916648955}
   - component: {fileID: 5848141558563069265}
-  - component: {fileID: 2095593446525026428}
+  - component: {fileID: 6283617029438383636}
   - component: {fileID: 3481628951250807118}
   m_Layer: 8
   m_Name: camera
@@ -706,7 +706,7 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
---- !u!114 &2095593446525026428
+--- !u!114 &6283617029438383636
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

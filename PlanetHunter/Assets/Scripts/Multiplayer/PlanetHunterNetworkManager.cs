@@ -97,102 +97,6 @@ public class PlanetHunterNetworkManager : NetworkManager
     private bool isInitialServerBoot = true;
 
     /// <summary>
-    /// This causes the server to switch scenes and sets the networkSceneName.
-    /// <para>Clients that connect to this server will automatically switch to this scene. This is called automatically if onlineScene or offlineScene are set, but it can be called from user code to switch scenes again while the game is in progress. This automatically sets clients to be not-ready. The clients must call NetworkClient.Ready() again to participate in the new scene.</para>
-    /// </summary>
-    /// <param name="newSceneName"></param>
-    //public override void ServerChangeScene(string newSceneName)
-    //{
-    //    if (string.IsNullOrEmpty(newSceneName)) return;
-    //    if (isInitialServerBoot) {
-    //        isInitialServerBoot = false;
-    //        base.ServerChangeScene(newSceneName);
-    //        return;
-    //    }
-
-    //    networkSceneName = newSceneName;
-    //    StartCoroutine(ServerLoadSceneAsync(newSceneName));
-    //}
-
-    //private IEnumerator ServerLoadSceneAsync(string newSceneName) {
-    //    OnServerChangeScene(newSceneName);
-    //    AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(newSceneName, LoadSceneMode.Single);
-    //    if (asyncLoad == null) {
-    //        Debug.LogError($"[FATAL] Scene '{newSceneName}' could not be loaded async! Is it missing from Build Settings?");
-    //        yield break;
-    //    }
-    //    while (!asyncLoad.isDone) {
-    //        yield return null;
-    //    }
-    //    yield return new WaitForSeconds(1f);
-    //    Scene loadedScene = SceneManager.GetSceneByName(newSceneName);
-    //    if (loadedScene.IsValid() && loadedScene.isLoaded) {
-    //        try {
-    //            SceneManager.SetActiveScene(loadedScene);
-    //        } catch (Exception ex) {
-    //            Debug.LogError($"[SERVER] SetActiveScene crashed despite scene being valid: {ex.Message}");
-    //        }
-    //    }
-    //    NetworkServer.SetAllClientsNotReady();
-    //    base.OnServerSceneChanged(newSceneName);
-    //    foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values) {
-    //        if (conn?.identity != null) {
-    //            NetworkServer.RebuildObservers(conn.identity, true);
-    //        }
-    //    }
-    //    NetworkServer.SpawnObjects();
-    //}
-
-    /// <summary>
-    /// Called from ServerChangeScene immediately before SceneManager.LoadSceneAsync is executed
-    /// <para>This allows server to do work / cleanup / prep before the scene changes.</para>
-    /// </summary>
-    /// <param name="newSceneName">Name of the scene that's about to be loaded</param>
-    public override void OnServerChangeScene(string newSceneName) { }
-
-    /// <summary>
-    /// Called on the server when a scene is completed loaded, when the scene load was initiated by the server with ServerChangeScene().
-    /// </summary>
-    /// <param name="sceneName">The name of the new scene.</param>
-    //public override void OnServerSceneChanged(string sceneName) {
-    //    base.OnServerSceneChanged(sceneName);
-    //}
-
-    /// <summary>
-    /// Called from ClientChangeScene immediately before SceneManager.LoadSceneAsync is executed
-    /// <para>This allows client to do work / cleanup / prep before the scene changes.</para>
-    /// </summary>
-    /// <param name="newSceneName">Name of the scene that's about to be loaded</param>
-    /// <param name="sceneOperation">Scene operation that's about to happen</param>
-    /// <param name="customHandling">true to indicate that scene loading will be handled through overrides</param>
-    //public override void OnClientChangeScene(string newSceneName, SceneOperation sceneOperation, bool customHandling) {
-    //    if (NetworkServer.active && !NetworkClient.isConnected) return;
-    //    NetworkClient.isLoadingScene = true;
-
-    //    StartCoroutine(ClientLoadSceneAsync(newSceneName));
-    //}
-
-    //private IEnumerator ClientLoadSceneAsync(string newSceneName) {
-    //    AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(newSceneName, LoadSceneMode.Single);
-    //    if (asyncLoad == null) {
-    //        Debug.LogError($"[FATAL] Scene '{newSceneName}' could not be loaded async! Is it missing from Build Settings?");
-    //        yield break;
-    //    }
-    //    while (!asyncLoad.isDone) {
-    //        yield return null;
-    //    }
-    //    yield return new WaitForSeconds(1f);
-    //    Scene loadedScene = SceneManager.GetSceneByName(newSceneName);
-    //    if (loadedScene.IsValid()) {
-    //        SceneManager.SetActiveScene(loadedScene);
-    //        Debug.Log($"[SERVER] Active scene context successfully forced to: '{newSceneName}'");
-    //    } else {
-    //        Debug.LogError($"[SERVER] Failed to grab valid scene context for '{newSceneName}'!");
-    //    }
-    //    OnClientSceneChanged();
-    //}
-
-    /// <summary>
     /// Called on clients when a scene has completed loaded, when the scene load was initiated by the server.
     /// <para>Scene changes can cause player objects to be destroyed. The default implementation of OnClientSceneChanged in the NetworkManager is to add a player object for the connection if no player object exists.</para>
     /// </summary>
@@ -201,9 +105,6 @@ public class PlanetHunterNetworkManager : NetworkManager
         if (!NetworkClient.ready) {
             NetworkClient.Ready();
         }
-        //if (NetworkClient.localPlayer == null) {
-        //    NetworkClient.AddPlayer();
-        //}
     }
 
     #endregion
@@ -292,6 +193,7 @@ public class PlanetHunterNetworkManager : NetworkManager
             }
             base.OnServerReady(conn);
         }
+        base.OnServerReady(conn);
         NetworkServer.SpawnObjects();
     }
 
@@ -452,7 +354,9 @@ public class PlanetHunterNetworkManager : NetworkManager
     /// <summary>
     /// This is called when a server is stopped - including when a host is stopped.
     /// </summary>
-    public override void OnStopServer() { }
+    public override void OnStopServer() {
+        base.OnStopServer();
+    }
 
     /// <summary>
     /// This is called when a client is stopped.

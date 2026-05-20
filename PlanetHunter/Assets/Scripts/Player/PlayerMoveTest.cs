@@ -1,5 +1,7 @@
 using Mirror;
+using ProcGen;
 using System.Threading.Tasks;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem; // Required for the new system
 
@@ -18,6 +20,7 @@ public class PlayerMoveTest : NetworkBehaviour {
     float serverFireTime = 0;
 
     PlayerColour playerColour;
+    ProcGenNetworking procGen;
 
     void Awake() {
         body = GetComponent<Rigidbody2D>();
@@ -28,6 +31,7 @@ public class PlayerMoveTest : NetworkBehaviour {
         base.OnStartAuthority();
         PlayerInput playerInput = GetComponent<PlayerInput>();
         playerInput.enabled = true;
+        procGen = GameObject.Find("ProcGen")?.GetComponent<ProcGenNetworking>();
     }
 
     void OnMove(InputValue value) {
@@ -77,5 +81,11 @@ public class PlayerMoveTest : NetworkBehaviour {
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         if (angle < 0) { angle += 360f; }
         return ((int)angle);
+    }
+
+    void RandomSpawn() {
+        if (procGen != null) {
+            transform.position = procGen.SpawnPoint();
+        }
     }
 }
