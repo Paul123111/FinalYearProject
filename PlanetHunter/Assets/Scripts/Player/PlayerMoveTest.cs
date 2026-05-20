@@ -31,7 +31,10 @@ public class PlayerMoveTest : NetworkBehaviour {
         base.OnStartAuthority();
         PlayerInput playerInput = GetComponent<PlayerInput>();
         playerInput.enabled = true;
-        procGen = GameObject.Find("ProcGen")?.GetComponent<ProcGenNetworking>();
+        procGen = GameObject.Find("ProcGenWalls")?.GetComponent<ProcGenNetworking>();
+        if (procGen != null) {
+            RandomSpawn();
+        }
     }
 
     void OnMove(InputValue value) {
