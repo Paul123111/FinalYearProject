@@ -19,17 +19,39 @@ public class GunCombat : NetworkBehaviour
     public int angle = 0;
     public int playerNum = 0;
 
+    public void Awake() {
+        eq = GetComponent<EquipmentSlots>();
+    }
+
     public override void OnStartClient() {
-        if (eq != null) {
-            eq.RefreshAll();
-            ChangeGun();
-        }
+        base.OnStartClient();
+        InitialiseGun();
+    }
+
+    public override void OnStartServer() {
+        base.OnStartServer();
+        InitialiseGun();
     }
 
     void OnEnable() {
-        eq = GetComponent<EquipmentSlots>();
-        eq.OnEquipmentChanged += ChangeGun;
+        if (eq != null) {
+            eq.OnEquipmentChanged += ChangeGun;
+        }
     }
+
+    void InitialiseGun() {
+        if (eq == null) {
+            eq = GetComponent<EquipmentSlots>();
+        }
+
+        if (eq != null) {
+            eq.RefreshAll();
+            ChangeGun();
+        } else {
+            Debug.LogError($"Missing EquipmentSlots on {gameObject.name}!");
+        }
+    }
+
 
     void OnDisable() {
         if (eq != null) {
@@ -48,7 +70,8 @@ public class GunCombat : NetworkBehaviour
     public void Update() {
         if (attacking != 0 && clientFireTime < Time.time) {
             clientFireTime = Time.time + cooldown;
-            if (isServer) {
+            if (isServer && serverFireTime < Time.time) {
+                serverFireTime = Time.time + cooldown;
                 ServerSpawnBullet(angle, playerNum);
             } else {
                 CmdSpawnBullet(angle, playerNum);
@@ -59,7 +82,7 @@ public class GunCombat : NetworkBehaviour
     [Command]
     void CmdSpawnBullet(int angle, int colourNum) {
         if (projectile == null || gunMuzzle == null) return;
-        if (serverFireTime > Time.time - 0.05f) return; // buffer + authority
+        if (serverFireTime > Time.time - 0.01f) return; // buffer + authority
 
         serverFireTime = Time.time + cooldown;
 
@@ -75,15 +98,12 @@ public class GunCombat : NetworkBehaviour
     [Server]
     void ServerSpawnBullet(int angle, int colourNum) {
         if (projectile == null || gunMuzzle == null) return;
-        if (serverFireTime > Time.time - 0.05f) return; // buffer + authority
-
-        serverFireTime = Time.time + cooldown;
 
         GameObject bullet = Instantiate(projectile, gunMuzzle.position, Quaternion.Euler(0, 0, angle));
         NetworkProjectile projScript = bullet.GetComponent<NetworkProjectile>();
 
         if (projScript != null) {
-            projScript.Setup(false, colourNum, projectileProps);
+            projScript.Setup(!isPlayer, colourNum, projectileProps);
         }
         NetworkServer.Spawn(bullet);
     }

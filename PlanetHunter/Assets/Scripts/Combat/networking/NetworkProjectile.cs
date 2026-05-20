@@ -43,14 +43,18 @@ public class NetworkProjectile : NetworkBehaviour {
 
     [ServerCallback]
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (((1 << collision.gameObject.layer) & targetLayerMask) != 0) {
+        int collisionLayerMask = 1 << collision.gameObject.layer;
+
+        if (!isEnemy && (collisionLayerMask & enemyLayerMask) != 0) {
+            collision.GetComponent<HealthSystemN>()?.Damage(props.damage);
+            if (props.destroyOnHit) DestroyBullet();
+        } else if (isEnemy && (collisionLayerMask & playerLayerMask) != 0) {
+            collision.GetComponent<HealthSystemN>()?.Damage(props.damage);
+            if (props.destroyOnHit) DestroyBullet();
+        }
+
+        if ((collisionLayerMask & targetLayerMask) != 0) {
             DestroyBullet();
-        } else if (!isEnemy && ((1 << collision.gameObject.layer) & enemyLayerMask) != 0) {
-            collision.GetComponent<HealthSystemN>()?.Damage(props.damage);
-            if (props.destroyOnHit) DestroyBullet();
-        } else if (isEnemy && ((1 << collision.gameObject.layer) & playerLayerMask) != 0) {
-            collision.GetComponent<HealthSystemN>()?.Damage(props.damage);
-            if (props.destroyOnHit) DestroyBullet();
         }
     }
 
