@@ -24,7 +24,7 @@ public class ProcGenNetworking : NetworkBehaviour {
 
     // extra array for automatically adding empty tile to index 0
     TileBase[] groundTilesCode;
-    int[,] tileTypes; // 2d array for tile types
+    [NonSerialized] int[,] tileTypes; // 2d array for tile types
     bool fullMap = false;
 
     [Header("Generations")]
@@ -49,6 +49,7 @@ public class ProcGenNetworking : NetworkBehaviour {
     [SerializeField] GameObject pickup;
     [SerializeField] EquipmentDatabase equipmentDatabase;
     Vector2Int[] spawns;
+    bool isDestroyed = false;
 
     void InitialiseTileArrays() {
         if (groundTiles.Length > 0 && groundTiles[0] != null) {
@@ -78,18 +79,23 @@ public class ProcGenNetworking : NetworkBehaviour {
 
     [Server]
     public void InitialiseWorld() {
+        if (isDestroyed) return;
+
         worldSeed = (int)Environment.TickCount;
         GenerateSeed(0, worldSeed);
         Debug.Log($"Seed: {worldSeed}, initialising world...");
     }
 
     void GenerateSeed(int old, int newV) {
+        if (isDestroyed) return;
         generations = 0;
         fullMap = false;
         CreateWorld(newV);
     }
 
     void CreateWorld(int seed) {
+        if (isDestroyed) return;
+
         tileTypes = ChooseTiles(worldWidth, worldHeight, groundTilesCode.Length, noiseThreshold, seed);
         GetTiles();
     }
@@ -102,6 +108,8 @@ public class ProcGenNetworking : NetworkBehaviour {
     //}
 
     void PlaceTiles() {
+        if (isDestroyed) return;
+
         TileBase[] tiles = new TileBase[tileTypes.GetLength(0) * tileTypes.GetLength(1)];
         TileBase[] separate = new TileBase[tileTypes.GetLength(0) * tileTypes.GetLength(1)];
         for (int x = 0; x < tileTypes.GetLength(0); x++) {
@@ -138,6 +146,8 @@ public class ProcGenNetworking : NetworkBehaviour {
     }
 
     void ClearTiles() {
+        if (isDestroyed) return;
+
         TileBase[] tiles = new TileBase[tileTypes.GetLength(0) * tileTypes.GetLength(1) * 9];
         for (int i = 0; i < tiles.Length; i++) {
             tiles[i] = null;
@@ -148,6 +158,8 @@ public class ProcGenNetworking : NetworkBehaviour {
     }
 
     void GetTiles() {
+        if (isDestroyed) return;
+
         ClearTiles();
         for (int i = 0; i < maxGens + 1; i++) {
             tileTypes = PlanetStep(tileTypes, groundTilesCode.Length, generations++, maxGens,
@@ -166,6 +178,8 @@ public class ProcGenNetworking : NetworkBehaviour {
     }
 
     void FixEnclosedAreas() {
+        if (isDestroyed) return;
+
         int[,] copy = new int[tileTypes.GetLength(0), tileTypes.GetLength(1)];
         // 4 bytes in int, so num bytes is 4*length
         Array.Copy(tileTypes, copy, tileTypes.Length);
@@ -184,6 +198,8 @@ public class ProcGenNetworking : NetworkBehaviour {
     }
 
     void BlockTilePlace(int startX, int startY, int endX, int endY, TileBase[] tilemap, TileBase[] separate) {
+        if (isDestroyed) return;
+
         BoundsInt area = new BoundsInt(startX, startY, 0, endX - startX, endY - startY, 1);
         //Debug.Log(area.size + ", " + tilemap.Length);
         ground.SetTilesBlock(area, tilemap);
@@ -193,6 +209,8 @@ public class ProcGenNetworking : NetworkBehaviour {
     }
 
     void SpawnEnemies(GameObject prefab, int seed) {
+        if (isDestroyed) return;
+
         if (!NetworkServer.active) return;
         int rand = seed;
         for (int i = 0; i < spawns.Length; i++) {
@@ -210,5 +228,22 @@ public class ProcGenNetworking : NetworkBehaviour {
     public Vector3Int SpawnPoint() {
         var point = GetRandomSpawn(worldSeed, ground, separateLayer);
         return new Vector3Int(point.x, point.y, 0);
+    }
+
+    private void OnDestroy() {
+        isDestroyed = true;
+
+        if (ground != null) {
+            ground.ClearAllTiles();
+        }
+        if (separateLayer != null) {
+            separateLayer.ClearAllTiles();
+        }
+
+        tileTypes = null;
+        groundTilesCode = null;
+        if (tilesToMoveHash != null) {
+            tilesToMoveHash.Clear();
+        }
     }
 }
