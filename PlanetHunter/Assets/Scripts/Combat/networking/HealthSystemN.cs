@@ -10,6 +10,9 @@ public class HealthSystemN : NetworkBehaviour
     [SerializeField] Transform pivot;
     [SerializeField] RectTransform uiPivot;
 
+    [SerializeField] [SyncVar] bool isEnemy = false;
+    WinCondition win;
+
     public override void OnStartServer() {
         base.OnStartServer();
         _health = maxHealth;
@@ -45,6 +48,22 @@ public class HealthSystemN : NetworkBehaviour
 
     [Server]
     void Die() {
+        if (isEnemy) {
+            Debug.Log("enemy died");
+            if (win == null) {
+                win = WinCondition.Instance;
+                if (win == null) {
+                    win = FindAnyObjectByType<WinCondition>();
+                }
+            }
+
+            // Safe execution verification
+            if (win != null) {
+                win.IncCount();
+            } else {
+                Debug.LogError($"Enemy died but could not find a active WinCondition manager in the scene!");
+            }
+        }
         NetworkServer.Destroy(gameObject);
     }
 }

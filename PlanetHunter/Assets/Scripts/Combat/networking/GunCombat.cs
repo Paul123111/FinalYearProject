@@ -19,6 +19,8 @@ public class GunCombat : NetworkBehaviour
     public int angle = 0;
     public int playerNum = 0;
 
+    [SerializeField] AudioSource audio;
+
     public void Awake() {
         eq = GetComponent<EquipmentSlots>();
     }
@@ -71,9 +73,12 @@ public class GunCombat : NetworkBehaviour
         if (attacking != 0 && clientFireTime < Time.time) {
             clientFireTime = Time.time + cooldown;
             if (isServer && serverFireTime < Time.time) {
-                serverFireTime = Time.time + cooldown;
+                serverFireTime = Time.time + (cooldown * 2f); // longer cooldown for enemies
                 ServerSpawnBullet(angle, playerNum);
-            } else {
+            } else if (isPlayer) {
+                if (audio != null) {
+                    audio.Play();
+                }
                 CmdSpawnBullet(angle, playerNum);
             }
         }

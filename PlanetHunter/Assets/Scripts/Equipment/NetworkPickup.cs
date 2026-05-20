@@ -38,7 +38,6 @@ public class NetworkPickup : NetworkBehaviour {
 
         EquipmentSlots slots = other.GetComponent<EquipmentSlots>();
         if (slots != null) {
-            ProcGenNetworking.incCount();
             if (equipment.type == EType.Helmet) {
                 slots.head = equipment as Head;
             } else if (equipment.type == EType.Body) {
