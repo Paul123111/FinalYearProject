@@ -172,12 +172,11 @@ public class PlanetHunterNetworkManager : NetworkManager
             if (tileCollider != null) tileCollider.enabled = false;
             if (compCollider != null) compCollider.enabled = false;
             if (rb2D != null) rb2D.simulated = false;
-            Destroy(tilemap);
 
             Debug.Log("[NetworkManager] Tilemap physics disabled safely ahead of scene teardown.");
         }
 
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForEndOfFrame();
 
         Debug.Log("[NetworkManager] Unmanaged tiles cleared. Safely migrating scenes.");
 
