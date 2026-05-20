@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CREATE ROOM
+  m_text: CREATE MULTIPLAYER ROOM
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 596e94bb4b5d66f4b99f019aeb1bb107, type: 2}
   m_sharedMaterial: {fileID: 3420841816008859569, guid: 596e94bb4b5d66f4b99f019aeb1bb107, type: 2}
@@ -1700,7 +1700,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1162882765
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2298,8 +2298,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.2211573}
   m_AnchorMax: {x: 1, y: 0.2211573}
-  m_AnchoredPosition: {x: 99, y: -31}
-  m_SizeDelta: {x: -549, y: 50}
+  m_AnchoredPosition: {x: -32.5, y: -31}
+  m_SizeDelta: {x: -286, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1886485432
 MonoBehaviour:
