@@ -29,9 +29,9 @@ namespace ProcGen {
             if (min >= max) return min;
             uint uSeed = (uint)seed;
             uSeed = (1103515245 * uSeed + 12345);
-            uint rand = (uSeed / 65536) % 32768;
+            randState = (int)uSeed;
 
-            randState = (int)rand;
+            uint rand = (uSeed / 65536) % 32768;
             int range = max - min;
             return min + ((int)rand % (range));
         }
