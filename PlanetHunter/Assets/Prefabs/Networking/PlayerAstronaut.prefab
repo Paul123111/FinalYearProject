@@ -362,6 +362,7 @@ GameObject:
   - component: {fileID: 4583798160354912808}
   - component: {fileID: 4611228408944285122}
   - component: {fileID: 2880668234149729136}
+  - component: {fileID: 251791597189553330}
   m_Layer: 8
   m_Name: PlayerAstronaut
   m_TagString: Player
@@ -645,9 +646,29 @@ MonoBehaviour:
   projectile: {fileID: 7266650134510497467, guid: 3061e3ea07b387244bc1bce30f2e03be, type: 3}
   gunMuzzle: {fileID: 8821104517720507217}
   projectileProps: {fileID: 11400000, guid: 259e75bcbf279ec489286249161d8bd9, type: 2}
+  isPlayer: 1
   attacking: 0
   angle: 0
   playerNum: 0
+--- !u!114 &251791597189553330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618529832387270806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734d4917502219847bb89d2ba7b5d78b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthSystemN
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _health: 1
+  maxHealth: 200
+  pivot: {fileID: 1793941335026231248}
+  uiPivot: {fileID: 0}
 --- !u!1 &2951301152588521889
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,7 +811,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1.02, z: 0}
-  m_LocalScale: {x: 1, y: 0.29999998, z: 1}
+  m_LocalScale: {x: 2, y: 0.29999998, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1793941335026231248}

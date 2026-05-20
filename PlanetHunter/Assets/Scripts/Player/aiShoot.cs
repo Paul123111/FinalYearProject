@@ -5,6 +5,7 @@ using UnityEngine;
 public class aiShoot : NetworkBehaviour
 {
     GunCombat gunCombat;
+    [SerializeField] float moveSpeed = 7f;
     [SerializeField] float aggroRange = 1f;
     [SerializeField] LayerMask playerLayer;
     List<Collider2D> players = new List<Collider2D>();
@@ -41,8 +42,8 @@ public class aiShoot : NetworkBehaviour
 
     public void Update() {
         if (isServer && chase && players.Count > 0) {
-            Vector3 direction = players[0].transform.position-transform.position;
-            rb.linearVelocity = direction;
+            Vector3 direction = (players[0].transform.position-transform.position).normalized;
+            rb.linearVelocity = direction * moveSpeed;
             gunCombat.attacking = 1;
             gunCombat.angle = GetAngle(direction);
             lookSpriteSheet.angle = GetAngle(direction);

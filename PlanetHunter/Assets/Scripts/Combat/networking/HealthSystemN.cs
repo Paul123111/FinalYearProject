@@ -6,50 +6,40 @@ public class HealthSystemN : NetworkBehaviour
     //Collider2D hitbox;
     [SyncVar(hook = nameof(OnHealthChanged))] public int _health = 1;
     public int maxHealth = 100;
-    //Hitbox _lastHitBy;
-    bool _alive = true;
 
     [SerializeField] Transform pivot;
     [SerializeField] RectTransform uiPivot;
-    //UnitStats stats;
-    float maxRegenCooldown = 0.5f;
-    float regenCooldown = 0f;
 
     public override void OnStartServer() {
         base.OnStartServer();
         _health = maxHealth;
     }
 
-    void Update() {
-        //Regen();
+    void OnHealthChanged(int oldHealth, int newHealth) {
+        CheckHealth();
     }
 
-    void OnHealthChanged(int oldHealth, int newHealth) {
-        //if (newHealth > maxHealth) {
-        //    newHealth = maxHealth;
-        //} else 
-        if (newHealth <= 0) {
-            pivot.localScale = new Vector3((float) newHealth / (float) maxHealth, 1, 1);
+    [Server]
+    public void Damage(int diff) {
+        if (_health <= 0) { return; }
+        _health -= diff;
+        CheckHealth();
+    }
+
+    void CheckHealth() {
+        if (_health <= 0) {
+            pivot.localScale = new Vector3((float)_health / (float)maxHealth, 1, 1);
             if (uiPivot != null) {
-                uiPivot.localScale = new Vector3(newHealth / (float) maxHealth, 1, 1);
+                uiPivot.localScale = new Vector3(_health / (float)maxHealth, 1, 1);
             }
             if (isServer) {
                 Die();
             }
             return;
         }
-        pivot.localScale = new Vector3((float)newHealth / (float) maxHealth, 1, 1);
+        pivot.localScale = new Vector3((float)_health / (float)maxHealth, 1, 1);
         if (uiPivot != null) {
-            uiPivot.localScale = new Vector3((float)newHealth / (float) maxHealth, 1, 1);
-        }
-    }
-
-    [Server]
-    public void Damage(int diff) {
-        if (isServer) {
-            int oldHealth = _health;
-            _health -= diff;
-            OnHealthChanged(oldHealth, _health);
+            uiPivot.localScale = new Vector3((float)_health / (float)maxHealth, 1, 1);
         }
     }
 
@@ -57,47 +47,4 @@ public class HealthSystemN : NetworkBehaviour
     void Die() {
         NetworkServer.Destroy(gameObject);
     }
-
-    // negative diff = damage, positive = heal
-    //public void ChangeHealth(float diff) {
-    //    _health += diff * (1f - stats.DamageResistance());
-    //    if (_health > maxHealth) {
-    //        _health = maxHealth;
-    //    } else if (_health <= 0) {
-    //        _health = 0;
-    //        pivot.localScale = new Vector3(_health / maxHealth, 1, 1);
-    //        if (uiPivot != null) {
-    //            uiPivot.localScale = new Vector3(_health / maxHealth, 1, 1);
-    //        }
-    //        Die();
-    //    }
-    //    pivot.localScale = new Vector3(_health / maxHealth, 1, 1);
-    //    if (uiPivot != null) {
-    //        uiPivot.localScale = new Vector3(_health / maxHealth, 1, 1);
-    //    }
-    //}
-
-    //void Regen() {
-    //    regenCooldown -= Time.deltaTime;
-    //    if (regenCooldown <= 0) {
-    //        regenCooldown = maxRegenCooldown;
-    //        ChangeHealth(stats.Regen());
-    //    }
-    //}
-
-    // public void Damage(Hitbox hitbox) {
-    //     if (!_alive) return;
-    //     _lastHitBy = hitbox;
-    //     _health -= hitbox.GetDamage();
-    //     if (_health <= 0) {
-    //         _alive = false;
-    //         _health = 0;
-    //     }
-    // }
-
-
-
-    //public void SetStats(UnitStats s) {
-    //    stats = s;
-    //}
 }
