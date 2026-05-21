@@ -180,7 +180,7 @@ MonoBehaviour:
   maxRetries: 20
   worldWidth: 100
   worldHeight: 100
-  minNeighbours: 2
+  minNeighbours: 3
   minTypeNeighbours: 4
   maxNeighbours: 9
   createNeighbours: 3

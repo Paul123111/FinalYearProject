@@ -1,8 +1,8 @@
 using Mirror;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthSystemN : NetworkBehaviour
-{
+public class HealthSystemN : NetworkBehaviour {
     //Collider2D hitbox;
     [SyncVar(hook = nameof(OnHealthChanged))] public int _health = 1;
     public int maxHealth = 100;
@@ -10,7 +10,7 @@ public class HealthSystemN : NetworkBehaviour
     [SerializeField] Transform pivot;
     [SerializeField] RectTransform uiPivot;
 
-    [SerializeField] [SyncVar] bool isEnemy = false;
+    [SerializeField][SyncVar] bool isEnemy = false;
     WinCondition win;
 
     public override void OnStartServer() {
@@ -63,7 +63,27 @@ public class HealthSystemN : NetworkBehaviour
             } else {
                 Debug.LogError($"Enemy died but could not find a active WinCondition manager in the scene!");
             }
+            NetworkServer.Destroy(gameObject);
+        } else {
+            StartCoroutine(AllPlayersDead());
         }
-        NetworkServer.Destroy(gameObject);
+    }
+
+    public System.Collections.IEnumerator AllPlayersDead() {
+        int numAlive = 0;
+        foreach (KeyValuePair<int, NetworkConnectionToClient> entry in NetworkServer.connections) {
+            NetworkIdentity id = entry.Value.identity;
+            if (id == null) continue;
+            HealthSystemN pl = id.gameObject.GetComponent<HealthSystemN>();
+            if (pl != null && pl._health > 0) {
+                numAlive++;
+            }
+        }
+        if (numAlive <= 0) {
+            yield return new WaitForSeconds(1f);
+            PlanetHunterNetworkManager.singleton.TravelToSpace("GameNetworking");
+        } else {
+            NetworkServer.Destroy(gameObject);
+        }
     }
 }

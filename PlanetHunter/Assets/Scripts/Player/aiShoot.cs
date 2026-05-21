@@ -50,7 +50,11 @@ public class aiShoot : NetworkBehaviour
     public void Update() {
         if (isServer && chase && players.Count > 0) {
             if (players[0] != null) {
-                Vector3 direction = (players[0].transform.position - transform.position).normalized;
+                Vector3 dist = players[0].transform.position - transform.position;
+                Vector3 direction = dist.normalized;
+                if (dist.magnitude < 3) {
+                    direction *= -1;
+                }
                 rb.linearVelocity = direction * moveSpeed;
                 gunCombat.attacking = 1;
                 gunCombat.angle = GetAngle(direction);

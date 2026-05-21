@@ -177,14 +177,14 @@ MonoBehaviour:
   separateLayer: {fileID: 0}
   tilesToMove: 02000000
   maxGens: 10
-  maxRetries: 50
+  maxRetries: 20
   worldWidth: 100
   worldHeight: 100
   minNeighbours: 3
   minTypeNeighbours: 1
   maxNeighbours: 9
   createNeighbours: 4
-  noiseThreshold: 0.5
+  noiseThreshold: 0.55
   enemy: {fileID: 8066712911052286475, guid: ed969d7a2b7bc7b45a3e489df6ce4888, type: 3}
   pickup: {fileID: 6311251453688561108, guid: adc9f6c1c32e29646b70e044501c2706, type: 3}
   equipmentDatabase: {fileID: 11400000, guid: 0062aad4059da724b909fa83135bab55, type: 2}

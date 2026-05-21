@@ -987,7 +987,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   moveSpeed: 7
-  aggroRange: 40
+  aggroRange: 80
   playerLayer:
     serializedVersion: 2
     m_Bits: 256

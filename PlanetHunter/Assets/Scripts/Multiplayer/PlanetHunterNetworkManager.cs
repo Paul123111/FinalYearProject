@@ -94,19 +94,6 @@ public class PlanetHunterNetworkManager : NetworkManager
         base.OnApplicationQuit();
     }
 
-    public void AllPlayersDead() {
-        int numAlive = 0;
-        foreach (KeyValuePair<int, NetworkConnectionToClient> entry in NetworkServer.connections) {
-            HealthSystemN pl = entry.Value.identity.gameObject.GetComponent<HealthSystemN>();
-            if (pl != null && pl._health > 0) {
-                numAlive++;
-            }
-        }
-        if (numAlive <= 0) {
-            TravelToSpace("GameNetworking");
-        }
-    }
-
     #endregion
 
     #region Scene Management
